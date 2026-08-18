@@ -43,7 +43,7 @@ export async function orderService(serviceName: string, amount: number) {
     // Sementara ini, kita akan return link statis ke katalog atau payment form Mayar Anda.
     
     // TODO: Ganti URL ini dengan link Mayar.id asli Anda
-    const mayarCheckoutUrl = "https://mayar.id/"; 
+    const mayarCheckoutUrl = "https://logaritma-pay.myr.id/"; 
 
     return { 
       success: true, 
