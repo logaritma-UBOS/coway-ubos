@@ -81,7 +81,7 @@ export default function ProfileForm({ initialData }: ProfileFormProps) {
             name="name" 
             defaultValue={initialData.name}
             required
-            className="w-full border border-slate-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition font-medium" 
+            className="w-full border border-slate-300 bg-slate-50 text-slate-900 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white outline-none transition font-medium" 
             placeholder="e.g. Budi Santoso" 
           />
         </div>
@@ -92,7 +92,7 @@ export default function ProfileForm({ initialData }: ProfileFormProps) {
             name="whatsappNumber" 
             defaultValue={initialData.whatsappNumber}
             required
-            className="w-full border border-slate-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition font-medium" 
+            className="w-full border border-slate-300 bg-slate-50 text-slate-900 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white outline-none transition font-medium" 
             placeholder="e.g. 081234567890" 
           />
         </div>
@@ -107,7 +107,7 @@ export default function ProfileForm({ initialData }: ProfileFormProps) {
             name="slug" 
             defaultValue={initialData.slug}
             required
-            className="w-full border border-slate-300 rounded-r-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition font-medium" 
+            className="w-full border border-slate-300 bg-slate-50 text-slate-900 rounded-r-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white outline-none transition font-medium" 
             placeholder="budi-santoso" 
           />
         </div>
@@ -120,7 +120,7 @@ export default function ProfileForm({ initialData }: ProfileFormProps) {
           name="bio" 
           defaultValue={initialData.bio || ''}
           rows={3}
-          className="w-full border border-slate-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition font-medium" 
+          className="w-full border border-slate-300 bg-slate-50 text-slate-900 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white outline-none transition font-medium" 
           placeholder="Tuliskan sedikit tentang spesialisasi Anda untuk menarik klien..." 
         ></textarea>
       </div>

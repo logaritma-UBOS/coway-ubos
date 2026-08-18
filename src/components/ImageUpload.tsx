@@ -66,7 +66,7 @@ export default function ImageUpload({ onUploadSuccess, onUploadError, buttonText
 
   return (
     <div className={className}>
-      <label className={`relative flex cursor-pointer items-center justify-center rounded-xl bg-white border border-slate-200 px-4 py-3 shadow-sm font-bold text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all ${isUploading ? 'opacity-70 pointer-events-none' : ''}`}>
+      <label className={`relative inline-flex w-fit cursor-pointer items-center justify-center rounded-xl bg-white border border-slate-200 px-6 py-3 shadow-sm font-bold text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all ${isUploading ? 'opacity-70 pointer-events-none' : ''}`}>
         <span className="flex items-center gap-2">
           {isUploading ? (
             <>
