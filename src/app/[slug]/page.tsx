@@ -8,44 +8,61 @@ interface PageProps {
 }
 
 // 1. Generate Dynamic OG Meta Tags
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export default async function LandingPage({ params }: { params: { slug: string } }) {
   const { slug } = await params;
   
-  // Try to find the agent by slug. If not found, we use fallback defaults.
-  const agent = await prisma.agent.findUnique({
-    where: { slug },
+  // Ambil data agen berdasarkan slug dari parameter URL
+  const agentData = await prisma.user.findUnique({
+    where: { slug }
   });
 
-  if (!agent || !agent.isActive) {
-    return { title: 'Coway Health Planner' };
+  if (!agentData) {
+    // Jika agen tidak ditemukan, tampilkan halaman 404
+    notFound();
   }
 
-  return {
-    title: `Coway Water Purifier - ${agent.fullName}`,
-    description: `Konsultasi gratis produk Coway dengan ${agent.fullName}. Dapatkan promo khusus cicilan ringan hari ini!`,
-    openGraph: {
-      title: `Coway x ${agent.fullName}`,
-      description: agent.bio || 'Konsultasi gratis produk Coway untuk Anda.',
-      images: [agent.profileImageUrl || '/default-og.png'],
-    },
-  };
-}
+  // Record 1 Page View ke tabel Analytics (hanya sebagai contoh sederhana)
+  // Pada implementasi nyata, sebaiknya gunakan API khusus untuk menghindari overhead rendering
+  try {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-// 2. Server Component Renderer
-export default async function AgentLandingPage({ params }: PageProps) {
-  const { slug } = await params;
-  
-  const agent = await prisma.agent.findUnique({
-    where: { slug },
-  });
+    const existingAnalytics = await prisma.analytic.findUnique({
+      where: {
+        agentId_date: {
+          agentId: agentData.id,
+          date: today
+        }
+      }
+    });
 
-  if (!agent || !agent.isActive) {
-    notFound(); // Redirects to Next.js 404 page
+    if (existingAnalytics) {
+      await prisma.analytic.update({
+        where: { id: existingAnalytics.id },
+        data: { pageViews: { increment: 1 } }
+      });
+    } else {
+      await prisma.analytic.create({
+        data: {
+          agentId: agentData.id,
+          date: today,
+          pageViews: 1
+        }
+      });
+    }
+  } catch (error) {
+    console.error("Gagal mencatat analytics:", error);
   }
 
   return (
-    <main>
-      <LandingPageUI agent={agent} />
-    </main>
+    <LandingPageUI 
+      agent={{
+        id: agentData.id,
+        fullName: agentData.name || 'Agen Coway',
+        whatsappNumber: agentData.whatsappNumber || '',
+        profileImageUrl: agentData.image || null,
+        bio: agentData.bio || 'Hubungi saya untuk konsultasi gratis produk unggulan Coway untuk keluarga Anda.'
+      }}
+    />
   );
 }
