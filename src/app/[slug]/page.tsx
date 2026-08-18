@@ -3,6 +3,7 @@ import prisma from '@/lib/prisma';
 import LandingPageUI from '@/components/LandingPageUI';
 import PageViewTracker from '@/components/PageViewTracker';
 import { Metadata } from 'next';
+import { Lock } from 'lucide-react';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -10,7 +11,11 @@ interface PageProps {
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const { slug } = await params;
-  const agent = await prisma.user.findUnique({ where: { slug }, select: { name: true } });
+  const agent = await prisma.user.findUnique({ where: { slug }, select: { name: true, isPremium: true } });
+  
+  if (!agent?.isPremium) {
+    return { title: 'Halaman Belum Aktif - Coway UBOS' };
+  }
   
   const agentName = agent?.name || 'Agen Resmi';
   const title = `Promo Water Purifier Coway Terbaik - ${agentName}`;
@@ -42,6 +47,23 @@ export default async function LandingPage({ params }: { params: { slug: string }
 
   if (!agentData) {
     notFound();
+  }
+
+  if (!agentData.isPremium) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 px-6 font-sans antialiased">
+        <div className="text-center max-w-md bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
+          <div className="w-20 h-20 bg-rose-50 rounded-full flex items-center justify-center mx-auto mb-6 text-rose-500">
+            <Lock size={32} />
+          </div>
+          <h1 className="text-2xl font-black text-slate-900 mb-3 tracking-tight">Halaman Belum Aktif</h1>
+          <p className="text-slate-500 mb-8 font-medium leading-relaxed">Pemilik Landing Page ini belum melakukan aktivasi atau masa aktif telah habis. Silakan hubungi agen yang bersangkutan.</p>
+          <a href="/" className="inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl w-full">
+            Kembali ke Beranda
+          </a>
+        </div>
+      </div>
+    );
   }
 
   return (
