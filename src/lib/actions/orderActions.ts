@@ -36,19 +36,50 @@ export async function orderService(serviceName: string, amount: number) {
         amount: amount,
         status: 'PENDING',
       }
-    });
+    // Integrasi Mayar API (Payment Link)
+    let mayarCheckoutUrl = "https://logaritma-pay.myr.id/"; // Fallback URL
+    const apiKey = process.env.MAYAR_API_KEY;
 
-    // Dalam implementasi nyata, di sinilah Anda melakukan API Call ke Mayar.id
-    // untuk mengenerate link pembayaran (Payment Link).
-    // Sementara ini, kita akan return link statis ke katalog atau payment form Mayar Anda.
-    
-    // TODO: Ganti URL ini dengan link Mayar.id asli Anda
-    const mayarCheckoutUrl = "https://logaritma-pay.myr.id/"; 
+    if (apiKey) {
+      try {
+        const payload = {
+          name: session.user.name || 'Agen Coway',
+          email: session.user.email,
+          mobile: session.user.whatsappNumber || '081111111111',
+          amount: amount,
+          description: `Pesanan Layanan UBOS: ${serviceName}`,
+          redirectURL: `https://coway.logaritma.id/dashboard`
+        };
+
+        const response = await fetch('https://api.mayar.id/hl/v1/invoice/create', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+        
+        if (response.ok && data.link) {
+          mayarCheckoutUrl = data.link;
+        } else if (response.ok && data.data && data.data.link) {
+          mayarCheckoutUrl = data.data.link;
+        } else {
+          console.error("Mayar API error details:", data);
+        }
+      } catch (err) {
+        console.error("Gagal menghubungi Mayar API:", err);
+      }
+    } else {
+      console.warn("MAYAR_API_KEY tidak ditemukan di environment. Menggunakan fallback URL.");
+    }
 
     return { 
       success: true, 
       redirectUrl: mayarCheckoutUrl,
-      message: 'Mengarahkan ke pembayaran...'
+      message: 'Mengarahkan ke pembayaran otomatis...'
     };
   } catch (error: any) {
     console.error('Failed to create order:', error);
