@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 interface Agent {
   id: string;
@@ -79,8 +80,28 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
     return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
   };
 
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+  };
+
+  const slideInLeft = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
+  };
+
+  const slideInRight = {
+    hidden: { opacity: 0, x: 50 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
+  };
+
   return (
-    <div className="bg-slate-50 text-slate-800 antialiased font-sans">
+    <div className="bg-slate-50 text-slate-800 antialiased font-sans overflow-x-hidden">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-slate-100 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -120,7 +141,7 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
       {/* Hero Section */}
       <section className="pt-36 pb-20 px-6 bg-gradient-to-br from-primary-light to-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10 text-center md:text-left">
-          <div>
+          <motion.div initial="hidden" animate="visible" variants={slideInLeft}>
             <span className="inline-flex items-center gap-2 bg-[#eef7ff] text-[#0084ff] font-bold text-[11px] py-1.5 px-3 rounded-full mb-6 uppercase tracking-wider mx-auto md:mx-0">
               <span className="animate-pulse-blue w-2 h-2 rounded-full bg-[#0084ff] block"></span> Pilihan Cerdas Air Minum
             </span>
@@ -138,24 +159,24 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
                 Lihat Hitungan Hemat
               </a>
             </div>
-          </div>
-          <div className="rounded-2xl overflow-hidden shadow-2xl relative aspect-video bg-slate-900">
+          </motion.div>
+          <motion.div initial="hidden" animate="visible" variants={slideInRight} className="rounded-2xl overflow-hidden shadow-2xl relative aspect-video bg-slate-900">
             <iframe src="https://www.youtube.com/embed/XyfvZDW125k?iv_load_policy=3&modestbranding=1&playsinline=1&showinfo=0&rel=0&enablejsapi=1" className="w-full h-full border-none" allowFullScreen allow="autoplay"></iframe>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Kalkulator & Perbandingan */}
-      <section id="perbandingan" className="py-20 px-6 bg-white">
+      <section id="perbandingan" className="py-20 px-6 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp} className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Solusi Cerdas Air Minum : Tanpa Repot Beli & Angkat Galon</h2>
             <p className="text-lg text-slate-600">Dengan harga yang setara membeli air galon bulanan, Anda bisa menikmati aliran air murni langsung dari Pemurni Air Coway Neo Plus.</p>
-          </div>
+          </motion.div>
           
           <div className="grid md:grid-cols-2 gap-8 items-start">
             {/* Kalkulator */}
-            <div className="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-slate-100">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={slideInLeft} className="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-slate-100">
               <h3 className="text-2xl font-extrabold text-slate-900 mb-8 flex items-center gap-3">
                 <i className="fa-solid fa-calculator text-slate-900"></i> Kalkulator Hemat Galon
               </h3>
@@ -202,10 +223,10 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
                   {diff > 0 ? `Hemat Rp ${diff.toLocaleString('id-ID')} / Bulan` : "Air Panas & Dingin Sepuasnya Bebas Repot!"}
                 </span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Text Copy */}
-            <div className="p-4">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={slideInRight} className="p-4">
               <h3 className="text-2xl font-bold text-slate-900 mb-4">Bayar Nominal yang Sama, Dapatkan Kualitas & Kuantitas Berlipat</h3>
               <p className="text-slate-600 mb-6">Membeli air galon eceran sering kali membuat kita membatasi konsumsi air karena takut cepat habis dan boros. Ditambah lagi dengan risiko air galon palsu serta debu gudang pada kemasannya.</p>
               
@@ -232,49 +253,49 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
                   </div>
                 </li>
               </ul>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Emosional 1: Kesehatan Ortu */}
-      <section id="kesehatan" className="py-20 px-6 bg-darkCard text-white">
+      <section id="kesehatan" className="py-20 px-6 bg-darkCard text-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp} className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Tega lihat Ortu Angkat Galon 19kg?</h2>
             <p className="text-lg text-slate-400">Jangan sampai orang tua Anda mengalami cedera pinggang atau terjatuh karena angkat galon</p>
-          </div>
+          </motion.div>
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="order-2 md:order-1">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={slideInLeft} className="order-2 md:order-1">
               <h3 className="text-2xl font-bold mb-4">Melindungi Tulang Belakang & Sendi Orang Tua Kita</h3>
               <p className="text-slate-300 mb-4">Setiap galon air memiliki berat hampir 20 Kilogram. Bagi orang tua lanjut usia yang fisiknya mulai menurun, mengangkat beban seberat ini secara terus-menerus adalah ancaman serius bagi keselamatan sendi dan tulang belakang mereka.</p>
               <p className="text-slate-300 mb-8">Cedera saraf kejepit atau terpeleset di dapur saat mengganti galon air bisa berakibat fatal. Menghadirkan dispenser pemurni air Coway di dapur mereka adalah bentuk nyata bakti Anda untuk melindungi kesehatan fisik orang tua tercinta.</p>
               <button onClick={openModal} className="inline-flex items-center gap-2 bg-secondary hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-secondary/30 transition-all transform hover:-translate-y-0.5">
                 <i className="fa-brands fa-whatsapp"></i> Bebaskan Ortu dari Galon Sekarang
               </button>
-            </div>
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl order-1 md:order-2">
+            </motion.div>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={slideInRight} className="relative rounded-2xl overflow-hidden shadow-2xl order-1 md:order-2">
               <img src="https://member.smartmillionaire.co.id/wp-content/plugins/coway-landing/assets/parent_struggling_gallon.jpg" alt="Ortu angkat galon" className="w-full h-auto object-cover" />
               <div className="absolute inset-0 bg-red-500/20 mix-blend-multiply rounded-2xl"></div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Emosional 2: Ibu & Bayi */}
-      <section id="ibu-bayi" className="py-20 px-6 bg-white">
+      <section id="ibu-bayi" className="py-20 px-6 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp} className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Membuat Susu Formula Bayi di Jam 2 Pagi? Hanya Butuh 3 Detik!</h2>
             <p className="text-lg text-slate-600">Lupakan kerepotan merebus air panas, menunggu suhunya turun, atau mencampur air panas & dingin secara menerka-nerka di tengah malam.</p>
-          </div>
+          </motion.div>
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="rounded-2xl overflow-hidden shadow-2xl">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={slideInLeft} className="rounded-2xl overflow-hidden shadow-2xl">
               <img src="https://member.smartmillionaire.co.id/wp-content/plugins/coway-landing/assets/mother_baby_formula.jpg" alt="Ibu bikin susu bayi" className="w-full h-auto object-cover" />
-            </div>
-            <div>
+            </motion.div>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={slideInRight}>
               <span className="inline-flex items-center gap-2 bg-rose-100 text-rose-600 font-bold text-xs py-1.5 px-3 rounded-full mb-4">
                 <i className="fa-solid fa-baby"></i> 40°C - Suhu Susu Ideal
               </span>
@@ -284,69 +305,75 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
               <button onClick={openModal} className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-0.5">
                 <i className="fa-brands fa-whatsapp"></i> Info Cicilan Coway Ombak
               </button>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Emosional 3: Bahaya Dispenser */}
-      <section id="bahaya-dispenser" className="py-20 px-6 bg-slate-900 text-white">
+      <section id="bahaya-dispenser" className="py-20 px-6 bg-slate-900 text-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp} className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-extrabold text-red-500 mb-4">Yakin Air dari Dispenser Lama Anda Masih Layak Minum?</h2>
             <p className="text-lg text-slate-400">Dispenser galon yang jarang dibersihkan adalah sarang sempurna bagi perkembangbiakan bakteri, jamur, dan lumut yang mengancam pencernaan keluarga.</p>
-          </div>
+          </motion.div>
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="order-2 md:order-1">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={slideInLeft} className="order-2 md:order-1">
               <h3 className="text-2xl font-bold mb-4">Bahaya Tak Kasatmata di Dalam Tangki Air</h3>
               <p className="text-slate-300 mb-4">Faktanya, rongga bagian dalam dispenser tradisional yang tertutup rapat dan lembab sangat rentan ditumbuhi <strong className="text-white">lumut hijau dan bakteri e-Coli</strong>. Area leher galon dan selang air yang jarang dibersihkan memicu kontaminasi setiap kali Anda menekan tombol air.</p>
               <p className="text-slate-300 mb-4">Gejala diare berulang, sakit perut tanpa sebab, hingga penurunan imunitas pada anak bisa jadi berawal dari kotoran di dalam dispenser kesayangan Anda.</p>
               <p className="text-slate-300">Beralih ke pemurni air pintar Coway yang dilengkapi fitur <strong className="text-white">UV Sterilization otomatis</strong> dan layanan pembersihan sanitasi rutin setiap 2 bulan oleh tim profesional (Heart Service / Cody). Tangki selalu steril 100%.</p>
-            </div>
-            <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-red-900/50 order-1 md:order-2">
+            </motion.div>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={slideInRight} className="rounded-2xl overflow-hidden shadow-2xl border-4 border-red-900/50 order-1 md:order-2">
               <img src="https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/coway-dirty-dispenser-v2.jpg" alt="Dispenser berlumut" className="w-full h-auto object-cover" />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Emosional 4: Bebas BPA */}
-      <section id="bebas-bpa" className="py-20 px-6 bg-white">
+      <section id="bebas-bpa" className="py-20 px-6 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp} className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Selamatkan Keluarga dari Bahaya Mikroplastik & BPA Galon Isi Ulang</h2>
             <p className="text-lg text-slate-600">Gaya hidup modern menuntut standar kesehatan yang lebih tinggi, bukan dari air kemasan plastik yang terpapar panas selama distribusi.</p>
-          </div>
+          </motion.div>
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="rounded-2xl overflow-hidden shadow-2xl">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={slideInLeft} className="rounded-2xl overflow-hidden shadow-2xl">
               <img src="https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/coway-pure-water.jpg" alt="Air Murni" className="w-full h-auto object-cover" />
-            </div>
-            <div>
+            </motion.div>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={slideInRight}>
               <h3 className="text-2xl font-bold text-slate-900 mb-4">Kemurnian Total Tanpa Resiko Plastik</h3>
               <p className="text-slate-600 mb-4">Penelitian terbaru mengungkapkan tingginya partikel mikroplastik dan senyawa <strong className="text-slate-900">BPA (Bisphenol-A)</strong> yang luruh ke dalam air dari galon plastik yang digunakan berulang kali atau sering dibiarkan terpapar sinar matahari di jalanan.</p>
               <p className="text-slate-600 mb-8">BPA dalam jangka panjang terbukti memicu gangguan hormon dan resiko penyakit kronis lainnya. Air murni Coway difilter langsung dari sumber air di rumah Anda, disaring melalui teknologi membran RO berukuran 0.0001 mikron yang mampu memblokir mikroplastik, logam berat, dan virus tanpa persentuhan sedikit pun dengan plastik galon daur ulang.</p>
               <button onClick={openModal} className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-0.5">
                 <i className="fa-brands fa-whatsapp"></i> Ganti Air Minum Anda Sekarang
               </button>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Katalog Produk */}
-      <section id="katalog" className="py-20 px-6 bg-slate-50">
+      <section id="katalog" className="py-20 px-6 bg-slate-50 overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp} className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">Produk Kami</span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Pilih Unit Coway Terbaik Untuk Kebutuhan Anda</h2>
             <p className="text-lg text-slate-600">Cicilan bulanan kepemilikan sudah termasuk kunjungan servis pembersihan rutin dan penggantian filter gratis.</p>
-          </div>
+          </motion.div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <motion.div 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true, margin: "-100px" }} 
+            variants={staggerContainer}
+            className="grid md:grid-cols-3 gap-8"
+          >
             {/* Neo Plus */}
-            <div className="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col relative transition-transform hover:-translate-y-1 hover:shadow-xl">
+            <motion.div variants={fadeInUp} className="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col relative transition-transform hover:-translate-y-1 hover:shadow-xl">
               <div className="absolute top-4 right-4 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full z-10 shadow-md">Terlaris</div>
               <div className="w-full flex justify-center items-center">
                 <img src="https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/neo-plus.png" alt="Coway Neo Plus" className="w-full h-auto object-cover" />
@@ -372,10 +399,10 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
                   Tanyakan Promo Neo Plus
                 </button>
               </div>
-            </div>
+            </motion.div>
 
             {/* Ombak */}
-            <div className="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col relative transition-transform hover:-translate-y-1 hover:shadow-xl">
+            <motion.div variants={fadeInUp} className="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col relative transition-transform hover:-translate-y-1 hover:shadow-xl">
               <div className="absolute top-4 right-4 bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-full z-10 shadow-md">Multi Temp</div>
               <div className="w-full flex justify-center items-center">
                 <img src="https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/ombak.png" alt="Coway Ombak" className="w-full h-auto object-cover" />
@@ -401,10 +428,10 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
                   Tanyakan Promo Ombak
                 </button>
               </div>
-            </div>
+            </motion.div>
 
             {/* Core */}
-            <div className="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col relative transition-transform hover:-translate-y-1 hover:shadow-xl">
+            <motion.div variants={fadeInUp} className="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col relative transition-transform hover:-translate-y-1 hover:shadow-xl">
               <div className="absolute top-4 right-4 bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-full z-10 shadow-md">Floor Standing</div>
               <div className="w-full flex justify-center items-center">
                 <img src="https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/core.png" alt="Coway Core" className="w-full h-auto object-cover" />
@@ -430,21 +457,21 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
                   Tanyakan Promo Core
                 </button>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-20 px-6 bg-white">
+      <section id="faq" className="py-20 px-6 bg-white overflow-hidden">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-16">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp} className="text-center mb-16">
             <span className="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">FAQ</span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Pertanyaan Yang Sering Diajukan</h2>
             <p className="text-lg text-slate-600">Punya pertanyaan seputar instalasi, pembayaran, atau servis? Temukan jawabannya di sini.</p>
-          </div>
+          </motion.div>
           
-          <div className="space-y-4">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeInUp} className="space-y-4">
             <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white">
               <button 
                 className={`w-full px-6 py-4 flex justify-between items-center transition-colors text-left ${openFaqIndex === 0 ? 'bg-slate-100' : 'bg-slate-50 hover:bg-slate-100'}`} 
@@ -489,13 +516,13 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
                 </div>
               )}
             </div>
-          </div>
+          </motion.div>
           
-          <div className="text-center mt-12">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mt-12">
             <button onClick={openModal} className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-0.5">
               <i className="fa-brands fa-whatsapp"></i> Konsultasi Produk Coway Terpercaya
             </button>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -503,7 +530,7 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
       <footer className="bg-slate-900 text-slate-400 pt-12 pb-28 md:pb-12 px-6 border-t border-slate-800">
         <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 mb-12">
           {/* Agent Footer Profile */}
-          <div className="col-span-1 md:col-span-1 bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50 flex flex-col items-center text-center">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="col-span-1 md:col-span-1 bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50 flex flex-col items-center text-center">
             {agent.profileImageUrl ? (
               <img src={agent.profileImageUrl} alt={agent.fullName || 'Agent'} className="w-20 h-20 rounded-full object-cover border-4 border-primary/20 mb-4" />
             ) : (
@@ -516,13 +543,13 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
             <button onClick={openModal} className="w-full bg-green-500 hover:bg-green-600 text-white text-sm font-bold py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
               <i className="fa-brands fa-whatsapp"></i> Chat Saya
             </button>
-          </div>
+          </motion.div>
 
-          <div className="col-span-1 md:col-span-1">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="col-span-1 md:col-span-1">
             <h4 className="text-white font-bold text-lg mb-4">Tentang Coway</h4>
             <p className="text-sm leading-relaxed">Coway adalah produsen pemurni air dan pemurni udara terkemuka nomor 1 dari Korea Selatan. Telah dipercaya oleh jutaan keluarga di Indonesia dan seluruh dunia untuk menyediakan solusi kesehatan mandiri di rumah.</p>
-          </div>
-          <div className="col-span-1 md:col-span-1">
+          </motion.div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="col-span-1 md:col-span-1">
             <h4 className="text-white font-bold text-lg mb-4">Navigasi</h4>
             <ul className="space-y-2 text-sm flex flex-col">
               <li><a href="#perbandingan" className="hover:text-primary transition-colors">Perbandingan Harga</a></li>
@@ -530,16 +557,16 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
               <li><a href="#ibu-bayi" className="hover:text-primary transition-colors">Solusi Susu Bayi</a></li>
               <li><a href="#bebas-bpa" className="hover:text-primary transition-colors">Bebas BPA</a></li>
             </ul>
-          </div>
-          <div className="col-span-1 md:col-span-1">
+          </motion.div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="col-span-1 md:col-span-1">
             <h4 className="text-white font-bold text-lg mb-4">Hubungi Agent</h4>
             <p className="text-sm leading-relaxed">Hubungi HP Health Planner/Agent resmi kami untuk konsultasi unit yang cocok, survei kelayakan air rumah Anda gratis, serta promo menarik resmi dari Coway hari ini.</p>
-          </div>
+          </motion.div>
         </div>
-        <div className="max-w-7xl mx-auto text-center border-t border-slate-800 pt-8 text-xs">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="max-w-7xl mx-auto text-center border-t border-slate-800 pt-8 text-xs">
           <p className="mb-2 opacity-70">Website ini bukan website resmi dari Coway. Website ini independent dari Health Planner Resmi Coway</p>
           <p>&copy; {new Date().getFullYear()} Coway Agent Indonesia. All Rights Reserved. Unit dipasang & diservis langsung oleh Coway Indonesia.</p>
-        </div>
+        </motion.div>
       </footer>
 
       {/* Floating WA Widget */}
