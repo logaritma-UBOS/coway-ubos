@@ -36,6 +36,8 @@ export async function orderService(serviceName: string, amount: number) {
         amount: amount,
         status: 'PENDING',
       }
+    });
+
     // Integrasi Mayar API (Payment Link)
     let mayarCheckoutUrl = "https://logaritma-pay.myr.id/"; // Fallback URL
     const apiKey = process.env.MAYAR_API_KEY;
