@@ -38,8 +38,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function LandingPage({ params }: { params: { slug: string } }) {
-  const { slug } = await params;
+export default async function LandingPage(props: { params: Promise<{ slug: string }>, searchParams: Promise<{ preview?: string }> }) {
+  const { slug } = await props.params;
+  const searchParams = await props.searchParams;
+  const isPreview = searchParams?.preview === 'true';
   
   const agentData = await prisma.user.findUnique({
     where: { slug }
@@ -49,12 +51,21 @@ export default async function LandingPage({ params }: { params: { slug: string }
     notFound();
   }
 
-  if (!agentData.isPremium) {
+  if (!agentData.isPremium && !isPreview) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 px-6 font-sans antialiased">
-  // Jika tidak premium dan bukan mode preview, tampilkan halaman blokir
-  if (!agentData.isPremium && !isPreview) {
-    return <HalamanBelumAktif />;
+        <div className="text-center max-w-md bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
+          <div className="w-20 h-20 bg-rose-50 rounded-full flex items-center justify-center mx-auto mb-6 text-rose-500">
+            <Lock size={32} />
+          </div>
+          <h1 className="text-2xl font-black text-slate-900 mb-3 tracking-tight">Halaman Belum Aktif</h1>
+          <p className="text-slate-500 mb-8 font-medium leading-relaxed">Pemilik Landing Page ini belum melakukan aktivasi atau masa aktif telah habis. Silakan hubungi agen yang bersangkutan.</p>
+          <a href="/" className="inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl w-full">
+            Kembali ke Beranda
+          </a>
+        </div>
+      </div>
+    );
   }
 
   return (
