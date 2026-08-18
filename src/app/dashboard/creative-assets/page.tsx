@@ -1,5 +1,6 @@
 'use client';
 import { Clapperboard, Download, ShoppingCart, PlayCircle } from 'lucide-react';
+import OrderButton from '@/components/OrderButton';
 
 export default function CreativeAssets() {
   const assets = [
@@ -58,13 +59,13 @@ export default function CreativeAssets() {
               <h3 className="font-bold text-slate-900 mb-2 line-clamp-2">{asset.title}</h3>
               <p className="text-slate-500 text-sm mb-6 flex-1">{asset.description}</p>
               
-              <div className="flex items-center justify-between mt-auto">
-                <span className="text-xl font-black text-slate-900">Rp {asset.price.toLocaleString('id-ID')}</span>
-                <button className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
-                  asset.popular ? 'bg-pink-600 hover:bg-pink-700 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
-                }`}>
-                  <ShoppingCart size={18} />
-                </button>
+              <div className="mt-auto pt-4 border-t border-slate-100">
+                <OrderButton 
+                  serviceName={asset.title}
+                  amount={asset.price}
+                  buttonText={`Pesan (Rp ${asset.price.toLocaleString('id-ID')})`}
+                  icon={<ShoppingCart size={18} />}
+                />
               </div>
             </div>
           </div>

@@ -24,6 +24,8 @@ export default async function ProfilePage() {
       whatsappNumber: true,
       bio: true,
       image: true,
+      metaPixelId: true,
+      tiktokPixelId: true,
     }
   });
 
@@ -37,6 +39,8 @@ export default async function ProfilePage() {
     whatsappNumber: user.whatsappNumber || '',
     bio: user.bio,
     image: user.image,
+    metaPixelId: user.metaPixelId,
+    tiktokPixelId: user.tiktokPixelId,
   };
 
   return (

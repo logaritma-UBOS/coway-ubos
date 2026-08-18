@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Globe, Megaphone, Clapperboard, LogOut, Gift, UserCircle } from 'lucide-react';
+import { LayoutDashboard, Globe, Megaphone, Clapperboard, LogOut, Gift, UserCircle, Users } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 
 export default function Sidebar() {
@@ -9,6 +9,7 @@ export default function Sidebar() {
   
   const navItems = [
     { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
+    { name: 'Daftar Leads', href: '/dashboard/leads', icon: Users },
     { name: 'Profile & Settings', href: '/dashboard/profile', icon: UserCircle },
     { name: 'Landing Page Coway', href: '/dashboard/landingpage', icon: Globe },
     { name: 'Meta Ads Manager', href: '/dashboard/meta-ads', icon: Megaphone },

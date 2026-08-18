@@ -11,6 +11,8 @@ interface ProfileFormProps {
     whatsappNumber: string;
     bio: string | null;
     image: string | null;
+    metaPixelId: string | null;
+    tiktokPixelId: string | null;
   };
 }
 
@@ -123,6 +125,34 @@ export default function ProfileForm({ initialData }: ProfileFormProps) {
           className="w-full border border-slate-300 bg-slate-50 text-slate-900 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white outline-none transition font-medium" 
           placeholder="Tuliskan sedikit tentang spesialisasi Anda untuk menarik klien..." 
         ></textarea>
+      </div>
+
+      <div className="pt-6 border-t border-slate-200">
+        <h3 className="text-lg font-bold text-slate-900 mb-4">Tracking & Analytics (Opsional)</h3>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-bold text-slate-700 mb-2">Meta Pixel ID</label>
+            <input 
+              type="text" 
+              name="metaPixelId" 
+              defaultValue={initialData.metaPixelId || ''}
+              className="w-full border border-slate-300 bg-slate-50 text-slate-900 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white outline-none transition font-medium" 
+              placeholder="e.g. 123456789012345" 
+            />
+            <p className="text-xs text-slate-500 mt-2">Untuk melacak pengunjung dari iklan Facebook/Instagram Anda.</p>
+          </div>
+          <div>
+            <label className="block text-sm font-bold text-slate-700 mb-2">TikTok Pixel ID</label>
+            <input 
+              type="text" 
+              name="tiktokPixelId" 
+              defaultValue={initialData.tiktokPixelId || ''}
+              className="w-full border border-slate-300 bg-slate-50 text-slate-900 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white outline-none transition font-medium" 
+              placeholder="e.g. C123ABCD..." 
+            />
+            <p className="text-xs text-slate-500 mt-2">Untuk melacak pengunjung dari iklan TikTok Anda.</p>
+          </div>
+        </div>
       </div>
 
       <button 

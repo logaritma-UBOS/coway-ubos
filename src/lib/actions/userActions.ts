@@ -19,6 +19,8 @@ export async function updateProfile(formData: FormData) {
     const whatsappNumber = formData.get('whatsappNumber') as string;
     const bio = formData.get('bio') as string;
     const image = formData.get('image') as string;
+    const metaPixelId = formData.get('metaPixelId') as string;
+    const tiktokPixelId = formData.get('tiktokPixelId') as string;
 
     if (!name || !slug || !whatsappNumber) {
       return { error: 'Nama, Slug, dan WhatsApp wajib diisi' };
@@ -50,14 +52,41 @@ export async function updateProfile(formData: FormData) {
         whatsappNumber: formattedPhone,
         bio: bio || null,
         image: image || null,
+        metaPixelId: metaPixelId || null,
+        tiktokPixelId: tiktokPixelId || null,
       }
     });
 
-    revalidatePath('/profile');
+    revalidatePath('/dashboard/profile');
     
-    return { success: true, message: 'Profil berhasil diperbarui' };
+    return { success: true, message: 'Profil dan pengaturan berhasil diperbarui' };
   } catch (error: any) {
     console.error('Failed to update profile:', error);
     return { error: 'Terjadi kesalahan pada server saat memperbarui profil' };
+  }
+}
+
+export async function activateLandingPage() {
+  try {
+    const session = await getServerSession(authOptions);
+    
+    if (!session || !session.user || !(session.user as any).id) {
+      return { error: 'Unauthorized' };
+    }
+
+    const userId = (session.user as any).id;
+
+    await prisma.user.update({
+      where: { id: userId },
+      data: { isPremium: true }
+    });
+
+    revalidatePath('/dashboard/landingpage');
+    revalidatePath('/dashboard');
+    
+    return { success: true, message: 'Landing Page berhasil diaktifkan!' };
+  } catch (error: any) {
+    console.error('Failed to activate landing page:', error);
+    return { error: 'Terjadi kesalahan saat aktivasi' };
   }
 }

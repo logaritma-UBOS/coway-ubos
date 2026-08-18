@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { Megaphone, Calculator, ArrowRight, ShieldCheck } from 'lucide-react';
+import OrderButton from '@/components/OrderButton';
 
 export default function MetaAdsSetup() {
   const [duration, setDuration] = useState(7);
@@ -104,9 +105,11 @@ export default function MetaAdsSetup() {
               <span className="block text-2xl xl:text-3xl 2xl:text-4xl font-black text-[#00A3E0] leading-none tracking-tighter whitespace-nowrap">Rp {grandTotal.toLocaleString('id-ID')}</span>
             </div>
 
-            <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-4 rounded-xl flex justify-center items-center gap-2 transition-all transform hover:scale-105">
-              Lanjut ke Pembayaran <ArrowRight size={20} />
-            </button>
+            <OrderButton 
+              serviceName={`Meta Ads Management (${duration} Hari)`} 
+              amount={grandTotal} 
+              buttonText="Pesan & Lanjut Pembayaran" 
+            />
             
             <p className="text-xs text-slate-500 text-center mt-4">
               Pembayaran aman menggunakan QRIS / Virtual Account
