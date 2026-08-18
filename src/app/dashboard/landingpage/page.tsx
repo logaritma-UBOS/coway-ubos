@@ -63,7 +63,7 @@ export default async function LandingPageSetup() {
           </div>
           <div className="flex flex-col sm:flex-row justify-center gap-3">
             <a 
-              href={`/${slug}`}
+              href={`/${slug}?preview=true`}
               target="_blank"
               className="bg-white border-2 border-slate-200 hover:border-[#00A3E0] hover:text-[#00A3E0] text-slate-600 font-bold py-4 px-6 rounded-xl sm:rounded-full shadow-sm transition flex items-center justify-center gap-2"
             >

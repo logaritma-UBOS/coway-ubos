@@ -14,9 +14,10 @@ interface Agent {
 
 interface LandingPageUIProps {
   agent: Agent;
+  isPreviewMode?: boolean;
 }
 
-export default function LandingPageUI({ agent }: LandingPageUIProps) {
+export default function LandingPageUI({ agent, isPreviewMode = false }: LandingPageUIProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [monthlyGallons, setMonthlyGallons] = useState(15);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
@@ -30,7 +31,14 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
   };
 
-  const openModal = () => setIsModalOpen(true);
+  const openModal = () => {
+    if (isPreviewMode) {
+      alert("Tampilan ini hanya Preview Desain. Mohon aktifkan lisensi Landing Page untuk menggunakan fitur interaktif.");
+      return;
+    }
+    setIsModalOpen(true);
+  };
+  
   const closeModal = () => setIsModalOpen(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
