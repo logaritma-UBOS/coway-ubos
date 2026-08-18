@@ -148,6 +148,7 @@ model Analytic {
   agentId         String
   pageViews       Int       @default(0)
   whatsappClicks  Int       @default(0)
+  affiliateClicks Int       @default(0)
   date            DateTime  @default(now()) @db.Date
 
   agent           User      @relation(fields: [agentId], references: [id], onDelete: Cascade)

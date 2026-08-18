@@ -16,7 +16,7 @@ export default async function AffiliatePage() {
   const referralLink = `https://coway.logaritma.id/?ref=${userSlug}`;
 
   // Fetch real affiliate data from Prisma
-  const [commissions, referrals] = await Promise.all([
+  const [commissions, referrals, analytics] = await Promise.all([
     prisma.commission.findMany({
       where: { earnerId: userId },
       include: {
@@ -29,12 +29,16 @@ export default async function AffiliatePage() {
     prisma.user.findMany({
       where: { referredById: userId },
       orderBy: { createdAt: 'desc' }
+    }),
+    prisma.analytic.findMany({
+      where: { agentId: userId }
     })
   ]);
 
   const totalCommissions = commissions.reduce((sum, c) => sum + Number(c.amount), 0);
   const totalReferrals = referrals.length;
   const totalSales = commissions.length;
+  const totalClicks = analytics.reduce((sum, a) => sum + (a.affiliateClicks || 0), 0);
 
   return (
     <div className="animate-in fade-in duration-500 max-w-5xl w-full overflow-x-hidden">
@@ -76,7 +80,7 @@ export default async function AffiliatePage() {
                 <MousePointerClick size={20} />
               </div>
               <p className="text-slate-500 text-[10px] sm:text-xs font-bold uppercase mb-1 truncate">Klik Link</p>
-              <p className="text-2xl font-black text-slate-900">-</p>
+              <p className="text-2xl font-black text-slate-900">{totalClicks}</p>
             </div>
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-5 min-w-0 w-full overflow-hidden">
               <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center mb-3">

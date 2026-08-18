@@ -90,3 +90,34 @@ export async function activateLandingPage() {
     return { error: 'Terjadi kesalahan saat aktivasi' };
   }
 }
+
+export async function trackAffiliateClick(slug: string) {
+  try {
+    const referrer = await prisma.user.findUnique({ where: { slug } });
+    if (!referrer) return;
+
+    const today = new Date();
+    today.setUTCHours(0,0,0,0);
+
+    const analytic = await prisma.analytic.findUnique({
+      where: { agentId_date: { agentId: referrer.id, date: today } }
+    });
+
+    if (analytic) {
+      await prisma.analytic.update({
+        where: { id: analytic.id },
+        data: { affiliateClicks: { increment: 1 } }
+      });
+    } else {
+      await prisma.analytic.create({
+        data: {
+          agentId: referrer.id,
+          date: today,
+          affiliateClicks: 1
+        }
+      });
+    }
+  } catch (err) {
+    console.error("Failed to log affiliate click", err);
+  }
+}
