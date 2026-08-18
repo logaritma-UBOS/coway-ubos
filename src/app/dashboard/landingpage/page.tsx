@@ -5,6 +5,8 @@ import { redirect } from 'next/navigation';
 import ActivationButton from '@/components/ActivationButton';
 import Link from 'next/link';
 
+import CopyLinkButton from '@/components/CopyLinkButton';
+
 export const metadata = {
   title: 'Landing Page Setup - Coway UBOS',
 };
@@ -104,7 +106,7 @@ export default async function LandingPageSetup() {
               <h4 className="font-bold mb-4 tracking-tight">Link Anda</h4>
               <div className="bg-slate-800 rounded-xl p-3 flex items-center justify-between mb-6 border border-slate-700">
                 <span className="text-slate-300 text-sm truncate font-medium">coway.logaritma.id/{slug}</span>
-                <button className="text-slate-400 hover:text-white transition" title="Copy Link"><Copy size={18} /></button>
+                <CopyLinkButton url={`https://coway.logaritma.id/${slug}`} />
               </div>
               
               <a href={`/${slug}`} target="_blank" className="w-full bg-[#00A3E0] hover:bg-sky-600 text-white font-bold py-3 px-4 rounded-xl flex justify-center items-center gap-2 transition">

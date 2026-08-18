@@ -36,9 +36,9 @@ export default async function LeadsPage() {
         </div>
         
         <div className="flex items-center gap-3">
-          <button className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold py-2.5 px-4 rounded-xl shadow-sm transition flex items-center gap-2">
+          <a href="/api/leads/export" download className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold py-2.5 px-4 rounded-xl shadow-sm transition flex items-center gap-2">
             <Download size={18} /> Export CSV
-          </button>
+          </a>
         </div>
       </div>
 

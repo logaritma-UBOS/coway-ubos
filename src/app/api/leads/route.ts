@@ -27,6 +27,30 @@ export async function POST(req: Request) {
       }
     });
 
+    // 1.5. Record Analytics
+    const today = new Date();
+    today.setUTCHours(0, 0, 0, 0);
+    
+    await prisma.analytic.upsert({
+      where: {
+        agentId_date: {
+          agentId: agentId,
+          date: today,
+        },
+      },
+      update: {
+        whatsappClicks: {
+          increment: 1,
+        },
+      },
+      create: {
+        agentId: agentId,
+        date: today,
+        pageViews: 0,
+        whatsappClicks: 1,
+      },
+    });
+
     // 2. Format pesan WA untuk Fonnte
     const waMessage = `Halo ${name}, salam kenal! 👋\n\nSaya ${newLead.agent.name}, Health Planner Resmi Coway.\nTerima kasih telah menghubungi kami mengenai ${newLead.targetProduct}.\n\nApakah ada pertanyaan spesifik tentang unit Coway atau ingin cek promo bulan ini? Silakan balas pesan ini ya!`;
 

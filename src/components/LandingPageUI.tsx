@@ -32,27 +32,47 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const handleWaSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleWaSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    
     const formData = new FormData(e.currentTarget);
     const name = formData.get('name') as string;
     const phone = formData.get('phone') as string;
     
-    const defaultPhone = "62817777616";
-    let targetPhone = agent.whatsappNumber || defaultPhone;
-    
-    // Clean phone number (remove non-digits)
-    targetPhone = targetPhone.replace(/\D/g, '');
-    if (targetPhone.startsWith('0')) {
-      targetPhone = '62' + targetPhone.substring(1);
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          phone,
+          agentId: agent.id,
+          targetProduct: 'Konsultasi Promo',
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (data.redirectUrl) {
+        window.open(data.redirectUrl, '_blank');
+      } else {
+        // Fallback if no redirect URL is returned
+        const targetPhone = agent.whatsappNumber || "62817777616";
+        const cleanPhone = targetPhone.replace(/\D/g, '').replace(/^0/, '62');
+        const fallbackMsg = encodeURIComponent(`Halo, saya ${name}. Saya ingin konsultasi mengenai promo pemurni air Coway.`);
+        window.open(`https://wa.me/${cleanPhone}?text=${fallbackMsg}`, '_blank');
+      }
+    } catch (error) {
+      console.error('Submit lead error:', error);
+      alert('Maaf, terjadi kesalahan. Silakan coba lagi.');
+    } finally {
+      setIsSubmitting(false);
+      closeModal();
     }
-    
-    const message = `Halo ${agent.fullName || 'Admin'}, saya ${name} (${phone}). Saya ingin konsultasi mengenai promo pemurni air Coway.`;
-    const encodedMessage = encodeURIComponent(message);
-    const waLink = `https://wa.me/${targetPhone}?text=${encodedMessage}`;
-    
-    window.open(waLink, '_blank');
-    closeModal();
   };
 
   const getInitials = (name: string) => {

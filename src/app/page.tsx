@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { ArrowRight, Globe, Zap, Users, ShieldCheck, CheckCircle2, TrendingUp, BarChart3, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import AffiliateTracker from '@/components/AffiliateTracker';
+import { Suspense } from 'react';
 
 export default function Home() {
   const fadeIn = {
@@ -20,6 +22,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-[#00A3E0]/20 selection:text-[#00A3E0]">
+      <Suspense fallback={null}>
+        <AffiliateTracker />
+      </Suspense>
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-0 inset-x-0 h-[500px] bg-gradient-to-b from-sky-100/60 to-transparent"></div>
