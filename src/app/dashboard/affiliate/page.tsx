@@ -12,6 +12,7 @@ export default async function AffiliatePage() {
   }
 
   const userId = (session.user as any).id;
+  const userSlug = (session.user as any).slug || 'agen';
   const referralLink = `https://coway.logaritma.id/?ref=${userSlug}`;
 
   // Fetch real affiliate data from Prisma
