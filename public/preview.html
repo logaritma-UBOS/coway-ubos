@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coway Agent Indonesia - Solusi Air Murni Tanpa Galon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            DEFAULT: '#0084ff',
+                            dark: '#005ecf',
+                            light: '#eef7ff',
+                        },
+                        secondary: '#ff9900',
+                        dark: '#0b0f19',
+                        darkCard: '#141c2f',
+                        cowayBlue: '#0084ff',
+                        cowayLightBlue: '#eef7ff',
+                        accentGreen: '#10b981',
+                        accentDarkBlue: '#0b0f19',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .pulse {
+            animation: pulse-blue 1.5s infinite;
+        }
+        @keyframes pulse-blue {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 132, 255, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(0, 132, 255, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 132, 255, 0); }
+        }
+        input[type="range"] {
+            accent-color: #0084ff;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-slate-100 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2">
+                <img src="https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/coway-new-logo-2020.png" alt="Coway Logo" class="h-8 md:h-10">
+            </a>
+            <nav class="hidden md:flex gap-6">
+                <a href="#perbandingan" class="font-semibold text-slate-700 hover:text-primary transition-colors">Perbandingan Harga</a>
+                <a href="#kesehatan" class="font-semibold text-slate-700 hover:text-primary transition-colors">Kesehatan</a>
+                <a href="#ibu-bayi" class="font-semibold text-slate-700 hover:text-primary transition-colors">Ibu & Bayi</a>
+                <a href="#bebas-bpa" class="font-semibold text-slate-700 hover:text-primary transition-colors">Bebas BPA</a>
+                <a href="#katalog" class="font-semibold text-slate-700 hover:text-primary transition-colors">Katalog</a>
+                <a href="#faq" class="font-semibold text-slate-700 hover:text-primary transition-colors">FAQ</a>
+            </nav>
+            <button onclick="openModal()" class="hidden md:inline-flex items-center gap-2 bg-[#0084ff] hover:bg-primary-dark text-white font-bold py-2 px-5 rounded-lg shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-0.5">
+                <i class="fa-brands fa-whatsapp"></i> Hubungi Agent
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-36 pb-20 px-6 bg-gradient-to-br from-primary-light to-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10 text-center md:text-left">
+            <div>
+                <span class="inline-flex items-center gap-2 bg-[#eef7ff] text-[#0084ff] font-bold text-[11px] py-1.5 px-3 rounded-full mb-6 uppercase tracking-wider mx-auto md:mx-0">
+                    <span class="pulse w-2 h-2 rounded-full bg-[#0084ff] block"></span> Pilihan Cerdas Air Minum
+                </span>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4 tracking-tight">
+                    Beralih ke Air Murni Steril, <span class="text-[#0084ff]">Bebas Repot</span> Angkat Galon
+                </h1>
+                <p class="text-[15px] md:text-lg text-slate-500 mb-8 leading-relaxed px-2 md:px-0">
+                    Solusi pemurni air RO teknologi tinggi nomor 1 dari Korea Selatan. Menyediakan air panas, dingin, dan normal di rumah Anda dengan biaya bulanan yang sangat hemat.
+                </p>
+                <div class="flex flex-row justify-center md:justify-start gap-3 w-full px-2 md:px-0">
+                    <button onclick="openModal()" class="flex-1 md:flex-none inline-flex justify-center items-center gap-1.5 bg-[#0084ff] hover:bg-primary-dark text-white font-bold py-3 px-3 rounded-xl shadow-[0_4px_12px_rgba(0,132,255,0.3)] transition-all text-[12px] sm:text-sm">
+                        <i class="fa-brands fa-whatsapp text-sm"></i> Hubungi HP Agent Resmi
+                    </button>
+                    <a href="#perbandingan" class="flex-1 md:flex-none inline-flex justify-center items-center gap-1.5 bg-white hover:bg-slate-50 text-slate-700 font-bold py-3 px-3 rounded-xl border border-slate-200 shadow-sm transition-all text-[12px] sm:text-sm">
+                        Lihat Hitungan Hemat
+                    </a>
+                </div>
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-2xl relative aspect-video bg-slate-900">
+                <iframe src="https://www.youtube.com/embed/XyfvZDW125k?iv_load_policy=3&modestbranding=1&playsinline=1&showinfo=0&rel=0&enablejsapi=1" class="w-full h-full border-none" allowfullscreen allow="autoplay"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kalkulator & Perbandingan -->
+    <section id="perbandingan" class="py-20 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Solusi Cerdas Air Minum : Tanpa Repot Beli & Angkat Galon</h2>
+                <p class="text-lg text-slate-600">Dengan harga yang setara membeli air galon bulanan, Anda bisa menikmati aliran air murni langsung dari Pemurni Air Coway Neo Plus.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <!-- Kalkulator -->
+                <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-slate-100">
+                    <h3 class="text-2xl font-extrabold text-slate-900 mb-8 flex items-center gap-3">
+                        <i class="fa-solid fa-calculator text-slate-900"></i> Kalkulator Hemat Galon
+                    </h3>
+                    
+                    <div class="mb-10 mt-4">
+                        <label class="block text-sm font-bold text-slate-700 mb-6">Konsumsi Galon Keluarga Anda (Per Bulan):</label>
+                        <input type="range" id="gallon-slider" min="15" max="45" value="15" class="w-full cursor-pointer" oninput="window.updateCalculator()" onchange="window.updateCalculator()">
+                        <div class="flex justify-between text-sm font-bold text-[#0084ff] mt-4">
+                            <span>15 Galon</span>
+                            <span id="gallon-output">15 Galon</span>
+                            <span>45 Galon</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 md:gap-4 mb-6">
+                        <div class="bg-[#fff1f2] rounded-xl p-4 sm:p-6 border border-[#ffe4e6] text-center flex flex-col justify-center">
+                            <span class="block text-xs font-bold text-[#e11d48] uppercase tracking-wide mb-2">Beli Air Galon</span>
+                            <div class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#e11d48] mb-2" id="cost-gallon">Rp 300.000</div>
+                            <span class="text-[11px] md:text-xs text-slate-400">Per Bulan (Estimasi<br class="md:hidden"> Rp20.000/galon)</span>
+                        </div>
+                        <div class="bg-[#f0fdf4] rounded-xl p-4 sm:p-6 border border-[#dcfce7] text-center flex flex-col justify-center">
+                            <span class="block text-xs font-bold text-[#16a34a] uppercase tracking-wide mb-2">Coway Neo Plus</span>
+                            <div class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#16a34a] mb-2" id="cost-coway">Rp 270.000</div>
+                            <span class="text-[11px] md:text-xs text-slate-400 block mb-1">Per Bulan (Sudah Ganti Filter & Servis)</span>
+                            <span class="text-[11px] md:text-xs text-[#16a34a] font-bold block">Paket 7 Tahun</span>
+                        </div>
+                    </div>
+
+                    <div id="savings-box" class="bg-[#f0fdf4] border-2 border-dashed border-[#86efac] rounded-xl p-5 text-center mt-6">
+                        <span id="savings-val" class="font-bold text-[#16a34a] text-xl md:text-2xl">Hemat Rp 30.000 / Bulan</span>
+                    </div>
+                </div>
+
+                <!-- Text Copy -->
+                <div class="p-4">
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4">Bayar Nominal yang Sama, Dapatkan Kualitas & Kuantitas Berlipat</h3>
+                    <p class="text-slate-600 mb-6">Membeli air galon eceran sering kali membuat kita membatasi konsumsi air karena takut cepat habis dan boros. Ditambah lagi dengan risiko air galon palsu serta debu gudang pada kemasannya.</p>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex gap-4 items-start">
+                            <i class="fa-solid fa-circle-check text-accentGreen mt-1 text-lg"></i>
+                            <div>
+                                <span class="font-bold text-slate-900 block">Pure Water</span>
+                                <span class="text-slate-600 text-sm">Aliran air murni untuk minum, memasak nasi, sup, dll.</span>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                            <i class="fa-solid fa-circle-check text-accentGreen mt-1 text-lg"></i>
+                            <div>
+                                <span class="font-bold text-slate-900 block">Suhu Instan</span>
+                                <span class="text-slate-600 text-sm">Air panas & dingin tersedia 24 jam tanpa kulkas atau dispenser berisik.</span>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                            <i class="fa-solid fa-circle-check text-accentGreen mt-1 text-lg"></i>
+                            <div>
+                                <span class="font-bold text-slate-900 block">Free Servis Cody</span>
+                                <span class="text-slate-600 text-sm">Kunjungan servis steril & penggantian filter rutin setiap 2 bulan tanpa tambahan biaya.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emosional 1: Kesehatan Ortu -->
+    <section id="kesehatan" class="py-20 px-6 bg-darkCard text-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Tega lihat Ortu Angkat Galon 19kg?</h2>
+                <p class="text-lg text-slate-400">Jangan sampai orang tua Anda mengalami cedera pinggang atau terjatuh karena angkat galon</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <h3 class="text-2xl font-bold mb-4">Melindungi Tulang Belakang & Sendi Orang Tua Kita</h3>
+                    <p class="text-slate-300 mb-4">Setiap galon air memiliki berat hampir 20 Kilogram. Bagi orang tua lanjut usia yang fisiknya mulai menurun, mengangkat beban seberat ini secara terus-menerus adalah ancaman serius bagi keselamatan sendi dan tulang belakang mereka.</p>
+                    <p class="text-slate-300 mb-8">Cedera saraf kejepit atau terpeleset di dapur saat mengganti galon air bisa berakibat fatal. Menghadirkan dispenser pemurni air Coway di dapur mereka adalah bentuk nyata bakti Anda untuk melindungi kesehatan fisik orang tua tercinta.</p>
+                    <button onclick="openModal()" class="inline-flex items-center gap-2 bg-secondary hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-secondary/30 transition-all transform hover:-translate-y-0.5">
+                        <i class="fa-brands fa-whatsapp"></i> Bebaskan Ortu dari Galon Sekarang
+                    </button>
+                </div>
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl order-1 md:order-2">
+                    <img src="https://member.smartmillionaire.co.id/wp-content/plugins/coway-landing/assets/parent_struggling_gallon.jpg" alt="Ortu angkat galon" class="w-full h-auto object-cover">
+                    <div class="absolute inset-0 bg-red-500/20 mix-blend-multiply rounded-2xl"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emosional 2: Ibu & Bayi -->
+    <section id="ibu-bayi" class="py-20 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Membuat Susu Formula Bayi di Jam 2 Pagi? Hanya Butuh 3 Detik!</h2>
+                <p class="text-lg text-slate-600">Lupakan kerepotan merebus air panas, menunggu suhunya turun, atau mencampur air panas & dingin secara menerka-nerka di tengah malam.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden shadow-2xl">
+                    <img src="https://member.smartmillionaire.co.id/wp-content/plugins/coway-landing/assets/mother_baby_formula.jpg" alt="Ibu bikin susu bayi" class="w-full h-auto object-cover">
+                </div>
+                <div>
+                    <span class="inline-flex items-center gap-2 bg-rose-100 text-rose-600 font-bold text-xs py-1.5 px-3 rounded-full mb-4">
+                        <i class="fa-solid fa-baby"></i> 40°C - Suhu Susu Ideal
+                    </span>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4">Suhu Air Hangat yang Konsisten & Nyaman untuk Si Kecil</h3>
+                    <p class="text-slate-600 mb-4">Bayi Anda sering menangis kelaparan di tengah malam? Bersama dispenser tipe Coway Ombak, Anda memiliki kontrol penuh atas 4 tingkat suhu air panas instan yang didesain khusus (40°C untuk susu formula, 70°C untuk teh herbal, 80°C untuk kopi, dan 90°C untuk mie instan/keperluan lainnya).</p>
+                    <p class="text-slate-600 mb-8">Cukup putar dial kontrol, air hangat steril bersuhu tepat 40°C siap mengalir instan ke botol susu anak Anda tanpa merusak kandungan gizi susu formula.</p>
+                    <button onclick="openModal()" class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-0.5">
+                        <i class="fa-brands fa-whatsapp"></i> Info Cicilan Coway Ombak
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emosional 3: Bahaya Dispenser -->
+    <section id="bahaya-dispenser" class="py-20 px-6 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-red-500 mb-4">Yakin Air dari Dispenser Lama Anda Masih Layak Minum?</h2>
+                <p class="text-lg text-slate-400">Dispenser galon yang jarang dibersihkan adalah sarang sempurna bagi perkembangbiakan bakteri, jamur, dan lumut yang mengancam pencernaan keluarga.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <h3 class="text-2xl font-bold mb-4">Bahaya Tak Kasatmata di Dalam Tangki Air</h3>
+                    <p class="text-slate-300 mb-4">Faktanya, rongga bagian dalam dispenser tradisional yang tertutup rapat dan lembab sangat rentan ditumbuhi <strong class="text-white">lumut hijau dan bakteri e-Coli</strong>. Area leher galon dan selang air yang jarang dibersihkan memicu kontaminasi setiap kali Anda menekan tombol air.</p>
+                    <p class="text-slate-300 mb-4">Gejala diare berulang, sakit perut tanpa sebab, hingga penurunan imunitas pada anak bisa jadi berawal dari kotoran di dalam dispenser kesayangan Anda.</p>
+                    <p class="text-slate-300">Beralih ke pemurni air pintar Coway yang dilengkapi fitur <strong class="text-white">UV Sterilization otomatis</strong> dan layanan pembersihan sanitasi rutin setiap 2 bulan oleh tim profesional (Heart Service / Cody). Tangki selalu steril 100%.</p>
+                </div>
+                <div class="rounded-2xl overflow-hidden shadow-2xl border-4 border-red-900/50 order-1 md:order-2">
+                    <img src="https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/coway-dirty-dispenser-v2.jpg" alt="Dispenser berlumut" class="w-full h-auto object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emosional 4: Bebas BPA -->
+    <section id="bebas-bpa" class="py-20 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Selamatkan Keluarga dari Bahaya Mikroplastik & BPA Galon Isi Ulang</h2>
+                <p class="text-lg text-slate-600">Gaya hidup modern menuntut standar kesehatan yang lebih tinggi, bukan dari air kemasan plastik yang terpapar panas selama distribusi.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="rounded-2xl overflow-hidden shadow-2xl">
+                    <img src="https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/coway-pure-water.jpg" alt="Air Murni" class="w-full h-auto object-cover">
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4">Kemurnian Total Tanpa Resiko Plastik</h3>
+                    <p class="text-slate-600 mb-4">Penelitian terbaru mengungkapkan tingginya partikel mikroplastik dan senyawa <strong class="text-slate-900">BPA (Bisphenol-A)</strong> yang luruh ke dalam air dari galon plastik yang digunakan berulang kali atau sering dibiarkan terpapar sinar matahari di jalanan.</p>
+                    <p class="text-slate-600 mb-8">BPA dalam jangka panjang terbukti memicu gangguan hormon dan resiko penyakit kronis lainnya. Air murni Coway difilter langsung dari sumber air di rumah Anda, disaring melalui teknologi membran RO berukuran 0.0001 mikron yang mampu memblokir mikroplastik, logam berat, dan virus tanpa persentuhan sedikit pun dengan plastik galon daur ulang.</p>
+                    <button onclick="openModal()" class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-0.5">
+                        <i class="fa-brands fa-whatsapp"></i> Ganti Air Minum Anda Sekarang
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Katalog Produk -->
+    <section id="katalog" class="py-20 px-6 bg-slate-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">Produk Kami</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Pilih Unit Coway Terbaik Untuk Kebutuhan Anda</h2>
+                <p class="text-lg text-slate-600">Cicilan bulanan kepemilikan sudah termasuk kunjungan servis pembersihan rutin dan penggantian filter gratis.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Neo Plus -->
+                <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col relative transition-transform hover:-translate-y-1 hover:shadow-xl">
+                    <div class="absolute top-4 right-4 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full z-10 shadow-md">Terlaris</div>
+                    <div class="w-full flex justify-center items-center">
+                        <img src="https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/neo-plus.png" alt="Coway Neo Plus" class="w-full h-auto object-cover">
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-1">Coway Neo Plus</h3>
+                        <p class="text-sm text-slate-500 mb-6">3 Suhu Utama untuk Keluarga Bahagia</p>
+                        
+                        <div class="bg-primary-light rounded-xl p-4 mb-6">
+                            <span class="text-xs font-bold text-primary block mb-1">Cicilan Bulanan</span>
+                            <div class="text-3xl font-extrabold text-primary-dark">Rp 270.000<span class="text-base font-medium text-slate-500">/bulan</span></div>
+                            <span class="text-xs text-slate-500 block mt-1">(Paket 7 Tahun)</span>
+                        </div>
+
+                        <ul class="space-y-3 mb-8 flex-1">
+                            <li class="flex gap-3 text-sm text-slate-700 items-center"><i class="fa-solid fa-check text-accentGreen"></i> Panas, Dingin & Biasa</li>
+                            <li class="flex gap-3 text-sm text-slate-700 items-center"><i class="fa-solid fa-check text-accentGreen"></i> Kapasitas Tangki: 5.8 Liter</li>
+                            <li class="flex gap-3 text-sm text-slate-700 items-center"><i class="fa-solid fa-check text-accentGreen"></i> Eco Mode Sensor (Hemat Listrik)</li>
+                            <li class="flex gap-3 text-sm text-slate-700 items-center"><i class="fa-solid fa-check text-accentGreen"></i> Tombol Pengunci Air Panas</li>
+                        </ul>
+                        
+                        <button onclick="openModal()" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 px-4 rounded-xl transition-colors">
+                            Tanyakan Promo Neo Plus
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Ombak -->
+                <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col relative transition-transform hover:-translate-y-1 hover:shadow-xl">
+                    <div class="absolute top-4 right-4 bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-full z-10 shadow-md">Multi Temp</div>
+                    <div class="w-full flex justify-center items-center">
+                        <img src="https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/ombak.png" alt="Coway Ombak" class="w-full h-auto object-cover">
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-1">Coway Ombak</h3>
+                        <p class="text-sm text-slate-500 mb-6">Khusus Suhu Variatif untuk Ibu & Bayi</p>
+                        
+                        <div class="bg-primary-light rounded-xl p-4 mb-6">
+                            <span class="text-xs font-bold text-primary block mb-1">Cicilan Bulanan</span>
+                            <div class="text-3xl font-extrabold text-primary-dark">Rp 350.000<span class="text-base font-medium text-slate-500">/bulan</span></div>
+                            <span class="text-xs text-slate-500 block mt-1">(Paket 7 Tahun)</span>
+                        </div>
+
+                        <ul class="space-y-3 mb-8 flex-1">
+                            <li class="flex gap-3 text-sm text-slate-700 items-center"><i class="fa-solid fa-check text-accentGreen"></i> Panas (Multi-Temp), Dingin & Biasa</li>
+                            <li class="flex gap-3 text-sm text-slate-700 items-center"><i class="fa-solid fa-check text-accentGreen"></i> Kapasitas Tangki: 13.5 Liter</li>
+                            <li class="flex gap-3 text-sm text-slate-700 items-center"><i class="fa-solid fa-check text-accentGreen"></i> UV Sterilization (Pembasmi Kuman)</li>
+                            <li class="flex gap-3 text-sm text-slate-700 items-center"><i class="fa-solid fa-check text-accentGreen"></i> Tombol Sekali Sentuh</li>
+                        </ul>
+                        
+                        <button onclick="openModal()" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 px-4 rounded-xl transition-colors">
+                            Tanyakan Promo Ombak
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Core -->
+                <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col relative transition-transform hover:-translate-y-1 hover:shadow-xl">
+                    <div class="absolute top-4 right-4 bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-full z-10 shadow-md">Floor Standing</div>
+                    <div class="w-full flex justify-center items-center">
+                        <img src="https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/core.png" alt="Coway Core" class="w-full h-auto object-cover">
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-1">Coway Core</h3>
+                        <p class="text-sm text-slate-500 mb-6">Kapasitas Besar untuk Keluarga / Kantor</p>
+                        
+                        <div class="bg-primary-light rounded-xl p-4 mb-6">
+                            <span class="text-xs font-bold text-primary block mb-1">Cicilan Bulanan</span>
+                            <div class="text-3xl font-extrabold text-primary-dark">Rp 370.000<span class="text-base font-medium text-slate-500">/bulan</span></div>
+                            <span class="text-xs text-slate-500 block mt-1">(Paket 7 Tahun)</span>
+                        </div>
+
+                        <ul class="space-y-3 mb-8 flex-1">
+                            <li class="flex gap-3 text-sm text-slate-700 items-center"><i class="fa-solid fa-check text-accentGreen"></i> Panas, Dingin & Biasa</li>
+                            <li class="flex gap-3 text-sm text-slate-700 items-center"><i class="fa-solid fa-check text-accentGreen"></i> Kapasitas Tangki: 21.1 Liter</li>
+                            <li class="flex gap-3 text-sm text-slate-700 items-center"><i class="fa-solid fa-check text-accentGreen"></i> Floor Standing Design</li>
+                            <li class="flex gap-3 text-sm text-slate-700 items-center"><i class="fa-solid fa-check text-accentGreen"></i> Sistem Filtrasi RO</li>
+                        </ul>
+                        
+                        <button onclick="openModal()" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 px-4 rounded-xl transition-colors">
+                            Tanyakan Promo Core
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 px-6 bg-white">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">FAQ</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Pertanyaan Yang Sering Diajukan</h2>
+                <p class="text-lg text-slate-600">Punya pertanyaan seputar instalasi, pembayaran, atau servis? Temukan jawabannya di sini.</p>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white">
+                    <button class="faq-btn w-full px-6 py-4 flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition-colors text-left" onclick="toggleFaq(this)">
+                        <span class="font-bold text-slate-800">Apakah harga cicilan bulanan sudah termasuk biaya instalasi dan filter?</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden px-6 py-4 text-slate-600 border-t border-slate-100">
+                        Ya. Biaya cicilan bulanan yang Anda pilih sudah mencakup seluruh paket pemeliharaan dari Cody (HEART Service) gratis setiap 2 bulan, penggantian filter berkala secara gratis, serta gratis biaya pemasangan unit di rumah Anda.
+                    </div>
+                </div>
+                
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white">
+                    <button class="faq-btn w-full px-6 py-4 flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition-colors text-left" onclick="toggleFaq(this)">
+                        <span class="font-bold text-slate-800">Bagaimana kelanjutan unit setelah masa cicilan paket berakhir?</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden px-6 py-4 text-slate-600 border-t border-slate-100">
+                        Setelah masa cicilan paket selesai (misalnya 7 tahun), unit dispenser pemurni air Coway sepenuhnya menjadi hak milik Anda tanpa perlu melakukan pembayaran cicilan lagi.
+                    </div>
+                </div>
+
+                <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white">
+                    <button class="faq-btn w-full px-6 py-4 flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition-colors text-left" onclick="toggleFaq(this)">
+                        <span class="font-bold text-slate-800">Apakah air dari pemurni air Coway langsung aman untuk langsung diminum?</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden px-6 py-4 text-slate-600 border-t border-slate-100">
+                        Sangat aman. Sistem filtrasi Reverse Osmosis (RO) Coway menyaring partikel berbahaya hingga berukuran 0.0001 mikron, menghilangkan virus, bakteri, klorin, karat, logam berat, dan endapan kapur secara total sehingga air langsung higienis siap konsumsi.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button onclick="openModal()" class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-0.5">
+                    <i class="fa-brands fa-whatsapp"></i> Konsultasi Produk Coway Terpercaya
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 px-6 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 mb-12">
+            <div>
+                <h4 class="text-white font-bold text-lg mb-4">Tentang Coway</h4>
+                <p class="text-sm leading-relaxed">Coway adalah produsen pemurni air dan pemurni udara terkemuka nomor 1 dari Korea Selatan. Telah dipercaya oleh jutaan keluarga di Indonesia dan seluruh dunia untuk menyediakan solusi kesehatan mandiri di rumah.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-4">Navigasi</h4>
+                <ul class="space-y-2 text-sm flex flex-col">
+                    <li><a href="#perbandingan" class="hover:text-primary transition-colors">Perbandingan Harga</a></li>
+                    <li><a href="#kesehatan" class="hover:text-primary transition-colors">Kesehatan Sendi Ortu</a></li>
+                    <li><a href="#ibu-bayi" class="hover:text-primary transition-colors">Solusi Susu Bayi</a></li>
+                    <li><a href="#bebas-bpa" class="hover:text-primary transition-colors">Bebas BPA</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-4">Hubungi Agent</h4>
+                <p class="text-sm leading-relaxed">Hubungi HP Health Planner/Agent resmi kami untuk konsultasi unit yang cocok, survei kelayakan air rumah Anda gratis, serta promo menarik resmi dari Coway hari ini.</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto text-center border-t border-slate-800 pt-8 text-xs">
+            <p class="mb-2 opacity-70">Website ini bukan website resmi dari Coway. Website ini independent dari Health Planner Resmi Coway</p>
+            <p>&copy; 2026 Coway Agent Indonesia. All Rights Reserved. Unit dipasang & diservis langsung oleh Coway Indonesia.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WA Widget -->
+    <a href="#" onclick="openModal(); return false;" class="fixed bottom-4 right-4 md:bottom-6 md:right-6 w-[60px] h-[60px] bg-[#25d366] hover:bg-[#1ebd5a] text-white rounded-full flex items-center justify-center text-[32px] shadow-[0_4px_12px_rgba(0,0,0,0.15)] z-40 transition-transform transform hover:scale-105">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Lead Form Modal -->
+    <div id="lead-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden relative scale-95 opacity-0 transition-all duration-300 transform" id="modal-content">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="bg-gradient-to-r from-primary to-primary-dark p-6 text-white text-center">
+                <h3 class="text-xl font-extrabold mb-2">Isi Data Dulu Yuk!</h3>
+                <p class="text-sm text-primary-light">Isi data singkat di bawah ini, dan Anda akan otomatis dialihkan ke WhatsApp Agent Resmi Coway.</p>
+            </div>
+            <div class="p-6">
+                <form id="wa-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">Nama Lengkap</label>
+                        <input type="text" id="wa-name" required placeholder="Cth: Budi Santoso" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">Nomor WhatsApp</label>
+                        <input type="tel" id="wa-phone" required placeholder="Cth: 08123456789" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all">
+                    </div>
+                    <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-green-500/30 transition-all mt-4 flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-xl"></i> Lanjutkan ke WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script>
+        // FAQ Toggle
+        window.toggleFaq = function(btn) {
+            try {
+                const answer = btn.nextElementSibling;
+                const icon = btn.querySelector('.fa-chevron-down');
+                
+                if (answer.classList.contains('hidden')) {
+                    answer.classList.remove('hidden');
+                    if(icon) icon.classList.add('rotate-180');
+                    btn.classList.replace('bg-slate-50', 'bg-slate-100');
+                } else {
+                    answer.classList.add('hidden');
+                    if(icon) icon.classList.remove('rotate-180');
+                    btn.classList.replace('bg-slate-100', 'bg-slate-50');
+                }
+            } catch(e) { console.error(e); }
+        };
+
+        // Modal Logic
+        window.openModal = function() {
+            try {
+                const modal = document.getElementById('lead-modal');
+                const modalContent = document.getElementById('modal-content');
+                if(!modal || !modalContent) return;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                setTimeout(() => {
+                    modalContent.classList.remove('scale-95', 'opacity-0');
+                    modalContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            } catch(e) { console.error(e); }
+        };
+        
+        window.closeModal = function() {
+            try {
+                const modal = document.getElementById('lead-modal');
+                const modalContent = document.getElementById('modal-content');
+                if(!modal || !modalContent) return;
+                modalContent.classList.remove('scale-100', 'opacity-100');
+                modalContent.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }, 300);
+            } catch(e) { console.error(e); }
+        };
+
+        // Savings Calculator Logic
+        window.updateCalculator = function() {
+            try {
+                const gallonSlider = document.getElementById('gallon-slider');
+                const gallonOutput = document.getElementById('gallon-output');
+                const costGallon = document.getElementById('cost-gallon');
+                const costCoway = document.getElementById('cost-coway');
+                const savingsVal = document.getElementById('savings-val');
+                const savingsBox = document.getElementById('savings-box');
+
+                if (!gallonSlider || !gallonOutput || !costGallon || !costCoway || !savingsVal || !savingsBox) return;
+
+                const monthlyGallons = parseInt(gallonSlider.value) || 15;
+                gallonOutput.innerText = monthlyGallons + " Galon";
+
+                const pricePerGallon = 20000;
+                const cowayMonthlyNeoPlus = 270000;
+                const monthlyGallonCost = Math.round(monthlyGallons * pricePerGallon);
+                
+                costGallon.innerText = "Rp " + monthlyGallonCost.toLocaleString('id-ID');
+                costCoway.innerText = "Rp " + cowayMonthlyNeoPlus.toLocaleString('id-ID');
+
+                const diff = monthlyGallonCost - cowayMonthlyNeoPlus;
+                if (diff > 0) {
+                    savingsVal.innerText = "Hemat Rp " + diff.toLocaleString('id-ID') + " / Bulan";
+                    savingsBox.className = 'bg-[#f0fdf4] border-2 border-dashed border-[#86efac] rounded-xl p-5 text-center mt-6';
+                    savingsVal.className = 'font-bold text-[#16a34a] text-xl md:text-2xl';
+                } else {
+                    savingsVal.innerText = "Air Panas & Dingin Sepuasnya Bebas Repot!";
+                    savingsBox.className = 'bg-blue-50 border-2 border-dashed border-blue-300 rounded-xl p-5 text-center mt-6';
+                    savingsVal.className = 'font-bold text-blue-600 text-xl md:text-2xl';
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Close modal on click outside
+            const modal = document.getElementById('lead-modal');
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        window.closeModal();
+                    }
+                });
+            }
+
+            // WhatsApp Form Submit
+            const waForm = document.getElementById('wa-form');
+            if (waForm) {
+                waForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    try {
+                        const nameEl = document.getElementById('wa-name');
+                        const phoneEl = document.getElementById('wa-phone');
+                        const name = nameEl ? nameEl.value : '';
+                        const phone = phoneEl ? phoneEl.value : '';
+                        const agentPhone = "62817777616";
+                        
+                        const message = `Halo, saya ${name}. Saya ingin konsultasi mengenai promo pemurni air Coway.`;
+                        const encodedMessage = encodeURIComponent(message);
+                        const waLink = `https://wa.me/${agentPhone}?text=${encodedMessage}`;
+                        
+                        window.open(waLink, '_blank');
+                        window.closeModal();
+                    } catch(err) {
+                        console.error(err);
+                    }
+                });
+            }
+
+            // Setup calculator events
+            const gallonSlider = document.getElementById('gallon-slider');
+            if (gallonSlider) {
+                gallonSlider.addEventListener('input', window.updateCalculator);
+                gallonSlider.addEventListener('change', window.updateCalculator);
+                window.updateCalculator();
+            }
+        });
+    </script>
+</body>
+</html>
