@@ -1,13 +1,15 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Globe, Megaphone, Clapperboard, LogOut, Gift } from 'lucide-react';
+import { LayoutDashboard, Globe, Megaphone, Clapperboard, LogOut, Gift, UserCircle } from 'lucide-react';
+import { signOut } from 'next-auth/react';
 
 export default function Sidebar() {
   const pathname = usePathname();
   
   const navItems = [
     { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
+    { name: 'Profile & Settings', href: '/dashboard/profile', icon: UserCircle },
     { name: 'Landing Page Coway', href: '/dashboard/landingpage', icon: Globe },
     { name: 'Meta Ads Manager', href: '/dashboard/meta-ads', icon: Megaphone },
     { name: 'Creative Assets', href: '/dashboard/creative-assets', icon: Clapperboard },
@@ -45,10 +47,10 @@ export default function Sidebar() {
           })}
         </nav>
         <div className="p-4 border-t border-slate-800">
-          <Link href="/login" className="flex items-center gap-3 w-full px-4 py-3 text-red-400 hover:bg-slate-800 rounded-xl transition font-medium">
+          <button onClick={() => signOut({ callbackUrl: '/login' })} className="flex items-center gap-3 w-full px-4 py-3 text-red-400 hover:bg-slate-800 rounded-xl transition font-medium text-left">
             <LogOut size={20} />
             Logout
-          </Link>
+          </button>
         </div>
       </aside>
 
@@ -69,7 +71,7 @@ export default function Sidebar() {
                 <Icon size={20} className={isActive ? 'text-[#00A3E0]' : 'text-slate-400'} />
               </div>
               <span className="text-[10px] font-medium text-center leading-tight">
-                {item.name === 'Landing Page Coway' ? 'Landing' : item.name === 'Meta Ads Manager' ? 'Meta Ads' : item.name === 'Creative Assets' ? 'Assets' : item.name === 'Program Affiliate' ? 'Affiliate' : item.name}
+                {item.name === 'Landing Page Coway' ? 'Landing' : item.name === 'Meta Ads Manager' ? 'Meta Ads' : item.name === 'Creative Assets' ? 'Assets' : item.name === 'Program Affiliate' ? 'Affiliate' : item.name === 'Profile & Settings' ? 'Profile' : item.name}
               </span>
             </Link>
           );
