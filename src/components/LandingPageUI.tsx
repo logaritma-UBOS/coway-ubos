@@ -96,22 +96,22 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
           </nav>
           
           {/* Agent Profile Header */}
-          <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-3">
-              <div className="text-right">
+          <div className="flex items-center gap-2 md:gap-4">
+            <div className="flex items-center gap-2 md:gap-3">
+              <div className="text-right hidden sm:block">
                 <p className="text-xs text-slate-500 font-medium">Health Planner</p>
                 <p className="text-sm font-bold text-slate-900">{agent.fullName || 'Coway Agent'}</p>
               </div>
               {agent.profileImageUrl ? (
-                <img src={agent.profileImageUrl} alt={agent.fullName || 'Agent'} className="w-10 h-10 rounded-full object-cover border-2 border-primary/20" />
+                <img src={agent.profileImageUrl} alt={agent.fullName || 'Agent'} className="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover border-2 border-primary/20" />
               ) : (
-                <div className="w-10 h-10 rounded-full bg-primary-light text-primary flex items-center justify-center font-bold border-2 border-primary/20">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary-light text-primary flex items-center justify-center font-bold border-2 border-primary/20 text-xs md:text-sm">
                   {getInitials(agent.fullName || 'Coway Agent')}
                 </div>
               )}
             </div>
-            <button onClick={openModal} className="inline-flex items-center gap-2 bg-[#0084ff] hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-0.5 text-sm">
-              <i className="fa-brands fa-whatsapp"></i> <span className="hidden md:inline">Hubungi</span>
+            <button onClick={openModal} className="inline-flex items-center gap-1.5 bg-[#0084ff] hover:bg-primary-dark text-white font-bold py-1.5 px-3 md:py-2 md:px-4 rounded-lg shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-0.5 text-xs md:text-sm">
+              <i className="fa-brands fa-whatsapp text-sm md:text-base"></i> <span className="hidden md:inline">Hubungi</span>
             </button>
           </div>
         </div>
@@ -500,7 +500,7 @@ export default function LandingPageUI({ agent }: LandingPageUIProps) {
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 py-12 px-6 border-t border-slate-800">
+      <footer className="bg-slate-900 text-slate-400 pt-12 pb-28 md:pb-12 px-6 border-t border-slate-800">
         <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 mb-12">
           {/* Agent Footer Profile */}
           <div className="col-span-1 md:col-span-1 bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50 flex flex-col items-center text-center">
