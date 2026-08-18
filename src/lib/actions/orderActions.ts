@@ -47,7 +47,7 @@ export async function orderService(serviceName: string, amount: number) {
         const payload = {
           name: session.user.name || 'Agen Coway',
           email: session.user.email,
-          mobile: session.user.whatsappNumber || '081111111111',
+          mobile: (session.user as any).whatsappNumber || '081111111111',
           amount: amount,
           description: `Pesanan Layanan UBOS: ${serviceName}`,
           redirectURL: `https://coway.logaritma.id/dashboard`
