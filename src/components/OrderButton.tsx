@@ -21,11 +21,15 @@ export default function OrderButton({ serviceName, amount, buttonText, icon }: O
     
     if (result.error) {
       setMessage({ text: result.error, type: 'error' });
+      setIsPending(false);
     } else if (result.success) {
-      setMessage({ text: result.message || 'Berhasil', type: 'success' });
+      setMessage({ text: result.message || 'Mengarahkan ke Mayar.id...', type: 'success' });
+      if (result.redirectUrl) {
+        window.location.href = result.redirectUrl;
+      } else {
+        setIsPending(false);
+      }
     }
-    
-    setIsPending(false);
   };
 
   return (

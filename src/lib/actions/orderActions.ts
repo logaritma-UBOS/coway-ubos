@@ -37,8 +37,19 @@ export async function orderService(serviceName: string, amount: number) {
         status: 'PENDING',
       }
     });
+
+    // Dalam implementasi nyata, di sinilah Anda melakukan API Call ke Mayar.id
+    // untuk mengenerate link pembayaran (Payment Link).
+    // Sementara ini, kita akan return link statis ke katalog atau payment form Mayar Anda.
     
-    return { success: true, orderId: newOrder.id, message: 'Pesanan berhasil dibuat. Tim kami akan segera menghubungi Anda melalui WhatsApp.' };
+    // TODO: Ganti URL ini dengan link Mayar.id asli Anda
+    const mayarCheckoutUrl = "https://mayar.id/"; 
+
+    return { 
+      success: true, 
+      redirectUrl: mayarCheckoutUrl,
+      message: 'Mengarahkan ke pembayaran...'
+    };
   } catch (error: any) {
     console.error('Failed to create order:', error);
     return { error: 'Terjadi kesalahan saat membuat pesanan' };
