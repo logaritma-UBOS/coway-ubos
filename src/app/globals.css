@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
 
 :root {
   --background: #ffffff;
@@ -8,8 +10,28 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: "Plus Jakarta Sans", var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* Coway Promo Colors */
+  --color-primary: #0084ff;
+  --color-primary-dark: #005ecf;
+  --color-primary-light: #eef7ff;
+  --color-secondary: #ff9900;
+  --color-dark: #0b0f19;
+  --color-darkCard: #141c2f;
+  --color-cowayBlue: #0084ff;
+  --color-cowayLightBlue: #eef7ff;
+  --color-accentGreen: #10b981;
+  --color-accentDarkBlue: #0b0f19;
+
+  --animate-pulse-blue: pulse-blue 1.5s infinite;
+}
+
+@keyframes pulse-blue {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 132, 255, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(0, 132, 255, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 132, 255, 0); }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +44,14 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+input[type="range"] {
+  accent-color: #0084ff;
 }
