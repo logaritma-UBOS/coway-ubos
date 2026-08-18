@@ -5,10 +5,16 @@ export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
   const hostname = req.headers.get('host') || '';
 
-  const currentHost =
-    process.env.NODE_ENV === 'production' && process.env.VERCEL === '1'
-      ? hostname.replace(`.coway.logaritma.id`, '')
-      : hostname.replace(`.localhost:3000`, '');
+  let currentHost = hostname;
+  if (process.env.NODE_ENV === 'production' && process.env.VERCEL === '1') {
+    currentHost = hostname.replace(`.coway.logaritma.id`, '');
+    // Jika diakses menggunakan domain bawaan Vercel, jangan anggap sebagai subdomain agen
+    if (hostname.endsWith('.vercel.app')) {
+      currentHost = 'coway.logaritma.id';
+    }
+  } else {
+    currentHost = hostname.replace(`.localhost:3000`, '');
+  }
 
   // Affiliate Referral Tracking
   let response = NextResponse.next();
