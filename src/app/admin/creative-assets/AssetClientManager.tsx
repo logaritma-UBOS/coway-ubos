@@ -118,7 +118,7 @@ export default function AssetClientManager({ initialAssets }: { initialAssets: a
 
       {showForm && (
         <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg p-6">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
             <h3 className="text-xl font-bold text-slate-900 mb-4">{formData ? 'Edit Aset' : 'Tambah Aset Baru'}</h3>
             <form onSubmit={handleSave} className="space-y-4">
               <div>
