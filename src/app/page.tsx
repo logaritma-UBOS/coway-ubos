@@ -352,7 +352,7 @@ function TypewriterText({ text, delay = 0 }: { text: string, delay?: number }) {
 
   return (
     <span className="inline-block relative">
-      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3E0] to-indigo-600 min-w-[200px] inline-block text-left">
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3E0] to-indigo-600">
         {displayedText}
       </span>
       <motion.span
