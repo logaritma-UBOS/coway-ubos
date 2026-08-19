@@ -14,19 +14,15 @@ export default function MetaCampaignManager({ initialCampaigns }: { initialCampa
     e.preventDefault();
     const target = e.target as any;
     
-    let startDate = null;
-    let endDate = null;
+    let startDate = target.startDate?.value ? new Date(target.startDate.value) : formData.startDate;
+    let endDate = target.endDate?.value ? new Date(target.endDate.value) : formData.endDate;
     
-    if (target.status.value === 'ACTIVE' && !formData.startDate) {
+    // Auto-set if changing status and dates are empty
+    if (target.status.value === 'ACTIVE' && !startDate) {
       startDate = new Date();
-    } else {
-      startDate = formData.startDate;
     }
-
-    if (target.status.value === 'COMPLETED' && !formData.endDate) {
+    if (target.status.value === 'COMPLETED' && !endDate) {
       endDate = new Date();
-    } else {
-      endDate = formData.endDate;
     }
 
     const data = {
@@ -126,6 +122,17 @@ export default function MetaCampaignManager({ initialCampaigns }: { initialCampa
                 <div className="flex-1">
                   <label className="block text-sm font-bold text-slate-700 mb-1">Leads Masuk</label>
                   <input required type="number" name="leadsGenerated" defaultValue={formData?.leadsGenerated || 0} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-[#00A3E0] text-slate-900 font-mono"/>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex-1">
+                  <label className="block text-sm font-bold text-slate-700 mb-1">Tanggal Mulai (Opsional)</label>
+                  <input type="date" name="startDate" defaultValue={formData?.startDate ? new Date(formData.startDate).toISOString().split('T')[0] : ''} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-[#00A3E0] text-slate-900"/>
+                  <p className="text-[10px] text-slate-400 mt-1">Kosongkan jika baru mulai hari ini.</p>
+                </div>
+                <div className="flex-1">
+                  <label className="block text-sm font-bold text-slate-700 mb-1">Tanggal Selesai (Opsional)</label>
+                  <input type="date" name="endDate" defaultValue={formData?.endDate ? new Date(formData.endDate).toISOString().split('T')[0] : ''} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-[#00A3E0] text-slate-900"/>
                 </div>
               </div>
               
