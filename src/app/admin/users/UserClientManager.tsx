@@ -19,7 +19,10 @@ export default function UserClientManager({ initialUsers }: { initialUsers: any[
   const handleDelete = (id: string, name: string) => {
     if (confirm(`Peringatan Keras!\nApakah Anda yakin ingin menghapus akun agen ${name} secara permanen? Seluruh data Leads dan Transaksinya akan ikut terhapus!`)) {
       startTransition(async () => {
-        await deleteUser(id);
+        const res = await deleteUser(id);
+        if (res && !res.success) {
+          alert(res.error);
+        }
       });
     }
   };

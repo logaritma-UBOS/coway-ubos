@@ -10,8 +10,31 @@ export async function updateUserPassword(id: string, newPassword: string) {
 }
 
 export async function deleteUser(id: string) {
-  await prisma.user.delete({ where: { id } });
-  revalidatePath('/admin/users');
+  try {
+    await prisma.$transaction([
+      // Set referredById to null for any referrals
+      prisma.user.updateMany({ where: { referredById: id }, data: { referredById: null } }),
+      // Delete commissions earned by this user
+      prisma.commission.deleteMany({ where: { earnerId: id } }),
+      // Delete meta campaigns related to this user
+      prisma.metaCampaign.deleteMany({ where: { agentId: id } }),
+      // Delete orders related to this user
+      // Note: MetaCampaigns are also tied to Order, but since we deleted them above or they cascade, it should be fine. 
+      // Wait, Commission is also tied to Order, so we need to delete commissions of these orders too
+      prisma.commission.deleteMany({ where: { order: { agentId: id } } }),
+      prisma.order.deleteMany({ where: { agentId: id } }),
+      // Delete the user (leads and analytics cascade automatically if schema allows, but just to be safe we can delete them too)
+      prisma.lead.deleteMany({ where: { agentId: id } }),
+      prisma.analytic.deleteMany({ where: { agentId: id } }),
+      prisma.account.deleteMany({ where: { userId: id } }),
+      prisma.session.deleteMany({ where: { userId: id } }),
+      prisma.user.delete({ where: { id } })
+    ]);
+    revalidatePath('/admin/users');
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error.message || "Gagal menghapus agen." };
+  }
 }
 
 export async function generateGeminiCopy(prompt: string, apiKey: string, targetType: string) {
