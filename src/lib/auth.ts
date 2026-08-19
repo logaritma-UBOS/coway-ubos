@@ -72,6 +72,7 @@ export const authOptions: NextAuthOptions = {
         token.whatsappNumber = (user as any).whatsappNumber;
         token.slug = (user as any).slug;
         token.isPremium = (user as any).isPremium;
+        token.isAdmin = user.email === 'logaritma.tim@gmail.com';
       }
       return token;
     },
@@ -82,6 +83,7 @@ export const authOptions: NextAuthOptions = {
         (session.user as any).whatsappNumber = token.whatsappNumber as string;
         (session.user as any).slug = token.slug as string;
         (session.user as any).isPremium = token.isPremium as boolean;
+        (session.user as any).isAdmin = token.isAdmin as boolean;
       }
       return session;
     }
