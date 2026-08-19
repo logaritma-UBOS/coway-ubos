@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, Globe, Zap, Users, ShieldCheck, CheckCircle2, TrendingUp, BarChart3, MessageCircle, MonitorSmartphone, Target, MessageSquare, ListTodo, FileText, Focus } from 'lucide-react';
 import { motion } from 'framer-motion';
 import AffiliateTracker from '@/components/AffiliateTracker';
-import { Suspense } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 
 export default function Home() {
   const fadeIn = {
@@ -19,21 +19,6 @@ export default function Home() {
       transition: { staggerChildren: 0.2 }
     }
   };
-
-  const typewriterContainer = {
-    hidden: { opacity: 1 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.05, delayChildren: 0.4 }
-    }
-  };
-  
-  const typewriterChar = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { type: 'spring' as const, damping: 12, stiffness: 200 } }
-  };
-
-  const targetWord = "Health Planner";
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-[#00A3E0]/20 selection:text-[#00A3E0]">
@@ -70,13 +55,7 @@ export default function Home() {
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-4xl mx-auto">
             <motion.h1 variants={fadeIn} className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6 leading-[1.1]">
               Mesin Marketing Pribadi untuk <br className="hidden md:block" />
-              <motion.span variants={typewriterContainer} className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#00A3E0] to-indigo-600">
-                {targetWord.split('').map((char, index) => (
-                  <motion.span key={index} variants={typewriterChar} className="inline-block">
-                    {char === ' ' ? '\u00A0' : char}
-                  </motion.span>
-                ))}
-              </motion.span>
+              <TypewriterText text="Health Planner" delay={800} />
             </motion.h1>
             
             <motion.p variants={fadeIn} className="text-lg md:text-xl text-slate-600 mb-10 leading-relaxed font-medium">
@@ -327,6 +306,44 @@ function XCircleIcon(props: React.ComponentProps<'svg'>) {
       <path d="m15 9-6 6" />
       <path d="m9 9 6 6" />
     </svg>
+  );
+}
+
+function TypewriterText({ text, delay = 0 }: { text: string, delay?: number }) {
+  const [displayedText, setDisplayedText] = useState('');
+  
+  useEffect(() => {
+    let i = 0;
+    let timer1: NodeJS.Timeout;
+    let timer2: NodeJS.Timeout;
+    
+    timer1 = setTimeout(() => {
+      timer2 = setInterval(() => {
+        setDisplayedText(text.substring(0, i + 1));
+        i++;
+        if (i === text.length) {
+          clearInterval(timer2);
+        }
+      }, 100);
+    }, delay);
+
+    return () => {
+      clearTimeout(timer1);
+      clearInterval(timer2);
+    };
+  }, [text, delay]);
+
+  return (
+    <span className="inline-block relative">
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3E0] to-indigo-600">
+        {displayedText}
+      </span>
+      <motion.span
+        animate={{ opacity: [1, 0] }}
+        transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
+        className="inline-block w-[4px] h-[1em] bg-indigo-600 align-middle ml-2 relative -top-1"
+      />
+    </span>
   );
 }
 
