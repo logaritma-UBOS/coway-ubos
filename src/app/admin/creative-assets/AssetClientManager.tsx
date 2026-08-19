@@ -1,7 +1,7 @@
 'use client';
 import { useState, useTransition } from 'react';
 import { addAsset, editAsset, deleteAsset } from './actions';
-import { Edit, Trash2, Plus, Clapperboard, Star } from 'lucide-react';
+import { Edit, Trash2, Plus, Clapperboard, Star, Link as LinkIcon } from 'lucide-react';
 
 export default function AssetClientManager({ initialAssets }: { initialAssets: any[] }) {
   const [isPending, startTransition] = useTransition();
@@ -17,6 +17,7 @@ export default function AssetClientManager({ initialAssets }: { initialAssets: a
       price: parseInt(target.price.value, 10) || 0,
       type: target.type.value,
       isPopular: target.isPopular ? target.isPopular.checked : false,
+      fileUrl: target.fileUrl.value || null,
     };
 
     startTransition(async () => {
@@ -55,6 +56,7 @@ export default function AssetClientManager({ initialAssets }: { initialAssets: a
             <tr>
               <th className="p-4 font-bold text-slate-700">Nama Aset & Deskripsi</th>
               <th className="p-4 font-bold text-slate-700">Jenis</th>
+              <th className="p-4 font-bold text-slate-700">Tautan Akses</th>
               <th className="p-4 font-bold text-slate-700">Harga</th>
               <th className="p-4 font-bold text-slate-700 w-32">Aksi</th>
             </tr>
@@ -71,6 +73,13 @@ export default function AssetClientManager({ initialAssets }: { initialAssets: a
                 </td>
                 <td className="p-4">
                   <span className="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wide">{a.type}</span>
+                </td>
+                <td className="p-4">
+                  {a.fileUrl ? (
+                    <a href={a.fileUrl} target="_blank" className="text-blue-500 hover:underline text-xs flex items-center gap-1"><LinkIcon size={12}/> Buka Link</a>
+                  ) : (
+                    <span className="text-slate-400 text-xs italic">Belum diset</span>
+                  )}
                 </td>
                 <td className="p-4 font-mono font-medium text-slate-600">
                   Rp {a.price.toLocaleString('id-ID')}
@@ -118,6 +127,11 @@ export default function AssetClientManager({ initialAssets }: { initialAssets: a
                     <option value="Document">Dokumen/PDF</option>
                   </select>
                 </div>
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-1">Link Akses (Google Drive / File)</label>
+                <input required type="url" name="fileUrl" defaultValue={formData?.fileUrl} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-[#00A3E0] text-slate-900" placeholder="https://drive.google.com/..."/>
+                <p className="text-xs text-slate-400 mt-1">Link rahasia ini baru akan muncul di dashboard agen setelah pembayaran lunas.</p>
               </div>
               <div className="pt-2">
                 <label className="flex items-center gap-2 cursor-pointer w-fit">

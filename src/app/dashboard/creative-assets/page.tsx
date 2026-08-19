@@ -1,11 +1,27 @@
-import { Clapperboard, ShoppingCart, PlayCircle } from 'lucide-react';
+import { Clapperboard, ShoppingCart, PlayCircle, Download } from 'lucide-react';
 import OrderButton from '@/components/OrderButton';
 import prisma from '@/lib/prisma';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 export default async function CreativeAssets() {
+  const session = await getServerSession(authOptions);
+
   const assets = await prisma.creativeAsset.findMany({
     orderBy: { createdAt: 'desc' }
   });
+
+  const orders = await prisma.order.findMany({
+    where: { 
+      agentId: (session?.user as any)?.id, 
+      status: { in: ['PAID', 'COMPLETED', 'SUCCESS'] }
+    },
+    include: {
+      service: true
+    }
+  });
+
+  const ownedAssetTitles = orders.map(o => o.service.title);
 
   return (
     <div className="animate-in fade-in duration-500">
@@ -39,12 +55,18 @@ export default async function CreativeAssets() {
               <p className="text-slate-500 text-sm mb-6 flex-1">{asset.description}</p>
               
               <div className="mt-auto pt-4 border-t border-slate-100">
-                <OrderButton 
-                  serviceName={asset.title}
-                  amount={asset.price}
-                  buttonText={asset.price === 0 ? 'Download Gratis' : `Pesan (Rp ${asset.price.toLocaleString('id-ID')})`}
-                  icon={<ShoppingCart size={18} />}
-                />
+                {(asset.price === 0 || ownedAssetTitles.includes(asset.title)) ? (
+                  <a href={asset.fileUrl || '#'} target="_blank" className="w-full flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white py-3 rounded-xl font-bold transition shadow-sm">
+                    <Download size={18} /> Akses Materi
+                  </a>
+                ) : (
+                  <OrderButton 
+                    serviceName={asset.title}
+                    amount={asset.price}
+                    buttonText={`Pesan (Rp ${asset.price.toLocaleString('id-ID')})`}
+                    icon={<ShoppingCart size={18} />}
+                  />
+                )}
               </div>
             </div>
           </div>

@@ -179,6 +179,7 @@ model CreativeAsset {
   description String
   price       Int      @default(0)
   type        String   // e.g. "Video", "Bundle", "Image"
+  fileUrl     String?  // Link rahasia akses setelah bayar
   isPopular   Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
