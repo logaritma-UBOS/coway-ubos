@@ -115,11 +115,11 @@ export default function BroadcastManager() {
                   <h4 className="font-bold text-slate-800 flex items-center gap-2"><Settings size={16}/> Pengaturan API (Tersimpan Lokal)</h4>
                   <div>
                     <label className="block text-sm font-bold text-slate-700 mb-1">Fonnte API Token</label>
-                    <input type="password" value={fonnteToken} onChange={e => setFonnteToken(e.target.value)} className="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl outline-none focus:border-emerald-500" placeholder="Token dari api.fonnte.com"/>
+                    <input type="password" value={fonnteToken} onChange={e => setFonnteToken(e.target.value)} className="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl outline-none focus:border-emerald-500 text-slate-900 placeholder-slate-400" placeholder="Token dari api.fonnte.com"/>
                   </div>
                   <div>
                     <label className="block text-sm font-bold text-slate-700 mb-1">Gemini API Key</label>
-                    <input type="password" value={geminiKey} onChange={e => setGeminiKey(e.target.value)} className="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl outline-none focus:border-emerald-500" placeholder="Key dari Google AI Studio"/>
+                    <input type="password" value={geminiKey} onChange={e => setGeminiKey(e.target.value)} className="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl outline-none focus:border-emerald-500 text-slate-900 placeholder-slate-400" placeholder="Key dari Google AI Studio"/>
                   </div>
                   <button onClick={saveSettings} className="px-4 py-2 bg-slate-900 text-white rounded-lg text-sm font-bold hover:bg-slate-800 transition">Simpan Pengaturan</button>
                 </div>
@@ -129,7 +129,7 @@ export default function BroadcastManager() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="min-w-0">
                   <label className="block text-sm font-bold text-slate-700 mb-1">Pilih Target Agen</label>
-                  <select value={targetType} onChange={e => setTargetType(e.target.value)} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500 font-medium">
+                  <select value={targetType} onChange={e => setTargetType(e.target.value)} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500 font-medium text-slate-900">
                     <option value="ALL">Semua Agen (Basic & Premium)</option>
                     <option value="BASIC">Hanya Agen Basic</option>
                     <option value="PREMIUM">Hanya Agen Premium</option>
@@ -143,7 +143,7 @@ export default function BroadcastManager() {
                       value={prompt} 
                       onChange={e => setPrompt(e.target.value)} 
                       placeholder="Promo upgrade diskon..." 
-                      className="flex-1 min-w-0 px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500"
+                      className="flex-1 min-w-0 px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500 text-slate-900 placeholder-slate-400"
                     />
                     <button 
                       onClick={handleGenerate}
@@ -167,7 +167,7 @@ export default function BroadcastManager() {
                   value={message}
                   onChange={e => setMessage(e.target.value)}
                   rows={8}
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500 text-slate-900 placeholder-slate-400"
                   placeholder="Ketik manual pesan Anda di sini atau gunakan AI untuk membuatnya..."
                 ></textarea>
               </div>
