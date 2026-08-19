@@ -314,10 +314,9 @@ function TypewriterText({ text, delay = 0 }: { text: string, delay?: number }) {
   
   useEffect(() => {
     let i = 0;
-    let timer1: NodeJS.Timeout;
     let timer2: NodeJS.Timeout;
     
-    timer1 = setTimeout(() => {
+    const timer1 = setTimeout(() => {
       timer2 = setInterval(() => {
         setDisplayedText(text.substring(0, i + 1));
         i++;
@@ -329,7 +328,7 @@ function TypewriterText({ text, delay = 0 }: { text: string, delay?: number }) {
 
     return () => {
       clearTimeout(timer1);
-      clearInterval(timer2);
+      if (timer2) clearInterval(timer2);
     };
   }, [text, delay]);
 
