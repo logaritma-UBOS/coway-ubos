@@ -70,7 +70,7 @@ export default function LandingPageUI({ agent, isPreviewMode = false }: LandingP
         window.open(data.redirectUrl, '_blank');
       } else {
         // Fallback if no redirect URL is returned
-        const targetPhone = agent.whatsappNumber || "62817777616";
+        const targetPhone = agent.whatsappNumber || "6285179660408";
         const cleanPhone = targetPhone.replace(/\D/g, '').replace(/^0/, '62');
         const fallbackMsg = encodeURIComponent(`Halo, saya ${name}. Saya ingin konsultasi mengenai promo pemurni air Coway.`);
         window.open(`https://wa.me/${cleanPhone}?text=${fallbackMsg}`, '_blank');

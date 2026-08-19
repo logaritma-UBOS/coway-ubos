@@ -165,7 +165,7 @@ export default function Login() {
               </p>
               <div className="flex flex-col gap-3">
                 <a 
-                  href="https://wa.me/62817777616?text=Halo%20Admin%20UBOS,%20saya%20lupa%20password%20akun%20saya.%20Mohon%20bantuannya%20untuk%20mereset%20password."
+                  href="https://wa.me/6285179660408?text=Halo%20Admin%20UBOS,%20saya%20lupa%20password%20akun%20saya.%20Mohon%20bantuannya%20untuk%20mereset%20password."
                   target="_blank"
                   onClick={() => setShowResetModal(false)}
                   className="w-full bg-[#00A3E0] hover:bg-sky-600 text-white font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-[#00A3E0]/30 hover:-translate-y-0.5"
