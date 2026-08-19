@@ -128,7 +128,12 @@ export default function Login() {
               </div>
 
               <div className="text-sm">
-                <a href="#" className="font-bold text-[#00A3E0] hover:text-sky-600">
+                <a 
+                  href="https://wa.me/62817777616?text=Halo%20Admin%20UBOS,%20saya%20lupa%20password%20akun%20saya.%20Mohon%20bantuannya%20untuk%20mereset%20password." 
+                  target="_blank"
+                  className="font-bold text-[#00A3E0] hover:text-sky-600"
+                  onClick={() => alert("Anda akan diarahkan ke WhatsApp Admin UBOS untuk proses verifikasi keamanan dan reset password.")}
+                >
                   Lupa password?
                 </a>
               </div>
