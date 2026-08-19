@@ -11,6 +11,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showResetModal, setShowResetModal] = useState(false);
   
   const [formData, setFormData] = useState({
     email: '',
@@ -128,14 +129,16 @@ export default function Login() {
               </div>
 
               <div className="text-sm">
-                <a 
-                  href="https://wa.me/62817777616?text=Halo%20Admin%20UBOS,%20saya%20lupa%20password%20akun%20saya.%20Mohon%20bantuannya%20untuk%20mereset%20password." 
-                  target="_blank"
+                <button 
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowResetModal(true);
+                  }}
                   className="font-bold text-[#00A3E0] hover:text-sky-600"
-                  onClick={() => alert("Anda akan diarahkan ke WhatsApp Admin UBOS untuk proses verifikasi keamanan dan reset password.")}
                 >
                   Lupa password?
-                </a>
+                </button>
               </div>
             </div>
 
@@ -147,6 +150,40 @@ export default function Login() {
           </form>
         </div>
       </div>
+
+      {/* Custom Reset Password Modal */}
+      {showResetModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl w-full max-w-sm shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 border border-slate-100">
+            <div className="p-8 text-center">
+              <div className="w-16 h-16 bg-sky-100 text-[#00A3E0] rounded-full flex items-center justify-center mx-auto mb-5 shadow-sm border border-sky-200">
+                <i className="fa-brands fa-whatsapp text-3xl"></i>
+              </div>
+              <h3 className="text-2xl font-black text-slate-900 mb-3 tracking-tight">Reset Password</h3>
+              <p className="text-sm text-slate-500 mb-8 leading-relaxed">
+                Untuk alasan keamanan, proses pembuatan password baru akan dibantu oleh Admin kami via WhatsApp.
+              </p>
+              <div className="flex flex-col gap-3">
+                <a 
+                  href="https://wa.me/62817777616?text=Halo%20Admin%20UBOS,%20saya%20lupa%20password%20akun%20saya.%20Mohon%20bantuannya%20untuk%20mereset%20password."
+                  target="_blank"
+                  onClick={() => setShowResetModal(false)}
+                  className="w-full bg-[#00A3E0] hover:bg-sky-600 text-white font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-[#00A3E0]/30 hover:-translate-y-0.5"
+                >
+                  <i className="fa-brands fa-whatsapp text-lg"></i> Hubungi Admin
+                </a>
+                <button 
+                  type="button"
+                  onClick={() => setShowResetModal(false)}
+                  className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3.5 px-4 rounded-xl transition"
+                >
+                  Batal
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
