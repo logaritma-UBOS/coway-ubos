@@ -85,6 +85,7 @@ model User {
   analytics     Analytic[]
   commissions   Commission[] @relation("CommissionEarner")
   metaCampaigns MetaCampaign[]
+  withdrawals   Withdrawal[] @relation("AgentWithdrawals")
 }
 
 // ============================================
@@ -208,4 +209,22 @@ model CreativeAsset {
   isPopular   Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+// ============================================
+// PAYOUT / WITHDRAWALS
+// ============================================
+model Withdrawal {
+  id          String   @id @default(uuid())
+  agentId     String
+  amount      Decimal
+  status      String   @default("PENDING") // PENDING, PROCESSING, COMPLETED, FAILED
+  bankName    String
+  accountNo   String
+  accountName String
+  mayarRefId  String?  // Referensi transaksi dari Mayar
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  agent       User     @relation("AgentWithdrawals", fields: [agentId], references: [id], onDelete: Cascade)
 }
