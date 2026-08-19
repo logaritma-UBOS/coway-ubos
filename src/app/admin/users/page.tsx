@@ -35,7 +35,7 @@ export default async function AdminUsers() {
                 </td>
                 <td className="p-4">
                   {user.slug && (
-                    <a href={"/${user.slug}"} target="_blank" className="text-[#00A3E0] font-bold hover:underline">Lihat LP</a>
+                    <a href={`/${user.slug}`} target="_blank" className="text-[#00A3E0] font-bold hover:underline">Lihat LP</a>
                   )}
                 </td>
               </tr>

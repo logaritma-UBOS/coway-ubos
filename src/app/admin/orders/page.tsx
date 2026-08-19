@@ -28,7 +28,7 @@ export default async function AdminOrders() {
                 <td className="p-4 text-slate-600">{order.service.title}</td>
                 <td className="p-4 font-bold text-slate-900">Rp {Number(order.amount).toLocaleString('id-ID')}</td>
                 <td className="p-4">
-                  <span className={px-3 py-1 rounded-full text-xs font-bold }>
+                  <span className={`px-3 py-1 rounded-full text-xs font-bold ${order.status === 'PAID' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
                     {order.status}
                   </span>
                 </td>
