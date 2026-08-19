@@ -86,6 +86,7 @@ model User {
   commissions   Commission[] @relation("CommissionEarner")
   metaCampaigns MetaCampaign[]
   withdrawals   Withdrawal[] @relation("AgentWithdrawals")
+  notifications Notification[] @relation("AgentNotifications")
 }
 
 // ============================================
@@ -227,4 +228,19 @@ model Withdrawal {
   updatedAt   DateTime @updatedAt
 
   agent       User     @relation("AgentWithdrawals", fields: [agentId], references: [id], onDelete: Cascade)
+}
+
+// ============================================
+// NOTIFICATIONS
+// ============================================
+model Notification {
+  id          String   @id @default(uuid())
+  userId      String   
+  title       String
+  message     String   @db.Text
+  type        String   @default("INFO") // INFO, SUCCESS, WARNING, PROMO
+  isRead      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  user        User     @relation("AgentNotifications", fields: [userId], references: [id], onDelete: Cascade)
 }

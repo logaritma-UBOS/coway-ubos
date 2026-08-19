@@ -1,6 +1,7 @@
 'use client';
-import { Bell, LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import { signOut } from 'next-auth/react';
+import NotificationBell from './NotificationBell';
 
 export default function Navbar({ session, userDb }: { session?: any, userDb?: any }) {
   const name = userDb?.name || session?.user?.name || 'Budi Santoso';
@@ -17,10 +18,7 @@ export default function Navbar({ session, userDb }: { session?: any, userDb?: an
         </div>
       </div>
       <div className="flex items-center gap-6">
-        <button className="relative p-2 text-slate-400 hover:text-[#00A3E0] transition">
-          <Bell size={20} />
-          <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
-        </button>
+        <NotificationBell />
         <div className="flex items-center gap-3 border-l border-slate-200 pl-6">
           <div className="text-right hidden sm:block">
             <p className="text-sm font-bold text-slate-800">{name}</p>
