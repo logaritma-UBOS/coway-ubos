@@ -14,6 +14,8 @@ export async function createMockOrder() {
   const session = await getServerSession(authOptions);
   if (!session?.user) return;
   
+  const adminId = (session.user as any).id;
+
   let service = await prisma.service.findFirst({ where: { title: 'Meta Ads Management (7 Hari)' } });
   if (!service) {
     service = await prisma.service.create({
@@ -21,12 +23,23 @@ export async function createMockOrder() {
     });
   }
 
-  await prisma.order.create({
+  // Create Order
+  const order = await prisma.order.create({
     data: {
-      agentId: (session.user as any).id,
+      agentId: adminId,
       serviceId: service.id,
       status: 'PAID',
       amount: 350000
+    }
+  });
+
+  // Automatically create the MetaCampaign so it appears in Admin immediately
+  await prisma.metaCampaign.create({
+    data: {
+      orderId: order.id,
+      agentId: adminId,
+      durationDays: 7,
+      status: 'PENDING'
     }
   });
 
