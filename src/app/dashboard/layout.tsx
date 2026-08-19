@@ -18,7 +18,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row font-sans">
-      <Sidebar />
+      <Sidebar isAdmin={(session.user as any).isAdmin} />
       <div className="flex-1 flex flex-col min-w-0">
         <Navbar session={session} userDb={user} />
         <main className="flex-1 p-4 pb-28 md:p-10 overflow-auto">

@@ -2,13 +2,11 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Globe, Megaphone, Clapperboard, LogOut, Gift, UserCircle, Users } from 'lucide-react';
-import { useSession, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import { ShieldAlert } from 'lucide-react';
 
-export default function Sidebar() {
+export default function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
   const pathname = usePathname();
-  const { data: session } = useSession();
-  const isAdmin = (session?.user as any)?.isAdmin;
   
   const navItems = [
     { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
