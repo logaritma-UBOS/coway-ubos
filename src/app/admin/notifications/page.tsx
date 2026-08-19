@@ -7,7 +7,7 @@ import DeleteButton from "./DeleteButton";
 
 export default async function AdminNotificationsPage() {
   const session = await getServerSession(authOptions);
-  if (!session || (session.user as any).role !== 'SUPER_ADMIN') {
+  if (!session || !(session.user as any).isAdmin) {
     redirect('/login');
   }
 
