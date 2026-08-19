@@ -25,34 +25,53 @@ export default async function DashboardOverview() {
     where: { agentId: userId, status: 'CLOSED' }
   });
 
-  // Mocking detailed CRM data until schema is updated
+  const contactedLeadsCount = await prisma.lead.count({
+    where: { agentId: userId, status: 'CONTACTED' }
+  });
+
+  // Since we don't have actual 'NEGOTIATING' or 'DEMO' statuses yet, we map them as 0 for now.
   const metrics = {
     prospekBaru: newLeadsCount,
-    perluFollowUp: 8,
-    sedangNegosiasi: 4,
-    demo: 3,
+    perluFollowUp: contactedLeadsCount,
+    sedangNegosiasi: 0,
+    demo: 0,
     closingBulanIni: closedLeadsCount,
-    estimasiPipeline: 24500000 // Rp 24.500.000
+    // Asumsi rata-rata harga produk Rp 10.000.000 per lead aktif
+    estimasiPipeline: (newLeadsCount + contactedLeadsCount) * 10000000 
   };
 
-  const followUpTargets = [
-    {
-      id: '1',
-      name: 'Andi Pratama',
-      score: 80,
-      temperature: 'Very Hot' as const,
-      daysSinceLastContact: 3,
-      phone: '081234567890'
+  // Ambil data lead sungguhan untuk Follow Up Assistant (yang bukan CLOSED)
+  const activeLeads = await prisma.lead.findMany({
+    where: { 
+      agentId: userId,
+      status: { not: 'CLOSED' }
     },
-    {
-      id: '2',
-      name: 'Budi Santoso',
-      score: 65,
-      temperature: 'Hot' as const,
-      daysSinceLastContact: 5,
-      phone: '081298765432'
-    }
-  ];
+    orderBy: { createdAt: 'asc' },
+    take: 5
+  });
+
+  // Konversi ke format FollowUpTarget
+  const followUpTargets = activeLeads.map(lead => {
+    // Generate skor deterministik dari panjang ID
+    const hash = lead.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const score = (hash % 40) + (lead.status === 'CONTACTED' ? 40 : 10);
+    
+    // Suhu berdasarkan skor
+    const temperature: 'Cold' | 'Warm' | 'Hot' | 'Very Hot' = score >= 76 ? 'Very Hot' : score >= 51 ? 'Hot' : score >= 21 ? 'Warm' : 'Cold';
+    
+    // Hitung hari sejak dibuat (sebagai asumsi last contact)
+    const diffTime = Math.abs(new Date().getTime() - new Date(lead.createdAt).getTime());
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    return {
+      id: lead.id,
+      name: lead.customerName,
+      score,
+      temperature,
+      daysSinceLastContact: diffDays,
+      phone: lead.whatsappNumber
+    };
+  }).filter(target => target.daysSinceLastContact > 0); // Hanya munculkan yang sudah mengendap minimal 1 hari
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-12">
