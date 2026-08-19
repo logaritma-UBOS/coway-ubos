@@ -30,7 +30,7 @@ export default function Home() {
   
   const typewriterChar = {
     hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 12, stiffness: 200 } }
+    visible: { opacity: 1, y: 0, transition: { type: 'spring' as const, damping: 12, stiffness: 200 } }
   };
 
   const targetWord = "Health Planner";
@@ -102,7 +102,7 @@ export default function Home() {
         <section className="py-24 bg-white border-y border-slate-200">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "0px 0px -100px 0px" }} variants={staggerContainer} className="max-w-4xl mx-auto px-6 text-center">
             <motion.h2 variants={fadeIn} className="text-3xl md:text-4xl font-black tracking-tight mb-8">Masalah Health Planner Bukan Produk</motion.h2>
-            <motion.p variants={fadeIn} className="text-xl text-slate-600 mb-12">Produk Coway sudah tersedia.<br />Materi penjualan juga tersedia.</p>
+            <motion.p variants={fadeIn} className="text-xl text-slate-600 mb-12">Produk Coway sudah tersedia.<br />Materi penjualan juga tersedia.</motion.p>
             
             <motion.div variants={fadeIn} className="text-lg font-medium text-slate-700 space-y-6 mb-16">
               <p>Yang sering menjadi tantangan adalah:</p>
