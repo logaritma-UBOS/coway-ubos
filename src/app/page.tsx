@@ -94,8 +94,8 @@ export default function Home() {
               </div>
             </motion.div>
             
-            <motion.div variants={fadeIn} className="inline-block bg-blue-50 text-blue-700 font-bold px-6 py-4 rounded-2xl text-xl">
-              UBOS membantu Anda membangun sistem untuk menjawab masalah tersebut.
+            <motion.div variants={fadeIn} className="inline-block bg-blue-50 text-blue-700 font-bold px-6 py-4 rounded-2xl text-xl max-w-3xl">
+              UBOS membantu Anda membangun sistem untuk mendapatkan, menerima, dan mengelola prospek.
             </motion.div>
           </motion.div>
         </section>
@@ -242,8 +242,8 @@ export default function Home() {
                   <li className="flex items-start gap-3"><CheckCircle2 className="text-[#00A3E0] shrink-0" size={20} /> <span>Landing page pribadi</span></li>
                   <li className="flex items-start gap-3"><CheckCircle2 className="text-[#00A3E0] shrink-0" size={20} /> <span>URL custom</span></li>
                   <li className="flex items-start gap-3"><CheckCircle2 className="text-[#00A3E0] shrink-0" size={20} /> <span>Domain dan hosting</span></li>
-                  <li className="flex items-start gap-3"><CheckCircle2 className="text-[#00A3E0] shrink-0" size={20} /> <span>Form lead</span></li>
-                  <li className="flex items-start gap-3"><CheckCircle2 className="text-[#00A3E0] shrink-0" size={20} /> <span>Integrasi WhatsApp</span></li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="text-[#00A3E0] shrink-0" size={20} /> <span>Akses Agent CRM</span></li>
+                  <li className="flex items-start gap-3"><CheckCircle2 className="text-[#00A3E0] shrink-0" size={20} /> <span>Sales Kit & Follow-up</span></li>
                 </ul>
                 <Link href="/register" className="w-full block py-4 bg-[#00A3E0] hover:bg-sky-500 text-white font-bold rounded-xl transition">AKTIFKAN LANDING PAGE</Link>
               </motion.div>

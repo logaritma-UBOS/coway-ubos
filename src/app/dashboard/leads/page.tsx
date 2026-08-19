@@ -1,7 +1,8 @@
 import { getServerSession } from 'next-auth';
 import { authOptions, prisma } from '@/lib/auth';
 import { redirect } from 'next/navigation';
-import { Users, Search, Download, MessageCircle } from 'lucide-react';
+import { Users, Search, Download, MessageCircle, Flame } from 'lucide-react';
+import { getLeadTemperature, getTemperatureColor } from '@/lib/utils/leadScoring';
 
 export const metadata = {
   title: 'Manajemen Leads - Coway UBOS',
@@ -10,17 +11,31 @@ export const metadata = {
 export default async function LeadsPage() {
   const session = await getServerSession(authOptions);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   if (!session || !session.user || !(session.user as any).id) {
     redirect('/login');
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const userId = (session.user as any).id;
 
-  // Fetch leads for this agent, ordered by newest first
-  const leads = await prisma.lead.findMany({
+  // Fetch leads for this agent
+  const dbLeads = await prisma.lead.findMany({
     where: { agentId: userId },
     orderBy: { createdAt: 'desc' },
   });
+
+  // Mock scoring for existing leads in a pure way
+  const leads = dbLeads.map(lead => {
+    // Generate a pseudo-random but deterministic score using lead.id
+    const hash = lead.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const mockScore = (hash % 40) + (lead.status === 'CONTACTED' ? 40 : 10);
+    return {
+      ...lead,
+      score: mockScore,
+      temperature: getLeadTemperature(mockScore)
+    };
+  }).sort((a, b) => b.score - a.score);
 
   return (
     <div className="animate-in fade-in duration-500">
@@ -64,6 +79,7 @@ export default async function LeadsPage() {
               <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 text-sm">
                 <th className="p-4 md:px-6 font-bold uppercase tracking-wider">Tanggal</th>
                 <th className="p-4 md:px-6 font-bold uppercase tracking-wider">Nama Calon</th>
+                <th className="p-4 md:px-6 font-bold uppercase tracking-wider">Skor & Suhu</th>
                 <th className="p-4 md:px-6 font-bold uppercase tracking-wider">Nomor WA</th>
                 <th className="p-4 md:px-6 font-bold uppercase tracking-wider">Produk</th>
                 <th className="p-4 md:px-6 font-bold uppercase tracking-wider">Aksi</th>
@@ -72,7 +88,7 @@ export default async function LeadsPage() {
             <tbody className="divide-y divide-slate-100">
               {leads.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="p-8 text-center text-slate-500 font-medium">
+                  <td colSpan={6} className="p-8 text-center text-slate-500 font-medium">
                     Belum ada leads yang masuk. Pastikan Landing Page Anda sudah aktif dan sebar link Anda!
                   </td>
                 </tr>
@@ -85,6 +101,14 @@ export default async function LeadsPage() {
                     <td className="p-4 md:px-6">
                       <p className="font-bold text-slate-900">{lead.customerName}</p>
                       {lead.city && <p className="text-xs text-slate-500">{lead.city}</p>}
+                    </td>
+                    <td className="p-4 md:px-6">
+                      <div className="flex items-center gap-2">
+                        <span className="font-black text-slate-700">{lead.score}</span>
+                        <span className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full border ${getTemperatureColor(lead.temperature)}`}>
+                          <Flame size={12} /> {lead.temperature}
+                        </span>
+                      </div>
                     </td>
                     <td className="p-4 md:px-6">
                       <span className="inline-flex items-center gap-1.5 bg-green-50 text-green-700 px-2.5 py-1 rounded-lg text-sm font-bold border border-green-100">
