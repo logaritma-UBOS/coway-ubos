@@ -44,10 +44,17 @@ export default async function CreativeAssets() {
               </div>
             )}
             
-            <div className="aspect-video bg-slate-100 relative group flex items-center justify-center border-b border-slate-100">
-              <PlayCircle size={48} className="text-slate-300 group-hover:text-pink-500 transition-colors" />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors"></div>
-            </div>
+            {asset.coverUrl ? (
+              <div className="aspect-video relative group flex items-center justify-center border-b border-slate-100 overflow-hidden">
+                <img src={asset.coverUrl} alt={asset.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+              </div>
+            ) : (
+              <div className="aspect-video bg-slate-100 relative group flex items-center justify-center border-b border-slate-100">
+                <PlayCircle size={48} className="text-slate-300 group-hover:text-pink-500 transition-colors" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors"></div>
+              </div>
+            )}
             
             <div className="p-6 flex-1 flex flex-col">
               <span className="text-xs font-bold text-slate-400 uppercase mb-2">{asset.type}</span>
