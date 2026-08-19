@@ -311,36 +311,54 @@ function XCircleIcon(props: React.ComponentProps<'svg'>) {
 
 function TypewriterText({ text, delay = 0 }: { text: string, delay?: number }) {
   const [displayedText, setDisplayedText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isWaiting, setIsWaiting] = useState(true);
   
   useEffect(() => {
-    let i = 0;
-    let timer2: NodeJS.Timeout;
-    
-    const timer1 = setTimeout(() => {
-      timer2 = setInterval(() => {
-        setDisplayedText(text.substring(0, i + 1));
-        i++;
-        if (i === text.length) {
-          clearInterval(timer2);
-        }
-      }, 100);
-    }, delay);
+    let timer: NodeJS.Timeout;
 
-    return () => {
-      clearTimeout(timer1);
-      if (timer2) clearInterval(timer2);
-    };
-  }, [text, delay]);
+    if (isWaiting) {
+      timer = setTimeout(() => {
+        setIsWaiting(false);
+      }, displayedText === '' ? delay : 1000); // Wait initially or before typing again
+      return () => clearTimeout(timer);
+    }
+
+    if (isDeleting) {
+      if (displayedText.length === 0) {
+        timer = setTimeout(() => {
+          setIsDeleting(false);
+          setIsWaiting(true);
+        }, 0);
+        return () => clearTimeout(timer);
+      }
+      timer = setTimeout(() => {
+        setDisplayedText(text.substring(0, displayedText.length - 1));
+      }, 50);
+    } else {
+      if (displayedText.length === text.length) {
+        timer = setTimeout(() => {
+          setIsDeleting(true);
+        }, 3000); // Wait 3 seconds before deleting
+        return () => clearTimeout(timer);
+      }
+      timer = setTimeout(() => {
+        setDisplayedText(text.substring(0, displayedText.length + 1));
+      }, 100);
+    }
+
+    return () => clearTimeout(timer);
+  }, [displayedText, isDeleting, isWaiting, text, delay]);
 
   return (
     <span className="inline-block relative">
-      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3E0] to-indigo-600">
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3E0] to-indigo-600 min-w-[200px] inline-block text-left">
         {displayedText}
       </span>
       <motion.span
         animate={{ opacity: [1, 0] }}
         transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-        className="inline-block w-[4px] h-[1em] bg-indigo-600 align-middle ml-2 relative -top-1"
+        className="inline-block w-[4px] h-[1em] bg-indigo-600 align-middle ml-1 relative -top-1"
       />
     </span>
   );
