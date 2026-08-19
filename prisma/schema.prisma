@@ -84,6 +84,7 @@ model User {
   orders        Order[]
   analytics     Analytic[]
   commissions   Commission[] @relation("CommissionEarner")
+  metaCampaigns MetaCampaign[]
 }
 
 // ============================================
@@ -123,6 +124,29 @@ model Order {
   agent           User      @relation(fields: [agentId], references: [id])
   service         Service   @relation(fields: [serviceId], references: [id])
   commission      Commission?
+  metaCampaign    MetaCampaign?
+}
+
+// ============================================
+// META ADS CAMPAIGNS
+// ============================================
+model MetaCampaign {
+  id              String    @id @default(uuid())
+  orderId         String    @unique
+  agentId         String
+  durationDays    Int
+  status          String    @default("PENDING") // PENDING, ACTIVE, COMPLETED
+  startDate       DateTime?
+  endDate         DateTime?
+  spentBudget     Int       @default(0)
+  leadsGenerated  Int       @default(0)
+  reportNotes     String?   @db.Text
+  reportImageUrl  String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  order           Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  agent           User      @relation(fields: [agentId], references: [id], onDelete: Cascade)
 }
 
 // ============================================
