@@ -76,7 +76,7 @@ export default function UserClientManager({ initialUsers }: { initialUsers: any[
             <form onSubmit={handleEditPassword} className="space-y-4">
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-1">Password Baru</label>
-                <input required type="text" name="newPassword" minLength={6} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-amber-500" placeholder="Minimal 6 karakter"/>
+                <input required type="text" name="newPassword" minLength={6} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-amber-500 text-slate-900" placeholder="Minimal 6 karakter"/>
               </div>
               <div className="pt-4 flex gap-3">
                 <button type="button" onClick={() => setPasswordModal(null)} className="flex-1 px-4 py-2 text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl font-bold transition">Batal</button>

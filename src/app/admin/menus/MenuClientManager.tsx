@@ -100,21 +100,21 @@ export default function MenuClientManager({ initialMenus }: { initialMenus: any[
             <form onSubmit={handleSave} className="space-y-4">
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-1">Nama Menu</label>
-                <input required type="text" name="name" defaultValue={formData?.name} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-[#00A3E0]" placeholder="Misal: Modul Canva"/>
+                <input required type="text" name="name" defaultValue={formData?.name} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-[#00A3E0] text-slate-900" placeholder="Misal: Modul Canva"/>
               </div>
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-1">Tautan URL</label>
-                <input required type="text" name="href" defaultValue={formData?.href} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-[#00A3E0]" placeholder="https:// atau /dashboard/..."/>
+                <input required type="text" name="href" defaultValue={formData?.href} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-[#00A3E0] text-slate-900" placeholder="https:// atau /dashboard/..."/>
               </div>
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-1">Nama Ikon (Lucide React)</label>
-                <input required type="text" name="iconName" defaultValue={formData?.iconName || 'Link'} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-[#00A3E0]" placeholder="Misal: Globe, Link, Image"/>
+                <input required type="text" name="iconName" defaultValue={formData?.iconName || 'Link'} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-[#00A3E0] text-slate-900" placeholder="Misal: Globe, Link, Image"/>
                 <p className="text-xs text-slate-400 mt-1">Referensi ikon: <a href="https://lucide.dev/icons" target="_blank" className="text-blue-500 hover:underline">lucide.dev</a></p>
               </div>
               <div className="flex gap-4">
                 <div className="flex-1">
                   <label className="block text-sm font-bold text-slate-700 mb-1">Urutan</label>
-                  <input required type="number" name="order" defaultValue={formData?.order || initialMenus.length + 1} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-[#00A3E0]"/>
+                  <input required type="number" name="order" defaultValue={formData?.order || initialMenus.length + 1} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-[#00A3E0] text-slate-900"/>
                 </div>
                 {formData && (
                   <div className="flex-1 flex flex-col justify-end">
