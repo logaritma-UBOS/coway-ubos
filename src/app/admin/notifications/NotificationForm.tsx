@@ -35,7 +35,7 @@ export default function NotificationForm() {
 
       <div>
         <label className="block text-sm font-bold text-slate-700 mb-1">Target Audiens</label>
-        <select name="target" required className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500 font-medium">
+        <select name="target" required className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500 font-medium text-slate-900">
           <option value="ALL">Semua Agen (Basic & Premium)</option>
           <option value="BASIC">Hanya Agen Basic</option>
           <option value="PREMIUM">Hanya Agen Premium</option>
@@ -45,7 +45,7 @@ export default function NotificationForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-1">Tipe / Warna</label>
-          <select name="type" required className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500 font-medium">
+          <select name="type" required className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500 font-medium text-slate-900">
             <option value="INFO">Info (Biru)</option>
             <option value="SUCCESS">Sukses (Hijau)</option>
             <option value="WARNING">Peringatan (Kuning)</option>
@@ -54,13 +54,13 @@ export default function NotificationForm() {
         </div>
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-1">Judul Singkat</label>
-          <input type="text" name="title" required placeholder="Cth: Promo Diskan 50%!" className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500" />
+          <input type="text" name="title" required placeholder="Cth: Promo Diskon 50%!" className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500 text-slate-900 placeholder-slate-400" />
         </div>
       </div>
 
       <div>
         <label className="block text-sm font-bold text-slate-700 mb-1">Isi Pesan Notifikasi</label>
-        <textarea name="message" required rows={3} placeholder="Detail pesan Anda..." className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500"></textarea>
+        <textarea name="message" required rows={3} placeholder="Detail pesan Anda..." className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500 text-slate-900 placeholder-slate-400"></textarea>
       </div>
 
       <button 
