@@ -1,24 +1,24 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import * as LucideIcons from 'lucide-react';
+import { LayoutDashboard, Globe, Megaphone, Clapperboard, LogOut, Gift, UserCircle, Users, ShieldAlert } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 
-export default function Sidebar({ isAdmin = false, dynamicMenus = [] }: { isAdmin?: boolean, dynamicMenus?: any[] }) {
+export default function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
   const pathname = usePathname();
   
-  const navItems: any[] = dynamicMenus.length > 0 ? dynamicMenus.map(m => ({
-    name: m.name,
-    href: m.href,
-    icon: (LucideIcons as any)[m.iconName] || LucideIcons.Circle,
-    isExternal: m.href.startsWith('http')
-  })) : [
-    { name: 'Overview', href: '/dashboard', icon: LucideIcons.LayoutDashboard },
-    { name: 'Daftar Leads', href: '/dashboard/leads', icon: LucideIcons.Users },
-  ]; // fallback
+  const navItems = [
+    { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
+    { name: 'Daftar Leads', href: '/dashboard/leads', icon: Users },
+    { name: 'Profile & Settings', href: '/dashboard/profile', icon: UserCircle },
+    { name: 'Landing Page Coway', href: '/dashboard/landingpage', icon: Globe },
+    { name: 'Meta Ads Manager', href: '/dashboard/meta-ads', icon: Megaphone },
+    { name: 'Creative Assets', href: '/dashboard/creative-assets', icon: Clapperboard },
+    { name: 'Program Affiliate', href: '/dashboard/affiliate', icon: Gift },
+  ];
 
   if (isAdmin) {
-    navItems.push({ name: 'Super Admin', href: '/admin', icon: LucideIcons.ShieldAlert as any });
+    navItems.push({ name: 'Super Admin', href: '/admin', icon: ShieldAlert as any });
   }
 
   return (
@@ -39,7 +39,6 @@ export default function Sidebar({ isAdmin = false, dynamicMenus = [] }: { isAdmi
               <Link 
                 key={item.name} 
                 href={item.href} 
-                target={item.isExternal ? '_blank' : undefined}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition font-medium ${
                   isActive 
                     ? 'bg-[#00A3E0]/10 text-[#00A3E0]' 
@@ -54,7 +53,7 @@ export default function Sidebar({ isAdmin = false, dynamicMenus = [] }: { isAdmi
         </nav>
         <div className="p-4 border-t border-slate-800">
           <button onClick={() => signOut({ callbackUrl: '/login' })} className="flex items-center gap-3 w-full px-4 py-3 text-red-400 hover:bg-slate-800 rounded-xl transition font-medium text-left">
-            <LucideIcons.LogOut size={20} />
+            <LogOut size={20} />
             Logout
           </button>
         </div>
@@ -70,7 +69,6 @@ export default function Sidebar({ isAdmin = false, dynamicMenus = [] }: { isAdmi
             <Link 
               key={item.name} 
               href={item.href} 
-              target={item.isExternal ? '_blank' : undefined}
               className={`flex flex-col items-center justify-center p-2 rounded-xl transition-all w-20 ${
                 isActive ? 'text-[#00A3E0]' : 'text-slate-400 hover:text-slate-300'
               }`}

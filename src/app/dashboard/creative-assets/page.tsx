@@ -1,32 +1,11 @@
-'use client';
-import { Clapperboard, Download, ShoppingCart, PlayCircle } from 'lucide-react';
+import { Clapperboard, ShoppingCart, PlayCircle } from 'lucide-react';
 import OrderButton from '@/components/OrderButton';
+import prisma from '@/lib/prisma';
 
-export default function CreativeAssets() {
-  const assets = [
-    {
-      id: 1,
-      title: 'Paket 5 Video UGC Coway Ombak (Format TikTok/Reels)',
-      price: 75000,
-      description: 'Video review gaya UGC (User Generated Content) yang terbukti converting untuk iklan maupun organik.',
-      type: 'Video',
-    },
-    {
-      id: 2,
-      title: 'Paket Bundling 10 Video + Copywriting Caption',
-      price: 125000,
-      description: 'Kumpulan 10 video HD produk Coway berbagai varian, dilengkapi template caption siap post.',
-      type: 'Bundle',
-      popular: true,
-    },
-    {
-      id: 3,
-      title: 'Template Banner Image FB Feed (10 Desain)',
-      price: 50000,
-      description: 'Banner edukasi air bersih dan spesifikasi produk Coway siap pakai untuk update status WA / Feed FB.',
-      type: 'Image',
-    }
-  ];
+export default async function CreativeAssets() {
+  const assets = await prisma.creativeAsset.findMany({
+    orderBy: { createdAt: 'desc' }
+  });
 
   return (
     <div className="animate-in fade-in duration-500">
@@ -42,8 +21,8 @@ export default function CreativeAssets() {
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {assets.map((asset) => (
-          <div key={asset.id} className={`bg-white rounded-2xl border ${asset.popular ? 'border-pink-500 shadow-pink-100' : 'border-slate-200'} shadow-sm overflow-hidden flex flex-col relative`}>
-            {asset.popular && (
+          <div key={asset.id} className={`bg-white rounded-2xl border ${asset.isPopular ? 'border-pink-500 shadow-pink-100' : 'border-slate-200'} shadow-sm overflow-hidden flex flex-col relative`}>
+            {asset.isPopular && (
               <div className="absolute top-4 right-4 bg-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full z-10">
                 Paling Laris
               </div>
@@ -63,13 +42,19 @@ export default function CreativeAssets() {
                 <OrderButton 
                   serviceName={asset.title}
                   amount={asset.price}
-                  buttonText={`Pesan (Rp ${asset.price.toLocaleString('id-ID')})`}
+                  buttonText={asset.price === 0 ? 'Download Gratis' : `Pesan (Rp ${asset.price.toLocaleString('id-ID')})`}
                   icon={<ShoppingCart size={18} />}
                 />
               </div>
             </div>
           </div>
         ))}
+
+        {assets.length === 0 && (
+          <div className="col-span-full py-12 text-center text-slate-500">
+            Belum ada katalog aset yang tersedia.
+          </div>
+        )}
       </div>
     </div>
   );

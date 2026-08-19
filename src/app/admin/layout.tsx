@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { ShieldCheck, LayoutDashboard, Users, CreditCard, PieChart, MenuSquare, ArrowLeft } from "lucide-react";
+import { ShieldCheck, LayoutDashboard, Users, CreditCard, PieChart, Clapperboard, ArrowLeft } from "lucide-react";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(authOptions);
@@ -23,7 +23,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <Link href="/admin/users" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><Users size={18}/> Data Agen</Link>
           <Link href="/admin/orders" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><CreditCard size={18}/> Transaksi</Link>
           <Link href="/admin/leads" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><PieChart size={18}/> Rekap Leads</Link>
-          <Link href="/admin/menus" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><MenuSquare size={18}/> Manajemen Menu</Link>
+          <Link href="/admin/creative-assets" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><Clapperboard size={18}/> Creative Assets</Link>
         </nav>
         <div className="p-4 border-t border-slate-700/50">
           <Link href="/dashboard" className="flex justify-center items-center gap-2 w-full px-4 py-3 bg-white/5 hover:bg-white/10 rounded-xl transition font-medium text-sm text-slate-300">

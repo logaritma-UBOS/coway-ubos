@@ -169,3 +169,17 @@ model FeatureMenu {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+// ============================================
+// CREATIVE ASSETS CMS
+// ============================================
+model CreativeAsset {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  price       Int      @default(0)
+  type        String   // e.g. "Video", "Bundle", "Image"
+  isPopular   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
