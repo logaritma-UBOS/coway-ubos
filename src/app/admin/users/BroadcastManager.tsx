@@ -127,7 +127,7 @@ export default function BroadcastManager() {
 
               {/* Target & AI Generation */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
+                <div className="min-w-0">
                   <label className="block text-sm font-bold text-slate-700 mb-1">Pilih Target Agen</label>
                   <select value={targetType} onChange={e => setTargetType(e.target.value)} className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500 font-medium">
                     <option value="ALL">Semua Agen (Basic & Premium)</option>
@@ -135,20 +135,20 @@ export default function BroadcastManager() {
                     <option value="PREMIUM">Hanya Agen Premium</option>
                   </select>
                 </div>
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-1">Instruksi Copywriting AI</label>
+                <div className="min-w-0">
+                  <label className="block text-sm font-bold text-slate-700 mb-1 truncate">Instruksi Copywriting AI</label>
                   <div className="flex gap-2">
                     <input 
                       type="text" 
                       value={prompt} 
                       onChange={e => setPrompt(e.target.value)} 
-                      placeholder="Cth: Promo upgrade diskon 50%" 
-                      className="flex-1 px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500"
+                      placeholder="Promo upgrade diskon..." 
+                      className="flex-1 min-w-0 px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500"
                     />
                     <button 
                       onClick={handleGenerate}
                       disabled={isGenerating || !prompt}
-                      className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition disabled:opacity-50 flex items-center gap-2 font-bold"
+                      className="shrink-0 px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition disabled:opacity-50 flex items-center gap-2 font-bold"
                     >
                       {isGenerating ? <Loader2 size={16} className="animate-spin"/> : <Sparkles size={16}/>}
                       Buat
