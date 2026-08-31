@@ -14,7 +14,6 @@ export default function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
     { name: 'Landing Page Coway', href: '/dashboard/landingpage', icon: Globe },
     { name: 'Meta Ads Manager', href: '/dashboard/meta-ads', icon: Megaphone },
     { name: 'Creative Assets', href: '/dashboard/creative-assets', icon: Clapperboard },
-    { name: 'Program Affiliate', href: '/dashboard/affiliate', icon: Gift },
   ];
 
   if (isAdmin) {
