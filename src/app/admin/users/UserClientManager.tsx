@@ -1,7 +1,7 @@
 'use client';
 import { useState, useTransition } from 'react';
-import { updateUserPassword, deleteUser } from './actions';
-import { KeyRound, Trash2, ExternalLink } from 'lucide-react';
+import { updateUserPassword, deleteUser, togglePremiumStatus } from './actions';
+import { KeyRound, Trash2, ExternalLink, Crown } from 'lucide-react';
 
 export default function UserClientManager({ initialUsers }: { initialUsers: any[] }) {
   const [isPending, startTransition] = useTransition();
@@ -23,6 +23,14 @@ export default function UserClientManager({ initialUsers }: { initialUsers: any[
         if (res && !res.success) {
           alert(res.error);
         }
+      });
+    }
+  };
+
+  const handleTogglePremium = (id: string, name: string, currentStatus: boolean) => {
+    if (confirm(`Apakah Anda yakin ingin mengubah status Premium agen ${name} menjadi ${currentStatus ? 'BASIC' : 'PREMIUM'}?`)) {
+      startTransition(async () => {
+        await togglePremiumStatus(id, !currentStatus);
       });
     }
   };
@@ -62,6 +70,7 @@ export default function UserClientManager({ initialUsers }: { initialUsers: any[
                   )}
                 </td>
                 <td className="p-4 flex gap-2 justify-center">
+                  <button onClick={() => handleTogglePremium(user.id, user.name, user.isPremium)} title={user.isPremium ? 'Ubah ke Basic' : 'Ubah ke Premium'} className={`p-2 rounded-lg transition ${user.isPremium ? 'text-emerald-500 hover:bg-emerald-50' : 'text-slate-400 hover:text-emerald-500 hover:bg-emerald-50'}`}><Crown size={18}/></button>
                   <button onClick={() => setPasswordModal(user)} title="Ubah Password" className="p-2 text-slate-400 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition"><KeyRound size={18}/></button>
                   <button onClick={() => handleDelete(user.id, user.name)} title="Hapus Akun Permanen" className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition"><Trash2 size={18}/></button>
                 </td>

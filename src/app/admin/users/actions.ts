@@ -9,6 +9,11 @@ export async function updateUserPassword(id: string, newPassword: string) {
   revalidatePath('/admin/users');
 }
 
+export async function togglePremiumStatus(id: string, isPremium: boolean) {
+  await prisma.user.update({ where: { id }, data: { isPremium } });
+  revalidatePath('/admin/users');
+}
+
 export async function deleteUser(id: string) {
   try {
     await prisma.$transaction([
