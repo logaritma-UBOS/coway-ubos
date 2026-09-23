@@ -65,7 +65,22 @@ export default async function LandingPageSetup() {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Paket Basic */}
+            <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 flex flex-col hover:border-[#00A3E0] hover:shadow-md transition">
+              <h3 className="text-lg font-bold text-slate-900 mb-2">LP Basic</h3>
+              <p className="text-sm text-slate-500 mb-6 flex-1">Landing page sederhana dengan informasi kontak dan pengenalan layanan.</p>
+              <div className="mb-6">
+                <p className="text-3xl font-black text-slate-900">Rp99.000</p>
+                <p className="text-xs font-bold text-slate-400 mt-1 uppercase">Lisensi Sekali Bayar</p>
+              </div>
+              <ActivationButton title="LP Basic" price={99000} />
+              
+              <a href={`/${slug}?preview=true&basic=true`} target="_blank" className="mt-3 text-center text-[#00A3E0] text-sm font-bold flex items-center justify-center gap-1 hover:underline">
+                <Eye size={16} /> Preview
+              </a>
+            </div>
+
             {/* Paket 1 */}
             <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 flex flex-col hover:border-[#00A3E0] hover:shadow-md transition">
               <h3 className="text-lg font-bold text-slate-900 mb-2">LP Penjualan Produk</h3>
@@ -90,6 +105,10 @@ export default async function LandingPageSetup() {
                 <p className="text-xs font-bold text-slate-400 mt-1 uppercase">Lisensi Sekali Bayar</p>
               </div>
               <ActivationButton title="LP Rekrutmen Agen" price={250000} />
+              
+              <a href={`/${slug}/karir?preview=true`} target="_blank" className="mt-3 text-center text-[#00A3E0] text-sm font-bold flex items-center justify-center gap-1 hover:underline">
+                <Eye size={16} /> Preview
+              </a>
             </div>
 
             {/* Paket 3: Bundling */}

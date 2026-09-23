@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import prisma from '@/lib/prisma';
-import LandingPageUI from '@/components/LandingPageUI';
-import ProdukLP from '@/components/ProdukLP';
+import RekrutmenLP from '@/components/RekrutmenLP';
 import PageViewTracker from '@/components/PageViewTracker';
 import { Metadata } from 'next';
 import { Lock } from 'lucide-react';
@@ -12,15 +11,15 @@ interface PageProps {
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const { slug } = await params;
-  const agent = await prisma.user.findUnique({ where: { slug }, select: { name: true, isPremium: true } });
+  const agent = await prisma.user.findUnique({ where: { slug }, select: { name: true, hasRecruitLp: true } });
   
-  if (!agent?.isPremium) {
+  if (!agent?.hasRecruitLp) {
     return { title: 'Halaman Belum Aktif - Coway Logaritma' };
   }
   
   const agentName = agent?.name || 'Agen Resmi';
-  const title = `Promo Water Purifier Coway Terbaik - ${agentName}`;
-  const description = `Dapatkan penawaran promo water purifier dan air purifier Coway terbaik dari ${agentName}, Agen Resmi Coway. Bebas biaya pasang & servis berkala!`;
+  const title = `Peluang Karir Agen Coway - Bersama ${agentName}`;
+  const description = `Bergabunglah menjadi tim mandiri Coway bersama ${agentName}. Dapatkan penghasilan jutaan rupiah tanpa modal stok barang!`;
 
   return {
     title,
@@ -29,17 +28,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       title,
       description,
       type: 'website',
-      images: ['https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/coway-new-logo-2020.png'],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
     }
   };
 }
 
-export default async function LandingPage(props: { params: Promise<{ slug: string }>, searchParams: Promise<{ preview?: string }> }) {
+export default async function RecruitmentPage(props: { params: Promise<{ slug: string }>, searchParams: Promise<{ preview?: string }> }) {
   const { slug } = await props.params;
   const searchParams = await props.searchParams;
   const isPreview = searchParams?.preview === 'true';
@@ -52,15 +45,17 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
     notFound();
   }
 
-  if (!agentData.isPremium && !isPreview) {
+  const hasRecruitLp = (agentData as any).hasRecruitLp;
+
+  if (!hasRecruitLp && !isPreview) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 px-6 font-sans antialiased">
         <div className="text-center max-w-md bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
           <div className="w-20 h-20 bg-rose-50 rounded-full flex items-center justify-center mx-auto mb-6 text-rose-500">
             <Lock size={32} />
           </div>
-          <h1 className="text-2xl font-black text-slate-900 mb-3 tracking-tight">Halaman Belum Aktif</h1>
-          <p className="text-slate-500 mb-8 font-medium leading-relaxed">Pemilik Landing Page ini belum melakukan aktivasi atau masa aktif telah habis. Silakan hubungi agen yang bersangkutan.</p>
+          <h1 className="text-2xl font-black text-slate-900 mb-3 tracking-tight">Halaman Rekrutmen Belum Aktif</h1>
+          <p className="text-slate-500 mb-8 font-medium leading-relaxed">Pemilik Landing Page ini belum mengaktifkan lisensi Landing Page Rekrutmen. Silakan hubungi agen yang bersangkutan.</p>
           <a href="/" className="inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl w-full">
             Kembali ke Beranda
           </a>
@@ -72,41 +67,25 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
   return (
     <>
       <PageViewTracker agentId={agentData.id} />
-      {(!agentData.isPremium && isPreview) && (
+      {(!hasRecruitLp && isPreview) && (
         <div className="fixed inset-0 z-[999] pointer-events-none flex flex-col items-center justify-center overflow-hidden">
-          {/* Watermark overlay pattern */}
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'200\' height=\'200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Ctext x=\'50%25\' y=\'50%25\' font-size=\'24\' font-family=\'sans-serif\' font-weight=\'bold\' fill=\'%23000\' text-anchor=\'middle\' transform=\'rotate(-45 100 100)\'%3EPREVIEW%3C/text%3E%3C/svg%3E")', backgroundSize: '200px 200px' }}></div>
-          
           <div className="bg-white/95 backdrop-blur-md px-10 py-6 rounded-3xl border-2 border-rose-500 shadow-2xl transform -rotate-12 pointer-events-auto">
             <h2 className="text-4xl md:text-5xl font-black text-rose-600 tracking-widest uppercase mb-2">PREVIEW DESAIN</h2>
             <p className="text-center text-slate-800 font-bold text-lg">Silakan lakukan aktivasi untuk menggunakan fitur ini</p>
           </div>
         </div>
       )}
-      {/* Route to the correct template based on license */}
-      {((agentData as any).hasProductLp && searchParams?.basic !== 'true') ? (
-        <ProdukLP 
-          agent={{
-            id: agentData.id,
-            fullName: agentData.name || 'Agen Coway',
-            whatsappNumber: agentData.whatsappNumber || '081234567890',
-            profileImageUrl: agentData.image || null,
-            cowayId: (agentData as any).cowayId || null,
-            phone: agentData.whatsappNumber || '081234567890'
-          }}
-        />
-      ) : (
-        <LandingPageUI 
-          agent={{
-            id: agentData.id,
-            fullName: agentData.name || 'Agen Coway',
-            whatsappNumber: agentData.whatsappNumber || '081234567890',
-            profileImageUrl: agentData.image || null,
-            bio: 'Saya siap membantu Anda menemukan pemurni air Coway yang tepat untuk keluarga Anda.',
-          }}
-          isPreviewMode={!agentData.isPremium && isPreview}
-        />
-      )}
+      <RekrutmenLP 
+        agent={{
+          id: agentData.id,
+          fullName: agentData.name || 'Agen Coway',
+          whatsappNumber: agentData.whatsappNumber || '081234567890',
+          profileImageUrl: agentData.image || null,
+          cowayId: (agentData as any).cowayId || null,
+          phone: agentData.whatsappNumber || '081234567890'
+        }}
+      />
     </>
   );
 }
