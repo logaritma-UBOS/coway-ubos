@@ -58,10 +58,10 @@ export default async function AdminDashboard() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-          <h2 className="text-xl font-bold text-slate-900 mb-4">Agen Pendaftar Terbaru</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 overflow-x-auto">
+          <h2 className="text-xl font-bold text-slate-900 mb-4 whitespace-nowrap">Agen Pendaftar Terbaru</h2>
+          <div>
+            <table className="w-full text-left text-sm whitespace-nowrap md:whitespace-normal">
               <thead>
                 <tr className="border-b border-slate-100 text-slate-500">
                   <th className="pb-3 font-medium">Nama</th>
@@ -89,10 +89,10 @@ export default async function AdminDashboard() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-          <h2 className="text-xl font-bold text-slate-900 mb-4">Transaksi Terbaru</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 overflow-x-auto">
+          <h2 className="text-xl font-bold text-slate-900 mb-4 whitespace-nowrap">Transaksi Terbaru</h2>
+          <div>
+            <table className="w-full text-left text-sm whitespace-nowrap md:whitespace-normal">
               <thead>
                 <tr className="border-b border-slate-100 text-slate-500">
                   <th className="pb-3 font-medium">Agen</th>

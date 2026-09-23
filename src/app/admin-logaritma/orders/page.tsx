@@ -9,8 +9,8 @@ export default async function AdminOrders() {
   return (
     <div>
       <h1 className="text-3xl font-black text-slate-900 mb-8">Data Transaksi</h1>
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <table className="w-full text-left text-sm">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden overflow-x-auto">
+        <table className="w-full text-left text-sm whitespace-nowrap md:whitespace-normal">
           <thead className="bg-slate-50 border-b border-slate-200">
             <tr>
               <th className="p-4 font-bold text-slate-700">Tanggal</th>

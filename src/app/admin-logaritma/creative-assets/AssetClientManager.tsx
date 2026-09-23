@@ -54,8 +54,8 @@ export default function AssetClientManager({ initialAssets }: { initialAssets: a
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <table className="w-full text-left text-sm">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden overflow-x-auto">
+        <table className="w-full text-left text-sm whitespace-nowrap md:whitespace-normal">
           <thead className="bg-slate-50 border-b border-slate-200">
             <tr>
               <th className="p-4 font-bold text-slate-700">Nama Aset & Deskripsi</th>
