@@ -117,11 +117,11 @@ export default async function LandingPageSetup() {
                 Paling Hemat
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Paket Bundling Lengkap</h3>
-              <p className="text-sm text-slate-400 mb-6 flex-1">Dapatkan kedua Landing Page (Produk & Rekrutmen) sekaligus dengan harga yang jauh lebih murah.</p>
+              <p className="text-sm text-slate-400 mb-6 flex-1">Dapatkan ketiga Landing Page (Basic, Produk & Rekrutmen) sekaligus dengan harga yang jauh lebih murah.</p>
               <div className="mb-6">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-sm text-slate-500 line-through">Rp500.000</span>
-                  <span className="text-xs bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded">Hemat Rp101.000</span>
+                  <span className="text-sm text-slate-500 line-through">Rp599.000</span>
+                  <span className="text-xs bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded">Hemat Rp200.000</span>
                 </div>
                 <p className="text-3xl font-black text-white">Rp399.000</p>
                 <p className="text-xs font-bold text-slate-500 mt-1 uppercase">Lisensi Sekali Bayar</p>
