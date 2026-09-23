@@ -77,9 +77,9 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
           {/* Watermark overlay pattern */}
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'200\' height=\'200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Ctext x=\'50%25\' y=\'50%25\' font-size=\'24\' font-family=\'sans-serif\' font-weight=\'bold\' fill=\'%23000\' text-anchor=\'middle\' transform=\'rotate(-45 100 100)\'%3EPREVIEW%3C/text%3E%3C/svg%3E")', backgroundSize: '200px 200px' }}></div>
           
-          <div className="bg-white/95 backdrop-blur-md px-10 py-6 rounded-3xl border-2 border-rose-500 shadow-2xl transform -rotate-12 pointer-events-auto">
-            <h2 className="text-4xl md:text-5xl font-black text-rose-600 tracking-widest uppercase mb-2">PREVIEW DESAIN</h2>
-            <p className="text-center text-slate-800 font-bold text-lg">Silakan lakukan aktivasi untuk menggunakan fitur ini</p>
+          <div className="bg-white/95 backdrop-blur-md px-6 py-4 md:px-10 md:py-6 rounded-3xl border-2 border-rose-500 shadow-2xl transform -rotate-12 pointer-events-auto max-w-[85vw] mx-auto text-center">
+            <h2 className="text-2xl md:text-5xl font-black text-rose-600 tracking-widest uppercase mb-1 md:mb-2">PREVIEW DESAIN</h2>
+            <p className="text-slate-800 font-bold text-sm md:text-lg">Silakan lakukan aktivasi untuk menggunakan fitur ini</p>
           </div>
         </div>
       )}

@@ -62,6 +62,27 @@ src="https://www.facebook.com/tr?id=1336989844860819&ev=PageView&noscript=1"
 <link rel='stylesheet' id='oxygen-cache-7-css' href="https://cowayagent.id/wp-content/uploads/oxygen/css/7.css?cache=1783393953&#038;ver=7.1.2" media='all' />
 <link rel='stylesheet' id='oxygen-universal-styles-css' href="https://cowayagent.id/wp-content/uploads/oxygen/css/universal.css?cache=1787915762&#038;ver=7.1.2" media='all' />
 <!-- END OF WP_HEAD() -->
+
+<style>
+  /* Fix Oxygen Builder mobile menu */
+  .oxy-nav-menu.oxy-nav-menu-open .oxy-nav-menu-list {
+    display: flex !important;
+    flex-direction: column !important;
+    background: #fff !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 999999 !important;
+    padding: 10px 0 !important;
+  }
+  .oxy-nav-menu.oxy-nav-menu-open .oxy-nav-menu-list a {
+    color: #000 !important;
+    padding: 15px 20px !important;
+    display: block !important;
+    font-size: 16px !important;
+    border-bottom: 1px solid #eee !important;
+  }
+</style>
 `;
 export const bodyHtml = `
 
