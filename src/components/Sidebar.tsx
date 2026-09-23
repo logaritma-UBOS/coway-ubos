@@ -20,7 +20,6 @@ export default function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
     { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
     { name: 'Daftar Leads', href: '/dashboard/leads', icon: Users },
     { name: 'Landing Page', href: '/dashboard/landingpage', icon: Globe },
-    { name: 'Marketplace', href: '/dashboard/store', icon: ShoppingCart },
     { name: 'Meta Ads', href: '/dashboard/meta-ads', icon: Megaphone },
     { name: 'Creative Assets', href: '/dashboard/creative-assets', icon: Clapperboard },
     { name: 'Profile', href: '/dashboard/profile', icon: UserCircle },

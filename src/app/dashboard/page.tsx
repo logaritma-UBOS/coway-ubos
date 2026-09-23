@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions, prisma } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import FollowUpAssistant from '@/components/dashboard/FollowUpAssistant';
+import LogaritmaOnboarding from '@/components/LogaritmaOnboarding';
 
 export default async function DashboardOverview() {
   const session = await getServerSession(authOptions);
@@ -90,6 +91,8 @@ export default async function DashboardOverview() {
           </span>
         </div>
       </div>
+
+      <LogaritmaOnboarding />
 
       {/* Financial & Pipeline Metrics (TOP PRIORITY) */}
       <div>
