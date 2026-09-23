@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Globe, Zap, Users, ShieldCheck, CheckCircle2, TrendingUp, BarChart3, MessageCircle, MonitorSmartphone, Target, MessageSquare, ListTodo, FileText, Focus } from 'lucide-react';
+import { ArrowRight, ArrowDown, Globe, Zap, Users, ShieldCheck, CheckCircle2, TrendingUp, BarChart3, MessageCircle, MonitorSmartphone, Target, MessageSquare, ListTodo, FileText, Focus } from 'lucide-react';
 import { motion } from 'framer-motion';
 import AffiliateTracker from '@/components/AffiliateTracker';
 import { Suspense, useState, useEffect } from 'react';
@@ -53,24 +53,24 @@ export default function Home() {
         {/* Hero Section */}
         <section className="max-w-7xl mx-auto px-6 pt-12 md:pt-20 pb-20 md:pb-32 text-center">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-4xl mx-auto">
-            <motion.h1 variants={fadeIn} className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6 leading-[1.1]">
-              Mesin Marketing Pribadi untuk <br className="hidden md:block" />
-              <TypewriterText text="Health Planner" delay={800} />
+            <motion.h1 variants={fadeIn} className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6 leading-[1.2]">
+              Mesin Marketing Pribadi<br className="block" />
+              untuk <TypewriterText text="Health Planner" delay={800} />
             </motion.h1>
             
-            <motion.p variants={fadeIn} className="text-lg md:text-xl text-slate-600 mb-10 leading-relaxed font-medium">
+            <motion.p variants={fadeIn} className="text-base md:text-xl text-slate-600 mb-10 leading-relaxed font-medium px-4 md:px-0">
               Jangan habiskan waktu mencari customer dari nol.<br className="hidden md:block" />
               Bangun sistem marketing Anda sendiri untuk mendapatkan prospek, mengarahkan mereka ke WhatsApp, dan membantu Anda mengelola follow-up sampai closing.
             </motion.p>
 
-            <motion.div variants={fadeIn} className="flex flex-col md:flex-row justify-center items-center gap-6 mb-10 text-slate-600 font-medium">
-              <div className="flex items-center gap-2"><XCircleIcon className="text-red-400" /> Tanpa perlu membuat website sendiri</div>
-              <div className="flex items-center gap-2"><XCircleIcon className="text-red-400" /> Tanpa perlu belajar teknis iklan dari nol</div>
-              <div className="flex items-center gap-2"><XCircleIcon className="text-red-400" /> Tanpa perlu membangun sistem digital sendiri</div>
+            <motion.div variants={fadeIn} className="flex flex-col md:flex-row justify-center items-start md:items-center gap-4 md:gap-6 mb-10 text-slate-600 font-medium px-6 md:px-0 mx-auto w-fit">
+              <div className="flex items-center gap-3"><XCircleIcon className="text-red-400 shrink-0" /> <span className="text-left">Tanpa perlu buat website sendiri</span></div>
+              <div className="flex items-center gap-3"><XCircleIcon className="text-red-400 shrink-0" /> <span className="text-left">Tanpa perlu belajar teknis iklan</span></div>
+              <div className="flex items-center gap-3"><XCircleIcon className="text-red-400 shrink-0" /> <span className="text-left">Tanpa bangun sistem digital</span></div>
             </motion.div>
             
             <motion.div variants={fadeIn}>
-              <Link href="/register" className="inline-flex px-10 py-5 bg-gradient-to-r from-[#00A3E0] to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold text-xl rounded-full transition-all transform hover:scale-105 shadow-xl shadow-sky-500/30 items-center justify-center gap-3">
+              <Link href="/register" className="inline-flex w-full md:w-auto px-6 py-4 md:px-10 md:py-5 bg-gradient-to-r from-[#00A3E0] to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold text-sm sm:text-base md:text-xl rounded-full transition-all transform hover:scale-105 shadow-xl shadow-sky-500/30 items-center justify-center gap-3">
                 BUAT SISTEM MARKETING SAYA <ArrowRight size={24} />
               </Link>
             </motion.div>
@@ -107,7 +107,7 @@ export default function Home() {
               <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-4">Satu Sistem. Dari Prospek Sampai Follow-up.</h2>
             </motion.div>
             
-            <motion.div variants={fadeIn} className="flex flex-col md:flex-row items-center justify-center gap-4 text-center text-sm md:text-base font-bold text-slate-700">
+            <motion.div variants={fadeIn} className="flex flex-col md:flex-row flex-wrap items-center justify-center gap-4 text-center text-sm md:text-base font-bold text-slate-700">
               <FlowItem>Traffic</FlowItem> <FlowArrow />
               <FlowItem>Landing Page Pribadi</FlowItem> <FlowArrow />
               <FlowItem>Calon Customer</FlowItem> <FlowArrow />
@@ -366,7 +366,7 @@ function TypewriterText({ text, delay = 0 }: { text: string, delay?: number }) {
 
 function FlowItem({ children, bg = "bg-white border-slate-200" }: { children: React.ReactNode, bg?: string }) {
   return (
-    <div className={`px-4 py-3 rounded-xl border shadow-sm ${bg}`}>
+    <div className={`px-4 py-3 rounded-xl border shadow-sm w-full md:w-auto ${bg}`}>
       {children}
     </div>
   );
@@ -374,9 +374,14 @@ function FlowItem({ children, bg = "bg-white border-slate-200" }: { children: Re
 
 function FlowArrow() {
   return (
-    <div className="hidden md:block">
-      <ArrowRight className="text-slate-300" size={20} />
-    </div>
+    <>
+      <div className="md:hidden">
+        <ArrowDown className="text-slate-300" size={20} />
+      </div>
+      <div className="hidden md:block">
+        <ArrowRight className="text-slate-300" size={20} />
+      </div>
+    </>
   );
 }
 
