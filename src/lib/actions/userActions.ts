@@ -21,6 +21,8 @@ export async function updateProfile(formData: FormData) {
     const image = formData.get('image') as string;
     const metaPixelId = formData.get('metaPixelId') as string;
     const tiktokPixelId = formData.get('tiktokPixelId') as string;
+    const monthlyTargetStr = formData.get('monthlyTarget') as string;
+    const monthlyTarget = monthlyTargetStr ? parseInt(monthlyTargetStr, 10) : 5;
 
     if (!name || !slug || !whatsappNumber) {
       return { error: 'Nama, Slug, dan WhatsApp wajib diisi' };
@@ -54,6 +56,7 @@ export async function updateProfile(formData: FormData) {
         image: image || null,
         metaPixelId: metaPixelId || null,
         tiktokPixelId: tiktokPixelId || null,
+        monthlyTarget: isNaN(monthlyTarget) ? 5 : monthlyTarget,
       }
     });
 

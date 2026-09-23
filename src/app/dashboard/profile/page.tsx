@@ -26,6 +26,7 @@ export default async function ProfilePage() {
       image: true,
       metaPixelId: true,
       tiktokPixelId: true,
+      monthlyTarget: true,
     }
   });
 
@@ -41,6 +42,7 @@ export default async function ProfilePage() {
     image: user.image,
     metaPixelId: user.metaPixelId,
     tiktokPixelId: user.tiktokPixelId,
+    monthlyTarget: user.monthlyTarget,
   };
 
   return (

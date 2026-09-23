@@ -17,6 +17,13 @@ export default async function DashboardOverview() {
   const userId = (session.user as any).id;
   const userName = session.user.name || 'Agen Coway';
 
+  // Fetch user settings
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { monthlyTarget: true }
+  });
+  const monthlyTarget = user?.monthlyTarget || 5;
+
   // Fetch real data from Prisma where available
   const newLeadsCount = await prisma.lead.count({
     where: { agentId: userId, status: 'NEW' }
@@ -118,7 +125,7 @@ export default async function DashboardOverview() {
               {metrics.closingBulanIni} <span className="text-2xl text-slate-400">Unit</span>
             </p>
             <p className="text-xs md:text-sm font-medium text-slate-500 flex items-center gap-2">
-              Target bulanan: 5 Unit
+              Target bulanan: {monthlyTarget} Unit
             </p>
           </div>
         </div>

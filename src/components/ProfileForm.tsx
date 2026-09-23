@@ -13,6 +13,7 @@ interface ProfileFormProps {
     image: string | null;
     metaPixelId: string | null;
     tiktokPixelId: string | null;
+    monthlyTarget: number;
   };
 }
 
@@ -114,6 +115,19 @@ export default function ProfileForm({ initialData }: ProfileFormProps) {
           />
         </div>
         <p className="text-xs text-slate-500 mt-2 font-medium">Hanya gunakan huruf kecil dan tanda strip (-). Tanpa spasi.</p>
+      </div>
+
+      <div>
+        <label className="block text-sm font-bold text-slate-700 mb-2">Target Bulanan Pribadi (Unit Closing)</label>
+        <input 
+          type="number" 
+          name="monthlyTarget" 
+          defaultValue={initialData.monthlyTarget}
+          min="1"
+          required
+          className="w-full md:w-1/3 border border-slate-300 bg-slate-50 text-slate-900 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white outline-none transition font-medium" 
+        />
+        <p className="text-xs text-slate-500 mt-2 font-medium">Angka ini akan ditampilkan di Dashboard Anda sebagai pemacu semangat.</p>
       </div>
 
       <div>
