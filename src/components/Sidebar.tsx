@@ -26,9 +26,8 @@ export default function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
     { name: 'Profile', href: '/dashboard/profile', icon: UserCircle },
   ];
 
-  if (isAdmin) {
-    navItems.push({ name: 'Super Admin', href: '/admin-logaritma', icon: ShieldAlert as any });
-  }
+  // Tombol Super Admin disembunyikan sepenuhnya dari Dashboard Member
+  // Untuk akses admin, user harus langsung ke URL /admin-login atau /admin-logaritma
 
   // Mobile Bottom Nav items (Primary)
   const primaryMobileNav = [
