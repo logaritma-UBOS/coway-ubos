@@ -1,10 +1,55 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, ArrowDown, Globe, Zap, CheckCircle2, Target, MessageSquare, ListTodo, FileText, Focus } from 'lucide-react';
+import { ArrowRight, ArrowDown, Globe, Zap, CheckCircle2, Target, MessageSquare, ListTodo, FileText, Focus, BarChart3, Rocket, CreditCard, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import AffiliateTracker from '@/components/AffiliateTracker';
 import { Suspense, useState, useEffect } from 'react';
+
+function TypewriterText({ text, delay = 0 }: { text: string, delay?: number }) {
+  const [displayedText, setDisplayedText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isWaiting, setIsWaiting] = useState(true);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    if (isWaiting) {
+      timeout = setTimeout(() => setIsWaiting(false), delay);
+      return () => clearTimeout(timeout);
+    }
+
+    if (!isDeleting && displayedText.length < text.length) {
+      timeout = setTimeout(() => {
+        setDisplayedText(text.slice(0, displayedText.length + 1));
+      }, 100);
+    } else if (!isDeleting && displayedText.length === text.length) {
+      timeout = setTimeout(() => setIsDeleting(true), 3000); // Wait before deleting
+    } else if (isDeleting && displayedText.length > 0) {
+      timeout = setTimeout(() => {
+        setDisplayedText(text.slice(0, displayedText.length - 1));
+      }, 50);
+    } else if (isDeleting && displayedText.length === 0) {
+      setIsDeleting(false);
+      setIsWaiting(true);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayedText, isDeleting, isWaiting, text, delay]);
+
+  return (
+    <span className="inline relative">
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3E0] to-indigo-600">
+        {displayedText}
+      </span>
+      <motion.span
+        animate={{ opacity: [1, 0] }}
+        transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
+        className="inline-block w-[4px] h-[1em] bg-indigo-600 align-middle ml-1 relative -top-1"
+      />
+    </span>
+  );
+}
 
 export default function Home() {
   const fadeIn = {
@@ -51,351 +96,184 @@ export default function Home() {
 
       <main className="relative z-10">
         {/* Hero Section */}
-        <section className="max-w-7xl mx-auto px-6 pt-12 md:pt-20 pb-20 md:pb-32 text-center">
-          <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-4xl mx-auto">
-            <motion.h1 variants={fadeIn} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6 leading-[1.2]">
-              Mesin Marketing Pribadi<br className="block" />
-              untuk <TypewriterText text="Health Planner" delay={800} />
+        <section className="max-w-7xl mx-auto px-6 pt-12 md:pt-24 pb-20 md:pb-32 text-center">
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-5xl mx-auto">
+            <motion.div variants={fadeIn} className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 font-bold px-4 py-2 rounded-full text-sm sm:text-base mb-6 shadow-sm border border-blue-200">
+              <Zap size={16} className="text-[#00A3E0]"/> Agent Operating System Khusus Coway
+            </motion.div>
+            
+            <motion.h1 variants={fadeIn} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-8 leading-[1.1]">
+              Pusat Kendali Bisnis Coway Anda:<br className="hidden md:block" />
+              Dari Prospek hingga <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3E0] to-indigo-600">Closing Otomatis.</span>
             </motion.h1>
             
-            <motion.p variants={fadeIn} className="text-base md:text-xl text-slate-600 mb-10 leading-relaxed font-medium px-4 md:px-0">
-              Jangan habiskan waktu mencari customer dari nol.<br className="hidden md:block" />
-              Bangun sistem marketing Anda sendiri untuk mendapatkan prospek, mengarahkan mereka ke WhatsApp, dan membantu Anda mengelola follow-up sampai closing.
+            <motion.p variants={fadeIn} className="text-lg md:text-xl text-slate-600 mb-12 leading-relaxed font-medium px-4 md:px-0 max-w-4xl mx-auto">
+              Platform support system terpadu untuk Agent & Team Leader Coway. Gabungan Metode Logaritma, Landing Page Penjualan, Jasa Meta Ads Presisi, dan Layanan Pendukung Bisnis dalam Satu Dashboard.
             </motion.p>
-
-            <motion.div variants={fadeIn} className="flex flex-col md:flex-row justify-center items-start md:items-center gap-4 md:gap-6 mb-10 text-slate-600 font-medium px-6 md:px-0 mx-auto w-fit">
-              <div className="flex items-center gap-3"><XCircleIcon className="text-red-400 shrink-0" /> <span className="text-left">Tanpa perlu buat website sendiri</span></div>
-              <div className="flex items-center gap-3"><XCircleIcon className="text-red-400 shrink-0" /> <span className="text-left">Tanpa perlu belajar teknis iklan</span></div>
-              <div className="flex items-center gap-3"><XCircleIcon className="text-red-400 shrink-0" /> <span className="text-left">Tanpa bangun sistem digital</span></div>
+            
+            <motion.div variants={fadeIn} className="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <Link href="/register" className="inline-flex w-full sm:w-auto px-8 py-4 sm:py-5 bg-gradient-to-r from-[#00A3E0] to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold text-base sm:text-lg rounded-full transition-all transform hover:scale-105 shadow-xl shadow-sky-500/30 items-center justify-center gap-3">
+                Daftar & Masuk ke Dashboard <ArrowRight size={20} />
+              </Link>
             </motion.div>
             
+            <motion.div variants={fadeIn} className="mt-8 text-slate-500 text-sm font-medium flex items-center justify-center gap-2">
+              <ShieldCheck size={18} className="text-emerald-500" />
+              Tersedia Layanan Konsultasi Gratis di Dalam Dashboard
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* 4 Pilar Section */}
+        <section className="py-24 bg-white border-y border-slate-200 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-slate-50 to-transparent pointer-events-none"></div>
+          
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "0px 0px -100px 0px" }} variants={staggerContainer} className="max-w-7xl mx-auto px-6 relative z-10">
+            <div className="text-center mb-16">
+              <motion.h2 variants={fadeIn} className="text-3xl md:text-4xl font-black tracking-tight mb-4">4 Pilar Solusi Support System Logaritma</motion.h2>
+              <motion.p variants={fadeIn} className="text-lg text-slate-600 max-w-3xl mx-auto font-medium">
+                Semua yang Anda butuhkan untuk membangun, mengembangkan, dan menskala bisnis Coway Anda tersedia dalam satu ekosistem.
+              </motion.p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+              {/* Pilar 1 */}
+              <motion.div variants={fadeIn} className="bg-slate-50 border border-slate-200 rounded-3xl p-8 hover:shadow-lg transition group">
+                <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <BarChart3 size={28} />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">Metode Logaritma (Smart Analytics)</h3>
+                <p className="text-slate-600 leading-relaxed font-medium">
+                  Manajemen leads cerdas, prediksi prospek potensial menggunakan algoritma lead scoring, dan pemantauan omzet tim secara real-time.
+                </p>
+              </motion.div>
+
+              {/* Pilar 2 */}
+              <motion.div variants={fadeIn} className="bg-slate-50 border border-slate-200 rounded-3xl p-8 hover:shadow-lg transition group">
+                <div className="w-14 h-14 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Globe size={28} />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">Landing Page Khusus Coway</h3>
+                <p className="text-slate-600 leading-relaxed font-medium">
+                  Website personalisasi yang terbukti berkonversi tinggi. Langsung siap pakai, terintegrasi dengan tombol WhatsApp & Form lead generation otomatis.
+                </p>
+              </motion.div>
+
+              {/* Pilar 3 */}
+              <motion.div variants={fadeIn} className="bg-slate-50 border border-slate-200 rounded-3xl p-8 hover:shadow-lg transition group">
+                <div className="w-14 h-14 bg-sky-100 text-[#00A3E0] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Target size={28} />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">Layanan Meta Ads Presisi</h3>
+                <p className="text-slate-600 leading-relaxed font-medium">
+                  Tidak perlu pusing riset audiens. Serahkan penyiapan & pengisian campaign FB/IG Ads tertarget pada kami untuk memasok prospek harian ke WhatsApp Anda.
+                </p>
+              </motion.div>
+
+              {/* Pilar 4 */}
+              <motion.div variants={fadeIn} className="bg-slate-50 border border-slate-200 rounded-3xl p-8 hover:shadow-lg transition group">
+                <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Rocket size={28} />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">Business Support & Automasi</h3>
+                <p className="text-slate-600 leading-relaxed font-medium">
+                  Akses instan ke ribuan aset materi promosi, skrip penanganan komplain (objection handling), panduan closing, dan automasi pengingat follow-up harian.
+                </p>
+              </motion.div>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Kemudahan Akses & Transaksi Section */}
+        <section className="py-24 bg-slate-900 text-white relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px]"></div>
+          
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "0px 0px -100px 0px" }} variants={staggerContainer} className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center gap-12">
+            <div className="flex-1">
+              <motion.div variants={fadeIn} className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-6 backdrop-blur-sm border border-white/20">
+                <CreditCard size={32} className="text-[#00A3E0]" />
+              </motion.div>
+              <motion.h2 variants={fadeIn} className="text-3xl md:text-5xl font-black tracking-tight mb-6 leading-tight">
+                Marketplace Internal.<br />Aktivasi Serba Instan.
+              </motion.h2>
+              <motion.p variants={fadeIn} className="text-lg md:text-xl text-slate-300 font-medium leading-relaxed mb-8">
+                Tingkatkan skala bisnis Anda kapan saja. Seluruh pembelian paket layanan pendukung, aktivasi Landing Page, maupun pemesanan Jasa Meta Ads diproses secara otomatis melalui Dashboard Anda.
+              </motion.p>
+              
+              <motion.div variants={fadeIn} className="flex flex-wrap items-center gap-4 text-slate-300 font-medium text-sm md:text-base">
+                <span className="flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700"><CheckCircle2 className="text-[#00A3E0]" size={18} /> QRIS Terverifikasi</span>
+                <span className="flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700"><CheckCircle2 className="text-[#00A3E0]" size={18} /> Virtual Account</span>
+                <span className="flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700"><CheckCircle2 className="text-[#00A3E0]" size={18} /> E-Wallet</span>
+                <span className="flex items-center gap-2 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700"><CheckCircle2 className="text-[#00A3E0]" size={18} /> Kartu Kredit</span>
+              </motion.div>
+            </div>
+            
+            <motion.div variants={fadeIn} className="flex-1 w-full bg-slate-800 border border-slate-700 p-8 rounded-3xl shadow-2xl relative">
+              <div className="absolute -top-4 -right-2 md:-right-4 bg-emerald-500 text-white font-bold px-4 py-2 rounded-xl shadow-lg transform rotate-3 md:rotate-6 text-sm md:text-base">
+                Automated Provisioning
+              </div>
+              <h3 className="text-xl font-bold mb-6 text-white flex items-center gap-3">
+                <Zap className="text-[#00A3E0]" /> Alur Kerja Instan
+              </h3>
+              
+              <div className="space-y-6 relative">
+                <div className="absolute left-4 top-4 bottom-4 w-0.5 bg-slate-700"></div>
+                
+                <div className="flex gap-4 relative z-10">
+                  <div className="w-8 h-8 rounded-full bg-slate-700 border-2 border-slate-900 flex items-center justify-center font-bold text-sm shrink-0">1</div>
+                  <div>
+                    <h4 className="font-bold text-white">Pilih Paket Layanan</h4>
+                    <p className="text-slate-400 text-sm mt-1">Pilih layanan yang Anda butuhkan langsung dari Dashboard Marketplace.</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-4 relative z-10">
+                  <div className="w-8 h-8 rounded-full bg-slate-700 border-2 border-slate-900 flex items-center justify-center font-bold text-sm shrink-0">2</div>
+                  <div>
+                    <h4 className="font-bold text-white">Pembayaran Aman</h4>
+                    <p className="text-slate-400 text-sm mt-1">Selesaikan pembayaran secara online melalui payment gateway terpercaya (Mayar).</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-4 relative z-10">
+                  <div className="w-8 h-8 rounded-full bg-[#00A3E0] border-2 border-slate-900 flex items-center justify-center font-bold text-sm shrink-0 shadow-[0_0_15px_rgba(0,163,224,0.5)]">3</div>
+                  <div>
+                    <h4 className="font-bold text-white">Sistem Langsung Aktif</h4>
+                    <p className="text-slate-400 text-sm mt-1">Webhook kami akan menerima konfirmasi dan secara otomatis menyalakan akses/layanan Anda detik itu juga.</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-20 md:py-32 bg-white text-center px-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="max-w-3xl mx-auto">
+            <motion.h2 variants={fadeIn} className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-8">Siap Mengendalikan Bisnis Anda?</motion.h2>
+            <motion.p variants={fadeIn} className="text-lg md:text-xl text-slate-600 mb-10 font-medium">
+              Bergabunglah dengan ekosistem Logaritma sekarang dan jadikan seluruh proses dari pencarian prospek hingga closing berjalan secara otomatis.
+            </motion.p>
             <motion.div variants={fadeIn}>
-              <Link href="/register" className="inline-flex w-full md:w-auto px-6 py-4 md:px-10 md:py-5 bg-gradient-to-r from-[#00A3E0] to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold text-sm sm:text-base md:text-xl rounded-full transition-all transform hover:scale-105 shadow-xl shadow-sky-500/30 items-center justify-center gap-3">
-                BUAT SISTEM MARKETING SAYA <ArrowRight size={24} />
+              <Link href="/register" className="inline-flex w-full md:w-auto px-10 py-5 bg-gradient-to-r from-[#00A3E0] to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold text-base md:text-xl rounded-full transition-all transform hover:scale-105 shadow-xl shadow-sky-500/30 items-center justify-center gap-3">
+                MULAI GUNAKAN UBOS SEKARANG <ArrowRight size={24} />
               </Link>
             </motion.div>
-          </motion.div>
-        </section>
-
-        {/* Problem Section */}
-        <section className="py-24 bg-white border-y border-slate-200">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "0px 0px -100px 0px" }} variants={staggerContainer} className="max-w-4xl mx-auto px-6 text-center">
-            <motion.h2 variants={fadeIn} className="text-3xl md:text-4xl font-black tracking-tight mb-8">Masalah Health Planner Bukan Produk</motion.h2>
-            <motion.p variants={fadeIn} className="text-xl text-slate-600 mb-12">Produk Coway sudah tersedia.<br />Materi penjualan juga tersedia.</motion.p>
-            
-            <motion.div variants={fadeIn} className="text-lg font-medium text-slate-700 space-y-6 mb-16">
-              <p>Yang sering menjadi tantangan adalah:</p>
-              <div className="space-y-4 text-2xl font-bold text-slate-900 italic">
-                <p>“Customer baru saya dapat dari mana?”</p>
-                <p>“Bagaimana membuat orang tertarik konsultasi?”</p>
-                <p>“Bagaimana saya follow-up puluhan calon customer?”</p>
-                <p>“Bagaimana saya tahu siapa yang paling siap membeli?”</p>
-                <p>“Bagaimana saya tetap prospecting saat sedang sibuk closing?”</p>
-              </div>
-            </motion.div>
-            
-            <motion.div variants={fadeIn} className="inline-block bg-blue-50 text-blue-700 font-bold px-6 py-4 rounded-2xl text-xl max-w-3xl">
-              UBOS membantu Anda membangun sistem untuk mendapatkan, menerima, dan mengelola prospek.
-            </motion.div>
-          </motion.div>
-        </section>
-
-        {/* Flow Section */}
-        <section className="py-24 max-w-5xl mx-auto px-6">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "0px 0px -100px 0px" }} variants={staggerContainer}>
-            <motion.div variants={fadeIn} className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-4">Satu Sistem. Dari Prospek Sampai Follow-up.</h2>
-            </motion.div>
-            
-            <motion.div variants={fadeIn} className="flex flex-col md:flex-row flex-wrap items-center justify-center gap-4 text-center text-sm md:text-base font-bold text-slate-700">
-              <FlowItem>Traffic</FlowItem> <FlowArrow />
-              <FlowItem>Landing Page Pribadi</FlowItem> <FlowArrow />
-              <FlowItem>Calon Customer</FlowItem> <FlowArrow />
-              <FlowItem bg="bg-[#25D366] text-white border-[#25D366]">WhatsApp</FlowItem> <FlowArrow />
-              <FlowItem>Follow-up</FlowItem> <FlowArrow />
-              <FlowItem>Konsultasi</FlowItem> <FlowArrow />
-              <FlowItem>Demo</FlowItem> <FlowArrow />
-              <FlowItem bg="bg-[#00A3E0] text-white border-[#00A3E0]">Closing</FlowItem>
-            </motion.div>
-
-            <motion.div variants={fadeIn} className="mt-16 text-center">
-              <p className="text-xl font-medium text-slate-600">Anda tetap menjadi Health Planner.<br /><span className="font-bold text-slate-900">UBOS membantu pekerjaan marketing di belakangnya.</span></p>
-            </motion.div>
-          </motion.div>
-        </section>
-
-        {/* Features Section */}
-        <section className="py-24 bg-slate-900 text-white border-y border-slate-800">
-          <div className="max-w-7xl mx-auto px-6">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "0px 0px -100px 0px" }} variants={staggerContainer} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <motion.div variants={fadeIn}>
-                <FeatureCard 
-                  num="1" 
-                  icon={<Globe size={32} />} 
-                  title="Punya Landing Page Atas Nama Anda" 
-                  desc="Tidak perlu membuat website dari nol. Aktifkan halaman pribadi Anda. Contoh: coway.logaritma.id/nama-anda. Isi halaman dapat menampilkan profil Anda, informasi produk, manfaat, FAQ, CTA konsultasi, dan tombol WhatsApp. Customer datang ke halaman Anda. Bukan ke halaman agent lain." 
-                />
-              </motion.div>
-              <motion.div variants={fadeIn}>
-                <FeatureCard 
-                  num="2" 
-                  icon={<Target size={32} />} 
-                  title="Datangkan Prospek dari Meta Ads" 
-                  desc="Tidak perlu belajar pixel, targeting, campaign structure, dan optimasi iklan dari nol. Anda menentukan budget. Tim UBOS membantu menjalankan campaign. Prospek diarahkan ke sistem Anda dan dapat masuk ke WhatsApp pribadi Anda. Anda fokus menangani calon customer." 
-                />
-              </motion.div>
-              <motion.div variants={fadeIn}>
-                <FeatureCard 
-                  num="3" 
-                  icon={<MessageSquare size={32} />} 
-                  title="Jangan Biarkan Lead Hilang di WhatsApp" 
-                  desc="Lead yang masuk hari ini belum tentu membeli hari ini. Siapa lead baru? Siapa yang sudah dihubungi? Siapa yang tertarik? UBOS dirancang untuk membantu Anda melihat perjalanan setiap prospek." 
-                />
-              </motion.div>
-              <motion.div variants={fadeIn}>
-                <FeatureCard 
-                  num="4" 
-                  icon={<ListTodo size={32} />} 
-                  title="Follow-up Lebih Terarah" 
-                  desc="Jangan lagi mengandalkan ingatan. Gunakan status: New Lead, Contacted, Interested, Follow-up, Demo, Negotiation, Closing, Lost. Dengan begitu Anda tahu siapa yang harus dihubungi hari ini." 
-                />
-              </motion.div>
-              <motion.div variants={fadeIn}>
-                <FeatureCard 
-                  num="5" 
-                  icon={<FileText size={32} />} 
-                  title="Siapkan Materi Sebelum Customer Bertanya" 
-                  desc="“Bedanya produk A dan B apa?” “Berapa cicilannya?” UBOS dapat menjadi pusat materi penjualan yang membantu Anda menjawab pertanyaan tersebut lebih cepat." 
-                />
-              </motion.div>
-              <motion.div variants={fadeIn}>
-                <FeatureCard 
-                  num="6" 
-                  icon={<Focus size={32} />} 
-                  title="Anda Fokus pada Hal yang Menghasilkan Komisi" 
-                  desc="Cari prospek. Konsultasi. Presentasi. Demo. Follow-up. Closing. Biarkan sistem menangani bagian digital yang berulang." 
-                />
-              </motion.div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Disclaimer Section */}
-        <section className="py-24 max-w-4xl mx-auto px-6 text-center">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "0px 0px -100px 0px" }} variants={staggerContainer}>
-            <motion.h2 variants={fadeIn} className="text-3xl md:text-4xl font-black tracking-tight mb-8">Bukan Pengganti Health Planner</motion.h2>
-            <motion.div variants={fadeIn} className="bg-white p-8 md:p-12 rounded-[2rem] shadow-xl border border-slate-200">
-              <p className="text-xl font-medium text-slate-600 mb-6">
-                UBOS tidak menggantikan Anda.<br />
-                UBOS tidak melakukan closing untuk Anda.<br />
-                UBOS membantu Anda mendapatkan dan mengelola peluang penjualan.
-              </p>
-              <div className="inline-block text-left text-lg font-bold text-slate-800 space-y-3">
-                <p className="flex items-center gap-3"><CheckCircle2 className="text-green-500" /> Anda tetap memegang hubungan dengan customer.</p>
-                <p className="flex items-center gap-3"><CheckCircle2 className="text-green-500" /> Anda tetap melakukan konsultasi.</p>
-                <p className="flex items-center gap-3"><CheckCircle2 className="text-green-500" /> Anda tetap melakukan presentasi.</p>
-                <p className="flex items-center gap-3"><CheckCircle2 className="text-green-500" /> Anda tetap melakukan closing.</p>
-              </div>
-            </motion.div>
-          </motion.div>
-        </section>
-
-        {/* Mini CTA */}
-        <section className="py-12 max-w-4xl mx-auto px-6 text-center">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "0px 0px -100px 0px" }} variants={fadeIn} className="bg-sky-50 border border-sky-100 p-10 rounded-[2rem]">
-            <h3 className="text-2xl font-black mb-4">Mulai dari Gratis</h3>
-            <p className="text-slate-600 mb-8">Akses dashboard UBOS. Bangun sistem marketing Anda. Aktifkan landing page ketika sudah siap. Gunakan layanan iklan ketika Anda ingin mulai mencari prospek.</p>
-            <Link href="/register" className="inline-flex px-8 py-4 bg-[#00A3E0] hover:bg-sky-500 text-white font-bold rounded-xl transition">
-              DAFTAR GRATIS
-            </Link>
-          </motion.div>
-        </section>
-
-        {/* Pricing Section */}
-        <section className="py-24 bg-slate-100 border-y border-slate-200">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4">Pilih Cara Kerja Anda</h2>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start">
-              {/* BASIC */}
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "0px 0px -100px 0px" }} variants={fadeIn} className="bg-white rounded-[2rem] p-8 border border-slate-200 shadow-sm text-center">
-                <h3 className="text-xl font-black text-slate-900 mb-2 uppercase tracking-wide">Basic</h3>
-                <div className="text-4xl font-black text-slate-900 mb-4">Rp0</div>
-                <p className="text-sm text-slate-500 mb-8 h-10">Untuk Health Planner yang ingin mulai membangun sistem digital.</p>
-                <ul className="space-y-4 mb-10 text-left text-sm font-medium text-slate-600">
-                  <li className="flex items-start gap-3"><CheckCircle2 className="text-green-500 shrink-0" size={20} /> <span>Dashboard UBOS</span></li>
-                  <li className="flex items-start gap-3"><CheckCircle2 className="text-green-500 shrink-0" size={20} /> <span>Akses tools marketing</span></li>
-                  <li className="flex items-start gap-3"><CheckCircle2 className="text-green-500 shrink-0" size={20} /> <span>Akses layanan Meta Ads</span></li>
-                </ul>
-                <Link href="/register" className="w-full block py-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-xl transition">DAFTAR GRATIS</Link>
-              </motion.div>
-
-              {/* PERSONAL LANDING PAGE */}
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "0px 0px -100px 0px" }} variants={fadeIn} transition={{ delay: 0.2 }} className="bg-[#0F172A] text-white rounded-[2rem] p-8 border border-slate-700 shadow-2xl md:-mt-8 md:mb-8 z-10 text-center relative">
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#00A3E0] text-white font-bold px-4 py-1 rounded-full text-xs uppercase tracking-wider whitespace-nowrap">Sekali Bayar</div>
-                <h3 className="text-xl font-black mb-2 uppercase tracking-wide pt-2">Personal Landing Page</h3>
-                <div className="text-4xl font-black mb-4">Rp99.000</div>
-                <p className="text-sm text-slate-400 mb-8 h-10">Lisensi selamanya untuk website atas nama Anda.</p>
-                <ul className="space-y-4 mb-10 text-left text-sm font-medium text-slate-300">
-                  <li className="flex items-start gap-3"><CheckCircle2 className="text-[#00A3E0] shrink-0" size={20} /> <span>Landing page pribadi</span></li>
-                  <li className="flex items-start gap-3"><CheckCircle2 className="text-[#00A3E0] shrink-0" size={20} /> <span>URL custom</span></li>
-                  <li className="flex items-start gap-3"><CheckCircle2 className="text-[#00A3E0] shrink-0" size={20} /> <span>Domain dan hosting</span></li>
-                  <li className="flex items-start gap-3"><CheckCircle2 className="text-[#00A3E0] shrink-0" size={20} /> <span>Akses Agent CRM</span></li>
-                  <li className="flex items-start gap-3"><CheckCircle2 className="text-[#00A3E0] shrink-0" size={20} /> <span>Sales Kit & Follow-up</span></li>
-                </ul>
-                <Link href="/register" className="w-full block py-4 bg-[#00A3E0] hover:bg-sky-500 text-white font-bold rounded-xl transition">AKTIFKAN LANDING PAGE</Link>
-              </motion.div>
-
-              {/* LEAD GENERATION */}
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "0px 0px -100px 0px" }} variants={fadeIn} transition={{ delay: 0.4 }} className="bg-white rounded-[2rem] p-8 border border-slate-200 shadow-sm text-center">
-                <h3 className="text-xl font-black text-slate-900 mb-2 uppercase tracking-wide">Lead Generation</h3>
-                <div className="text-3xl font-black text-slate-900 mb-4">Mulai Rp25.000<span className="text-base text-slate-500 font-medium">/hari</span></div>
-                <p className="text-sm text-slate-500 mb-8 h-10">Untuk Health Planner yang ingin mulai mendatangkan traffic.</p>
-                <ul className="space-y-4 mb-10 text-left text-sm font-medium text-slate-600">
-                  <li className="flex items-start gap-3"><CheckCircle2 className="text-indigo-500 shrink-0" size={20} /> <span>Meta Ads</span></li>
-                  <li className="flex items-start gap-3"><CheckCircle2 className="text-indigo-500 shrink-0" size={20} /> <span>Targeting</span></li>
-                  <li className="flex items-start gap-3"><CheckCircle2 className="text-indigo-500 shrink-0" size={20} /> <span>Campaign management</span></li>
-                  <li className="flex items-start gap-3"><CheckCircle2 className="text-indigo-500 shrink-0" size={20} /> <span>Lead masuk ke WhatsApp</span></li>
-                  <li className="flex items-start gap-3"><CheckCircle2 className="text-indigo-500 shrink-0" size={20} /> <span>Laporan performa</span></li>
-                </ul>
-                <Link href="/register" className="w-full block py-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-xl transition">MULAI CARI PROSPEK</Link>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* Final CTA */}
-        <section className="py-24 max-w-4xl mx-auto px-6">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-            className="bg-[#00A3E0] rounded-[3rem] p-10 md:p-16 text-center text-white shadow-2xl relative overflow-hidden"
-          >
-            <div className="relative z-10">
-              <h2 className="text-4xl md:text-5xl font-black mb-6">Mulai Bangun Mesin Marketing Anda</h2>
-              <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto font-medium">
-                Jangan hanya mengandalkan broadcast, status WhatsApp, atau mencari customer satu per satu.<br /><br />
-                Bangun aset digital yang bisa terus Anda gunakan sebagai Health Planner.<br /><br />
-                Buat halaman Anda. Datangkan traffic. Terima prospek. Follow-up. Closing.
-              </p>
-              <Link href="/register" className="inline-flex px-10 py-5 bg-[#0F172A] hover:bg-slate-800 text-white font-bold text-xl rounded-full transition-transform transform hover:scale-105 shadow-xl shadow-slate-900/30">
-                BUAT AKUN GRATIS
-              </Link>
-            </div>
           </motion.div>
         </section>
       </main>
-      
-      <footer className="bg-slate-900 border-t border-slate-800 py-12 px-6 text-slate-400">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-sm font-medium leading-relaxed">
-            Coway UBOS adalah platform independen dari Logaritma Digital untuk membantu aktivitas marketing Health Planner.<br />
-            Bukan aplikasi resmi Coway Indonesia.
-          </p>
+
+      <footer className="bg-slate-50 py-12 border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#00A3E0] to-blue-600 flex items-center justify-center text-white shrink-0">
+              <Zap size={18} fill="currentColor" />
+            </div>
+            <span className="font-black text-xl text-slate-800"><span className="text-[#0F172A]">Coway</span> UBOS</span>
+          </div>
+          <p className="text-slate-500 text-sm font-medium">© {new Date().getFullYear()} Logaritma UBOS. All rights reserved.</p>
         </div>
       </footer>
-    </div>
-  );
-}
-
-function XCircleIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <path d="m15 9-6 6" />
-      <path d="m9 9 6 6" />
-    </svg>
-  );
-}
-
-function TypewriterText({ text, delay = 0 }: { text: string, delay?: number }) {
-  const [displayedText, setDisplayedText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [isWaiting, setIsWaiting] = useState(true);
-  
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-
-    if (isWaiting) {
-      timer = setTimeout(() => {
-        setIsWaiting(false);
-      }, displayedText === '' ? delay : 1000); // Wait initially or before typing again
-      return () => clearTimeout(timer);
-    }
-
-    if (isDeleting) {
-      if (displayedText.length === 0) {
-        timer = setTimeout(() => {
-          setIsDeleting(false);
-          setIsWaiting(true);
-        }, 0);
-        return () => clearTimeout(timer);
-      }
-      timer = setTimeout(() => {
-        setDisplayedText(text.substring(0, displayedText.length - 1));
-      }, 50);
-    } else {
-      if (displayedText.length === text.length) {
-        timer = setTimeout(() => {
-          setIsDeleting(true);
-        }, 3000); // Wait 3 seconds before deleting
-        return () => clearTimeout(timer);
-      }
-      timer = setTimeout(() => {
-        setDisplayedText(text.substring(0, displayedText.length + 1));
-      }, 100);
-    }
-
-    return () => clearTimeout(timer);
-  }, [displayedText, isDeleting, isWaiting, text, delay]);
-
-  return (
-    <span className="inline relative">
-      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3E0] to-indigo-600">
-        {displayedText}
-      </span>
-      <motion.span
-        animate={{ opacity: [1, 0] }}
-        transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-        className="inline-block w-[4px] h-[1em] bg-indigo-600 align-middle ml-1 relative -top-1"
-      />
-    </span>
-  );
-}
-
-function FlowItem({ children, bg = "bg-white border-slate-200" }: { children: React.ReactNode, bg?: string }) {
-  return (
-    <div className={`px-4 py-3 rounded-xl border shadow-sm w-full md:w-auto ${bg}`}>
-      {children}
-    </div>
-  );
-}
-
-function FlowArrow() {
-  return (
-    <>
-      <div className="md:hidden">
-        <ArrowDown className="text-slate-300" size={20} />
-      </div>
-      <div className="hidden md:block">
-        <ArrowRight className="text-slate-300" size={20} />
-      </div>
-    </>
-  );
-}
-
-function FeatureCard({ num, title, desc, icon }: { num: string, title: string, desc: string, icon: React.ReactNode }) {
-  return (
-    <div className="bg-slate-800/50 border border-slate-700 p-8 rounded-3xl hover:bg-slate-800 transition">
-      <div className="flex items-center gap-4 mb-6">
-        <div className="w-14 h-14 rounded-2xl bg-[#00A3E0]/10 text-[#00A3E0] flex items-center justify-center shrink-0">
-          {icon}
-        </div>
-        <div className="text-5xl font-black text-slate-700/50 leading-none">{num}</div>
-      </div>
-      <h3 className="text-xl font-bold mb-4">{title}</h3>
-      <p className="text-slate-400 leading-relaxed text-sm">{desc}</p>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Globe, Megaphone, Clapperboard, LogOut, Gift, UserCircle, Users, ShieldAlert } from 'lucide-react';
+import { LayoutDashboard, Globe, Megaphone, Clapperboard, LogOut, Gift, UserCircle, Users, ShieldAlert, ShoppingCart } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 
 export default function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
@@ -14,6 +14,7 @@ export default function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
     { name: 'Landing Page Coway', href: '/dashboard/landingpage', icon: Globe },
     { name: 'Meta Ads Manager', href: '/dashboard/meta-ads', icon: Megaphone },
     { name: 'Creative Assets', href: '/dashboard/creative-assets', icon: Clapperboard },
+    { name: 'Marketplace', href: '/dashboard/store', icon: ShoppingCart },
   ];
 
   if (isAdmin) {
