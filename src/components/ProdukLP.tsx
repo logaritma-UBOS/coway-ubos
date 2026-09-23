@@ -23,7 +23,7 @@ export default function ProdukLP({ agent }: { agent: any }) {
             ${headHtml.replace(/\{\{AGENT_NAME\}\}/g, agent.fullName || 'Agen')}
           </head>
           <body>
-            ${bodyHtml.replace(/\{\{AGENT_NAME\}\}/g, agent.fullName || 'Agen').replace(/\{\{AGENT_PHONE\}\}/g, phone)}
+            ${bodyHtml.replace(/\{\{AGENT_NAME\}\}/g, agent.fullName || 'Agen').replace(/\{\{AGENT_PHONE\}\}/g, phone).replace(/\{\{AGENT_COWAY_ID\}\}/g, agent.cowayId || 'Menunggu Verifikasi')}
           </body>
           </html>
         `);
@@ -33,7 +33,7 @@ export default function ProdukLP({ agent }: { agent: any }) {
   }, [agent]);
 
   return (
-    <div style={{ position: 'fixed', inset: 0, zIndex: 9999 }}>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 9999, overflow: 'auto', WebkitOverflowScrolling: 'touch' }}>
       <iframe 
         ref={iframeRef}
         style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
