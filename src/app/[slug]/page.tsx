@@ -73,7 +73,7 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
     <>
       <PageViewTracker agentId={agentData.id} />
       {(!agentData.isPremium && isPreview) && (
-        <div className="fixed inset-0 z-[999] pointer-events-none flex flex-col items-center justify-center overflow-hidden">
+        <div className="fixed inset-0 z-[10000] pointer-events-none flex flex-col items-center justify-center overflow-hidden">
           {/* Watermark overlay pattern */}
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'200\' height=\'200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Ctext x=\'50%25\' y=\'50%25\' font-size=\'24\' font-family=\'sans-serif\' font-weight=\'bold\' fill=\'%23000\' text-anchor=\'middle\' transform=\'rotate(-45 100 100)\'%3EPREVIEW%3C/text%3E%3C/svg%3E")', backgroundSize: '200px 200px' }}></div>
           
@@ -83,8 +83,8 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
           </div>
         </div>
       )}
-      {/* Route to the correct template based on license */}
-      {((agentData as any).hasProductLp && searchParams?.basic !== 'true') ? (
+      {/* Route to the correct template based on license or preview request */}
+      {(((agentData as any).hasProductLp || isPreview) && searchParams?.basic !== 'true') ? (
         <ProdukLP 
           agent={{
             id: agentData.id,
