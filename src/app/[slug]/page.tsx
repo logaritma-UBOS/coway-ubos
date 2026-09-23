@@ -83,6 +83,18 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
           </div>
         </div>
       )}
+      
+      {/* Back to Dashboard Button when Previewing */}
+      {isPreview && (
+        <a 
+          href="/dashboard/landingpage" 
+          className="fixed top-4 left-4 z-[20000] bg-slate-900/90 backdrop-blur-sm text-white font-bold px-4 py-2 rounded-xl shadow-lg flex items-center gap-2 hover:bg-slate-800 transition-colors pointer-events-auto"
+        >
+          <i className="fa-solid fa-arrow-left"></i>
+          <span className="hidden sm:inline">Kembali ke Dashboard</span>
+          <span className="sm:hidden">Kembali</span>
+        </a>
+      )}
       {/* Route to the correct template based on license or preview request */}
       {(((agentData as any).hasProductLp || isPreview) && (searchParams as any)?.basic !== 'true') ? (
         <ProdukLP 
