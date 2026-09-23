@@ -11,7 +11,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const { slug } = await params;
-  const agent = await prisma.user.findUnique({ where: { slug }, select: { name: true, hasRecruitLp: true } });
+  const agent = await (prisma.user as any).findUnique({ where: { slug }, select: { name: true, hasRecruitLp: true } });
   
   if (!agent?.hasRecruitLp) {
     return { title: 'Halaman Belum Aktif - Coway Logaritma' };
@@ -37,7 +37,7 @@ export default async function RecruitmentPage(props: { params: Promise<{ slug: s
   const searchParams = await props.searchParams;
   const isPreview = searchParams?.preview === 'true';
   
-  const agentData = await prisma.user.findUnique({
+  const agentData = await (prisma.user as any).findUnique({
     where: { slug }
   });
 

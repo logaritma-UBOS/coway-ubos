@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import InstallPwaButton from "@/components/InstallPwaButton";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,6 +16,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Coway Logaritma - Platform Manajemen Agen",
   description: "Platform manajemen agen Coway untuk mengatur landing page, leads, dan meta ads.",
+  manifest: "/manifest.json",
+  themeColor: "#00A3E0",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Coway Logaritma",
+  },
   openGraph: {
     title: "Coway Logaritma",
     description: "Platform Manajemen Agen Resmi Coway.",
@@ -31,7 +39,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <InstallPwaButton />
+      </body>
     </html>
   );
 }

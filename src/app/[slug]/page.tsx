@@ -84,7 +84,7 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
         </div>
       )}
       {/* Route to the correct template based on license or preview request */}
-      {(((agentData as any).hasProductLp || isPreview) && searchParams?.basic !== 'true') ? (
+      {(((agentData as any).hasProductLp || isPreview) && (searchParams as any)?.basic !== 'true') ? (
         <ProdukLP 
           agent={{
             id: agentData.id,

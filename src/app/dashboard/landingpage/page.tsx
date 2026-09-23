@@ -20,7 +20,7 @@ export default async function LandingPageSetup() {
 
   const userId = (session.user as any).id;
 
-  const user = await prisma.user.findUnique({
+  const user = await (prisma.user as any).findUnique({
     where: { id: userId },
     select: {
       isPremium: true,
