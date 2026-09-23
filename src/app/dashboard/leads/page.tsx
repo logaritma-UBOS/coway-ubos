@@ -3,6 +3,7 @@ import { authOptions, prisma } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { Users, Search, Download, MessageCircle, Flame } from 'lucide-react';
 import { getLeadTemperature, getTemperatureColor } from '@/lib/utils/leadScoring';
+import AddLeadModal from '@/components/leads/AddLeadModal';
 
 export const metadata = {
   title: 'Manajemen Leads - Coway Logaritma',
@@ -50,8 +51,9 @@ export default async function LeadsPage() {
           </div>
         </div>
         
-        <div className="flex items-center gap-3">
-          <a href="/api/leads/export" download className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold py-2.5 px-4 rounded-xl shadow-sm transition flex items-center gap-2">
+        <div className="flex items-center gap-3 w-full md:w-auto">
+          <AddLeadModal />
+          <a href="/api/leads/export" download className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold py-2.5 px-4 rounded-xl shadow-sm transition flex items-center justify-center gap-2 flex-1 md:flex-none">
             <Download size={18} /> Export CSV
           </a>
         </div>
@@ -77,12 +79,12 @@ export default async function LeadsPage() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 text-sm">
-                <th className="p-4 md:px-6 font-bold uppercase tracking-wider">Tanggal</th>
-                <th className="p-4 md:px-6 font-bold uppercase tracking-wider">Nama Calon</th>
-                <th className="p-4 md:px-6 font-bold uppercase tracking-wider">Skor & Suhu</th>
-                <th className="p-4 md:px-6 font-bold uppercase tracking-wider">Nomor WA</th>
-                <th className="p-4 md:px-6 font-bold uppercase tracking-wider">Produk</th>
-                <th className="p-4 md:px-6 font-bold uppercase tracking-wider">Aksi</th>
+                <th className="p-4 md:px-6 font-bold uppercase tracking-wider whitespace-nowrap">Tanggal</th>
+                <th className="p-4 md:px-6 font-bold uppercase tracking-wider whitespace-nowrap">Nama Calon</th>
+                <th className="p-4 md:px-6 font-bold uppercase tracking-wider whitespace-nowrap">Skor & Suhu</th>
+                <th className="p-4 md:px-6 font-bold uppercase tracking-wider whitespace-nowrap">Nomor WA</th>
+                <th className="p-4 md:px-6 font-bold uppercase tracking-wider whitespace-nowrap">Produk</th>
+                <th className="p-4 md:px-6 font-bold uppercase tracking-wider whitespace-nowrap">Aksi</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -98,11 +100,11 @@ export default async function LeadsPage() {
                     <td className="p-4 md:px-6 text-sm text-slate-600 font-medium whitespace-nowrap">
                       {new Intl.DateTimeFormat('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }).format(new Date(lead.createdAt))}
                     </td>
-                    <td className="p-4 md:px-6">
+                    <td className="p-4 md:px-6 whitespace-nowrap">
                       <p className="font-bold text-slate-900">{lead.customerName}</p>
                       {lead.city && <p className="text-xs text-slate-500">{lead.city}</p>}
                     </td>
-                    <td className="p-4 md:px-6">
+                    <td className="p-4 md:px-6 whitespace-nowrap">
                       <div className="flex items-center gap-2">
                         <span className="font-black text-slate-700">{lead.score}</span>
                         <span className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full border ${getTemperatureColor(lead.temperature)}`}>
@@ -110,17 +112,17 @@ export default async function LeadsPage() {
                         </span>
                       </div>
                     </td>
-                    <td className="p-4 md:px-6">
+                    <td className="p-4 md:px-6 whitespace-nowrap">
                       <span className="inline-flex items-center gap-1.5 bg-green-50 text-green-700 px-2.5 py-1 rounded-lg text-sm font-bold border border-green-100">
                         {lead.whatsappNumber}
                       </span>
                     </td>
-                    <td className="p-4 md:px-6">
+                    <td className="p-4 md:px-6 whitespace-nowrap">
                       <span className="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg text-sm font-bold border border-slate-200">
                         {lead.targetProduct || 'Umum'}
                       </span>
                     </td>
-                    <td className="p-4 md:px-6">
+                    <td className="p-4 md:px-6 whitespace-nowrap">
                       <a 
                         href={`https://wa.me/${lead.whatsappNumber.replace(/\D/g, '')}?text=Halo%20${encodeURIComponent(lead.customerName)},%20saya%20agen%20Coway.%20Ada%20yang%20bisa%20saya%20bantu%20terkait%20produk%20${encodeURIComponent(lead.targetProduct || 'Coway')}?`}
                         target="_blank"
