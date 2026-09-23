@@ -10,7 +10,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const session = await getServerSession(authOptions);
 
   if (!session?.user || !(session.user as any).isAdmin) {
-    redirect("/login");
+    redirect("/admin-login");
   }
 
   return (
@@ -21,13 +21,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <h1 className="text-xl font-black text-white tracking-tight">Logaritma<span className="text-rose-500">Admin</span></h1>
         </div>
         <nav className="flex-1 p-4 space-y-1">
-          <Link href="/admin" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><LayoutDashboard size={18}/> Dashboard</Link>
-          <Link href="/admin/users" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><Users size={18}/> Data Agen</Link>
-          <Link href="/admin/orders" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><CreditCard size={18}/> Transaksi</Link>
-          <Link href="/admin/leads" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><PieChart size={18}/> Rekap Leads</Link>
-          <Link href="/admin/creative-assets" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><Clapperboard size={18}/> Creative Assets</Link>
-          <Link href="/admin/meta-ads" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><Megaphone size={18}/> Manajemen Meta Ads</Link>
-          <Link href="/admin/notifications" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><Bell size={18}/> Notifikasi</Link>
+          <Link href="/admin-logaritma" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><LayoutDashboard size={18}/> Dashboard</Link>
+          <Link href="/admin-logaritma/users" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><Users size={18}/> Data Agen</Link>
+          <Link href="/admin-logaritma/orders" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><CreditCard size={18}/> Transaksi</Link>
+          <Link href="/admin-logaritma/leads" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><PieChart size={18}/> Rekap Leads</Link>
+          <Link href="/admin-logaritma/creative-assets" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><Clapperboard size={18}/> Creative Assets</Link>
+          <Link href="/admin-logaritma/meta-ads" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><Megaphone size={18}/> Manajemen Meta Ads</Link>
+          <Link href="/admin-logaritma/notifications" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition font-medium text-slate-300 hover:text-white"><Bell size={18}/> Notifikasi</Link>
         </nav>
         <div className="p-4 border-t border-slate-700/50">
           <Link href="/dashboard" className="flex justify-center items-center gap-2 w-full px-4 py-3 bg-white/5 hover:bg-white/10 rounded-xl transition font-medium text-sm text-slate-300">

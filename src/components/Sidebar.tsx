@@ -27,7 +27,7 @@ export default function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
   ];
 
   if (isAdmin) {
-    navItems.push({ name: 'Super Admin', href: '/admin', icon: ShieldAlert as any });
+    navItems.push({ name: 'Super Admin', href: '/admin-logaritma', icon: ShieldAlert as any });
   }
 
   // Mobile Bottom Nav items (Primary)

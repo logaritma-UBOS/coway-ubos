@@ -40,7 +40,7 @@ export async function sendNotification(formData: FormData) {
       data
     });
 
-    revalidatePath('/admin/notifications');
+    revalidatePath('/admin-logaritma/notifications');
     return { success: true, count: users.length };
   } catch (error: any) {
     return { success: false, error: error.message || "Gagal mengirim notifikasi." };
@@ -53,7 +53,7 @@ export async function deleteNotificationByTitle(title: string) {
     await prisma.notification.deleteMany({
       where: { title }
     });
-    revalidatePath('/admin/notifications');
+    revalidatePath('/admin-logaritma/notifications');
     return { success: true };
   } catch (error: any) {
     return { success: false, error: "Gagal menghapus notifikasi." };

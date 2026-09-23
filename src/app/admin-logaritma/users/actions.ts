@@ -6,12 +6,12 @@ import bcrypt from "bcrypt";
 export async function updateUserPassword(id: string, newPassword: string) {
   const passwordHash = await bcrypt.hash(newPassword, 10);
   await prisma.user.update({ where: { id }, data: { passwordHash } });
-  revalidatePath('/admin/users');
+  revalidatePath('/admin-logaritma/users');
 }
 
 export async function togglePremiumStatus(id: string, isPremium: boolean) {
   await prisma.user.update({ where: { id }, data: { isPremium } });
-  revalidatePath('/admin/users');
+  revalidatePath('/admin-logaritma/users');
 }
 
 export async function deleteUser(id: string) {
@@ -35,7 +35,7 @@ export async function deleteUser(id: string) {
       prisma.session.deleteMany({ where: { userId: id } }),
       prisma.user.delete({ where: { id } })
     ]);
-    revalidatePath('/admin/users');
+    revalidatePath('/admin-logaritma/users');
     return { success: true };
   } catch (error: any) {
     return { success: false, error: error.message || "Gagal menghapus agen." };
