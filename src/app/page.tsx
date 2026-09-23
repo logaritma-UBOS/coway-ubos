@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, ArrowDown, Globe, Zap, Users, ShieldCheck, CheckCircle2, TrendingUp, BarChart3, MessageCircle, MonitorSmartphone, Target, MessageSquare, ListTodo, FileText, Focus } from 'lucide-react';
+import { ArrowRight, ArrowDown, Globe, Zap, CheckCircle2, Target, MessageSquare, ListTodo, FileText, Focus } from 'lucide-react';
 import { motion } from 'framer-motion';
 import AffiliateTracker from '@/components/AffiliateTracker';
 import { Suspense, useState, useEffect } from 'react';
