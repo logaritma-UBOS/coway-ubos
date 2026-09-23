@@ -21,7 +21,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-[#00A3E0]/20 selection:text-[#00A3E0]">
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-[#00A3E0]/20 selection:text-[#00A3E0] overflow-x-hidden">
       <Suspense fallback={null}>
         <AffiliateTracker />
       </Suspense>
@@ -33,16 +33,16 @@ export default function Home() {
       </div>
 
       <nav className="bg-white/70 backdrop-blur-xl border-b border-white/50 sticky top-0 z-50 transition-all">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="font-black text-2xl tracking-tight flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#00A3E0] to-blue-600 flex items-center justify-center text-white">
-              <Zap size={18} fill="currentColor" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+          <div className="font-black text-xl sm:text-2xl tracking-tight flex items-center gap-2">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br from-[#00A3E0] to-blue-600 flex items-center justify-center text-white shrink-0">
+              <Zap size={16} className="sm:w-[18px] sm:h-[18px]" fill="currentColor" />
             </div>
             <span className="text-[#0F172A]">Coway</span> UBOS
           </div>
-          <div className="flex gap-2 sm:gap-3 md:gap-4 items-center">
+          <div className="flex gap-1 sm:gap-3 md:gap-4 items-center">
             <Link href="/login" className="px-2 sm:px-5 py-2.5 text-slate-600 font-bold hover:text-slate-900 transition items-center text-sm sm:text-base whitespace-nowrap">Log In</Link>
-            <Link href="/register" className="px-4 py-2 md:px-5 md:py-2.5 bg-[#0F172A] hover:bg-slate-800 text-white font-bold text-sm md:text-base rounded-xl transition shadow-lg shadow-slate-900/20 flex items-center gap-2 whitespace-nowrap">
+            <Link href="/register" className="px-3 py-2 md:px-5 md:py-2.5 bg-[#0F172A] hover:bg-slate-800 text-white font-bold text-sm md:text-base rounded-xl transition shadow-lg shadow-slate-900/20 flex items-center gap-1 sm:gap-2 whitespace-nowrap">
               Daftar <span className="hidden sm:inline">Gratis</span> <ArrowRight size={16} className="hidden sm:block" />
             </Link>
           </div>
@@ -53,7 +53,7 @@ export default function Home() {
         {/* Hero Section */}
         <section className="max-w-7xl mx-auto px-6 pt-12 md:pt-20 pb-20 md:pb-32 text-center">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-4xl mx-auto">
-            <motion.h1 variants={fadeIn} className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6 leading-[1.2]">
+            <motion.h1 variants={fadeIn} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6 leading-[1.2]">
               Mesin Marketing Pribadi<br className="block" />
               untuk <TypewriterText text="Health Planner" delay={800} />
             </motion.h1>
@@ -351,7 +351,7 @@ function TypewriterText({ text, delay = 0 }: { text: string, delay?: number }) {
   }, [displayedText, isDeleting, isWaiting, text, delay]);
 
   return (
-    <span className="inline-block relative">
+    <span className="inline relative">
       <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3E0] to-indigo-600">
         {displayedText}
       </span>
