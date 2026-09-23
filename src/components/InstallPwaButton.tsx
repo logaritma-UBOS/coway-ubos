@@ -70,7 +70,7 @@ export default function InstallPwaButton() {
     <>
       <button 
         onClick={handleInstallClick}
-        className="fixed bottom-6 right-6 z-50 bg-[#00A3E0] hover:bg-sky-600 text-white shadow-xl shadow-sky-500/30 rounded-full px-5 py-3 font-bold flex items-center gap-2 transition-transform transform hover:-translate-y-1 animate-bounce"
+        className="fixed bottom-24 right-4 md:bottom-6 md:right-6 z-50 bg-[#00A3E0] hover:bg-sky-600 text-white shadow-xl shadow-sky-500/30 rounded-full px-5 py-3 font-bold flex items-center gap-2 transition-transform transform hover:-translate-y-1 animate-bounce"
       >
         <Download size={20} />
         <span className="hidden md:inline">Download Aplikasi</span>
