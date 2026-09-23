@@ -97,18 +97,18 @@ export default async function DashboardOverview() {
       {/* Financial & Pipeline Metrics (TOP PRIORITY) */}
       <div>
         <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-          <TrendingUp className="text-[#00A3E0]" /> Pipeline & Konversi
+          <TrendingUp className="text-[#00A3E0]" /> Potensi Penghasilan & Target
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           <div className="bg-gradient-to-br from-[#0F172A] to-[#1E293B] rounded-2xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#00A3E0] rounded-full blur-3xl opacity-20 -mr-10 -mt-10"></div>
             <div className="relative z-10">
-              <p className="text-xs md:text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Estimasi Pipeline</p>
+              <p className="text-xs md:text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Potensi Pendapatan</p>
               <p className="text-3xl md:text-5xl font-black text-white mb-2">
                 Rp {metrics.estimasiPipeline.toLocaleString('id-ID')}
               </p>
               <p className="text-xs md:text-sm font-medium text-slate-400 flex items-center gap-2">
-                <span className="text-green-400 flex items-center gap-1"><TrendingUp size={14} /> +12%</span> potensial profit
+                <span className="text-green-400 flex items-center gap-1"><TrendingUp size={14} /> +12%</span> probabilitas closing
               </p>
             </div>
           </div>
@@ -126,9 +126,12 @@ export default async function DashboardOverview() {
 
       {/* Status CRM Metrics */}
       <div>
-        <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-          <Users className="text-[#00A3E0]" /> Funnel & Prospek
-        </h3>
+        <div className="mb-3">
+          <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <Users className="text-[#00A3E0]" /> Status Calon Pelanggan (Leads)
+          </h3>
+          <p className="text-xs text-slate-500 mt-1">Data prospek ini masuk secara otomatis dari Landing Page & Campaign Meta Ads Anda.</p>
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           <div className="bg-white rounded-2xl p-4 md:p-5 border border-slate-200 shadow-sm hover:border-[#00A3E0] transition">
             <div className="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-2 md:mb-3">

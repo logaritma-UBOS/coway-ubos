@@ -76,7 +76,7 @@ export default async function LogaritmaOnboarding() {
                 <Globe size={16} className="text-slate-400" /> 2. Aktifkan Landing Page Khusus Coway
               </div>
             </div>
-            {isProfileComplete && !isLpActive && (
+            {!isLpActive && (
               <Link href="/dashboard/landingpage" className="text-sm font-bold text-[#00A3E0] hover:underline flex items-center gap-1">Aktifkan <ArrowRight size={14}/></Link>
             )}
           </div>
@@ -95,8 +95,8 @@ export default async function LogaritmaOnboarding() {
                 <Megaphone size={16} className="text-slate-400" /> 3. Jalankan Campaign Meta Ads
               </div>
             </div>
-            {isLpActive && !isAdsActive && (
-              <Link href="/dashboard/meta-ads" className="text-sm font-bold text-[#00A3E0] hover:underline flex items-center gap-1">Mulai Campaign <ArrowRight size={14}/></Link>
+            {!isAdsActive && (
+              <Link href="/dashboard/meta-ads" className="text-sm font-bold text-[#00A3E0] hover:underline flex items-center gap-1">Pesan <ArrowRight size={14}/></Link>
             )}
           </div>
         </div>
@@ -111,9 +111,12 @@ export default async function LogaritmaOnboarding() {
                 <div className="w-5 h-5 rounded-full border-2 border-slate-300"></div>
               )}
               <div className={`font-bold flex items-center gap-2 ${hasLeads ? 'text-emerald-900' : 'text-slate-600'}`}>
-                <ShieldCheck size={16} className={hasLeads ? "text-emerald-500" : "text-slate-400"} /> 4. Follow-up & Closing Prospek Pertama!
+                <ShieldCheck size={16} className={hasLeads ? "text-emerald-500" : "text-slate-400"} /> 4. Follow-up Prospek Pertama!
               </div>
             </div>
+            {!hasLeads && (
+              <Link href="/dashboard/leads" className="text-sm font-bold text-[#00A3E0] hover:underline flex items-center gap-1">Cek Data <ArrowRight size={14}/></Link>
+            )}
           </div>
         </div>
       </div>
