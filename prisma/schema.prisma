@@ -69,6 +69,8 @@ model User {
   // Status & Subscription
   isActive        Boolean   @default(true) // Langsung aktif saat daftar (Basic)
   isPremium       Boolean   @default(false)
+  hasProductLp    Boolean   @default(false)
+  hasRecruitLp    Boolean   @default(false)
   monthlyTarget   Int       @default(5)
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt

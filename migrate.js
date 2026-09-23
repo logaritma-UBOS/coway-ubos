@@ -5,7 +5,7 @@ const client = new Client({
   port: 6543,
   database: 'postgres',
   user: 'postgres.nbgdryaqfrvthkkxminq',
-  password: 'Bismillah@1m202303',
+  password: 'logaritma2026',
   ssl: { rejectUnauthorized: false }
 });
 
@@ -14,20 +14,26 @@ async function run() {
     await client.connect();
     console.log('Connected to DB via pg');
     
-    // Check if column exists
+    // Check if columns exist
     const checkRes = await client.query(`
       SELECT column_name 
       FROM information_schema.columns 
-      WHERE table_name='User' and column_name='monthlyTarget';
+      WHERE table_name='User' and column_name IN ('hasProductLp', 'hasRecruitLp');
     `);
     
-    if (checkRes.rows.length === 0) {
-      console.log('Column monthlyTarget does not exist. Adding it...');
-      await client.query(`ALTER TABLE "User" ADD COLUMN "monthlyTarget" INTEGER NOT NULL DEFAULT 5;`);
-      console.log('Column added successfully.');
-    } else {
-      console.log('Column already exists.');
+    const existingCols = checkRes.rows.map(r => r.column_name);
+    
+    if (!existingCols.includes('hasProductLp')) {
+      console.log('Adding hasProductLp...');
+      await client.query(`ALTER TABLE "User" ADD COLUMN "hasProductLp" BOOLEAN NOT NULL DEFAULT false;`);
     }
+    
+    if (!existingCols.includes('hasRecruitLp')) {
+      console.log('Adding hasRecruitLp...');
+      await client.query(`ALTER TABLE "User" ADD COLUMN "hasRecruitLp" BOOLEAN NOT NULL DEFAULT false;`);
+    }
+    
+    console.log('Migration completed.');
   } catch (err) {
     console.error('Error:', err);
   } finally {

@@ -59,10 +59,19 @@ export async function POST(req: NextRequest) {
       const serviceTitle = order.service.title.toLowerCase();
 
       // If it's the Logaritma System Package, upgrade the user to Premium
-      if (serviceTitle.includes('sistem logaritma') || serviceTitle.includes('premium')) {
+      if (serviceTitle.includes('sistem logaritma') || serviceTitle.includes('premium') || serviceTitle.includes('lp') || serviceTitle.includes('landing page')) {
+        let updateData: any = { isPremium: true };
+        
+        if (serviceTitle.includes('produk') || serviceTitle.includes('bundling')) {
+          updateData.hasProductLp = true;
+        }
+        if (serviceTitle.includes('rekrutmen') || serviceTitle.includes('bundling')) {
+          updateData.hasRecruitLp = true;
+        }
+        
         await prisma.user.update({
           where: { id: order.agentId },
-          data: { isPremium: true }
+          data: updateData
         });
       }
 

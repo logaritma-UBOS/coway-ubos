@@ -2,14 +2,19 @@
 import { useState } from 'react';
 import { orderService } from '@/lib/actions/orderActions';
 
-export default function ActivationButton() {
+interface ActivationButtonProps {
+  title: string;
+  price: number;
+}
+
+export default function ActivationButton({ title, price }: ActivationButtonProps) {
   const [isPending, setIsPending] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
   const handleActivate = async () => {
     setIsPending(true);
     setErrorMsg('');
-    const result = await orderService('Aktivasi Landing Page', 99000);
+    const result = await orderService(title, price);
     
     if (result.success && result.redirectUrl) {
       window.location.href = result.redirectUrl;
@@ -24,12 +29,12 @@ export default function ActivationButton() {
       <button 
         onClick={handleActivate}
         disabled={isPending}
-        className={`bg-[#00A3E0] hover:bg-sky-600 text-white font-bold py-4 px-8 rounded-xl sm:rounded-full shadow-lg transition-transform ${isPending ? 'opacity-70 cursor-not-allowed scale-100' : 'hover:scale-105'}`}
+        className={`w-full bg-[#00A3E0] hover:bg-sky-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-transform ${isPending ? 'opacity-70 cursor-not-allowed scale-100' : 'hover:scale-105'}`}
       >
         {isPending ? (
-          <><i className="fa-solid fa-circle-notch fa-spin mr-2"></i> Mengarahkan ke Mayar...</>
+          "Mengarahkan ke Mayar..."
         ) : (
-          "Bayar & Aktifkan (Rp 99.000)"
+          `Beli Sekarang (Rp ${price.toLocaleString('id-ID')})`
         )}
       </button>
       {errorMsg && (

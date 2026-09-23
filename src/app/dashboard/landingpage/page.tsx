@@ -24,6 +24,8 @@ export default async function LandingPageSetup() {
     where: { id: userId },
     select: {
       isPremium: true,
+      hasProductLp: true,
+      hasRecruitLp: true,
       slug: true,
     }
   });
@@ -34,6 +36,10 @@ export default async function LandingPageSetup() {
 
   const isActive = user.isPremium;
   const slug = user.slug || '';
+  
+  // Backwards compatibility: if they are premium but don't have the new flags, assume they have product LP
+  const hasProductLp = user.hasProductLp || (user.isPremium && !user.hasProductLp && !user.hasRecruitLp);
+  const hasRecruitLp = user.hasRecruitLp;
 
   return (
     <div className="animate-in fade-in duration-500 max-w-4xl">
@@ -48,28 +54,61 @@ export default async function LandingPageSetup() {
       </div>
 
       {!isActive ? (
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 text-center mb-8">
-          <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-400">
-            <Globe size={40} />
+        <div className="mb-8">
+          <div className="text-center mb-8">
+            <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-400">
+              <Globe size={40} />
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold mb-3 text-slate-900 tracking-tight">Pilih Paket Landing Page Anda</h2>
+            <p className="text-slate-500 max-w-2xl mx-auto font-medium">
+              Miliki Landing Page Coway profesional atas nama Anda sendiri. Terintegrasi dengan form konversi langsung ke WhatsApp Anda.
+            </p>
           </div>
-          <h2 className="text-2xl font-bold mb-3 text-slate-900 tracking-tight">Landing Page Belum Aktif</h2>
-          <p className="text-slate-500 mb-8 max-w-md mx-auto font-medium">
-            Miliki Landing Page Coway profesional atas nama Anda sendiri. Terintegrasi dengan form konversi langsung ke WhatsApp Anda.
-          </p>
-          <div className="bg-slate-50 rounded-2xl p-6 max-w-sm mx-auto mb-8 border border-slate-100">
-            <p className="text-sm text-slate-500 uppercase font-bold mb-1">Lisensi Sekali Bayar</p>
-            <p className="text-4xl font-black text-slate-900 tracking-tight">Rp99.000</p>
-            <p className="text-xs text-green-600 font-bold mt-2 bg-green-100 py-1 px-3 rounded-full inline-block">Masa Promo: Gratis (MVP)</p>
-          </div>
-          <div className="flex flex-col sm:flex-row justify-center gap-3">
-            <a 
-              href={`/${slug}?preview=true`}
-              target="_blank"
-              className="bg-white border-2 border-slate-200 hover:border-[#00A3E0] hover:text-[#00A3E0] text-slate-600 font-bold py-4 px-6 rounded-xl sm:rounded-full shadow-sm transition flex items-center justify-center gap-2"
-            >
-              <Eye size={20} /> Preview Desain
-            </a>
-            <ActivationButton />
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Paket 1 */}
+            <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 flex flex-col hover:border-[#00A3E0] hover:shadow-md transition">
+              <h3 className="text-lg font-bold text-slate-900 mb-2">LP Penjualan Produk</h3>
+              <p className="text-sm text-slate-500 mb-6 flex-1">Landing page yang didesain khusus untuk mengkonversi pengunjung menjadi pembeli produk Coway Anda.</p>
+              <div className="mb-6">
+                <p className="text-3xl font-black text-slate-900">Rp250.000</p>
+                <p className="text-xs font-bold text-slate-400 mt-1 uppercase">Lisensi Sekali Bayar</p>
+              </div>
+              <ActivationButton title="LP Penjualan Produk" price={250000} />
+              
+              <a href={`/${slug}?preview=true`} target="_blank" className="mt-3 text-center text-[#00A3E0] text-sm font-bold flex items-center justify-center gap-1 hover:underline">
+                <Eye size={16} /> Preview
+              </a>
+            </div>
+
+            {/* Paket 2 */}
+            <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 flex flex-col hover:border-[#00A3E0] hover:shadow-md transition">
+              <h3 className="text-lg font-bold text-slate-900 mb-2">LP Rekrutmen Agen</h3>
+              <p className="text-sm text-slate-500 mb-6 flex-1">Landing page khusus untuk membangun tim agen Coway Anda sendiri dengan mudah.</p>
+              <div className="mb-6">
+                <p className="text-3xl font-black text-slate-900">Rp250.000</p>
+                <p className="text-xs font-bold text-slate-400 mt-1 uppercase">Lisensi Sekali Bayar</p>
+              </div>
+              <ActivationButton title="LP Rekrutmen Agen" price={250000} />
+            </div>
+
+            {/* Paket 3: Bundling */}
+            <div className="bg-slate-900 rounded-3xl border border-slate-800 shadow-xl p-6 flex flex-col relative transform md:-translate-y-4">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-yellow-400 text-yellow-950 px-4 py-1 rounded-full text-xs font-black uppercase tracking-wider shadow-sm">
+                Paling Hemat
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Paket Bundling Lengkap</h3>
+              <p className="text-sm text-slate-400 mb-6 flex-1">Dapatkan kedua Landing Page (Produk & Rekrutmen) sekaligus dengan harga yang jauh lebih murah.</p>
+              <div className="mb-6">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-sm text-slate-500 line-through">Rp500.000</span>
+                  <span className="text-xs bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded">Hemat Rp101.000</span>
+                </div>
+                <p className="text-3xl font-black text-white">Rp399.000</p>
+                <p className="text-xs font-bold text-slate-500 mt-1 uppercase">Lisensi Sekali Bayar</p>
+              </div>
+              <ActivationButton title="Paket Bundling LP" price={399000} />
+            </div>
           </div>
         </div>
       ) : (
@@ -85,7 +124,7 @@ export default async function LandingPageSetup() {
               
               <div className="space-y-4 mb-8">
                 <p className="text-slate-600 font-medium">
-                  Landing page Anda sudah aktif dan bisa diakses oleh pelanggan potensial.
+                  Lisensi Landing Page Anda sudah aktif dan bisa diakses oleh pelanggan potensial.
                 </p>
               </div>
 
@@ -101,25 +140,47 @@ export default async function LandingPageSetup() {
             </div>
           </div>
           
-          <div className="md:col-span-2">
-            <div className="bg-slate-900 rounded-2xl p-6 text-white sticky top-24 shadow-xl">
-              <h4 className="font-bold mb-4 tracking-tight">Link Anda</h4>
-              <div className="bg-slate-800 rounded-xl p-3 flex items-center justify-between mb-6 border border-slate-700">
-                <span className="text-slate-300 text-sm truncate font-medium">coway.logaritma.id/{slug}</span>
-                <CopyLinkButton url={`https://coway.logaritma.id/${slug}`} />
-              </div>
-              
-              <a href={`/${slug}`} target="_blank" className="w-full bg-[#00A3E0] hover:bg-sky-600 text-white font-bold py-3 px-4 rounded-xl flex justify-center items-center gap-2 transition">
-                <ExternalLink size={18} /> Buka Halaman
-              </a>
-              
-              <div className="mt-8">
-                <p className="text-xs text-slate-500 uppercase font-bold tracking-wider mb-3">Live Preview</p>
-                <div className="w-full aspect-[9/16] bg-slate-800 rounded-xl overflow-hidden border border-slate-700 pointer-events-none opacity-80">
-                  <iframe src={`/${slug}`} className="w-full h-full border-none" title="Live Preview" />
+          <div className="md:col-span-2 space-y-6">
+            {hasProductLp && (
+              <div className="bg-slate-900 rounded-2xl p-6 text-white shadow-xl">
+                <h4 className="font-bold mb-4 tracking-tight">LP Produk Anda</h4>
+                <div className="bg-slate-800 rounded-xl p-3 flex items-center justify-between mb-6 border border-slate-700">
+                  <span className="text-slate-300 text-sm truncate font-medium">coway.logaritma.id/{slug}</span>
+                  <CopyLinkButton url={`https://coway.logaritma.id/${slug}`} />
                 </div>
+                
+                <a href={`/${slug}`} target="_blank" className="w-full bg-[#00A3E0] hover:bg-sky-600 text-white font-bold py-3 px-4 rounded-xl flex justify-center items-center gap-2 transition">
+                  <ExternalLink size={18} /> Buka LP Produk
+                </a>
               </div>
-            </div>
+            )}
+
+            {hasRecruitLp && (
+              <div className="bg-slate-800 rounded-2xl p-6 text-white shadow-xl border border-slate-700">
+                <h4 className="font-bold mb-4 tracking-tight">LP Rekrutmen Anda</h4>
+                <div className="bg-slate-900 rounded-xl p-3 flex items-center justify-between mb-6 border border-slate-700">
+                  <span className="text-slate-300 text-sm truncate font-medium">coway.logaritma.id/{slug}/karir</span>
+                  <CopyLinkButton url={`https://coway.logaritma.id/${slug}/karir`} />
+                </div>
+                
+                <a href={`/${slug}/karir`} target="_blank" className="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-4 rounded-xl flex justify-center items-center gap-2 transition">
+                  <ExternalLink size={18} /> Buka LP Rekrutmen
+                </a>
+              </div>
+            )}
+
+            {(!hasProductLp || !hasRecruitLp) && (
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+                <h4 className="font-bold text-slate-900 mb-2">Upgrade Tersedia!</h4>
+                <p className="text-sm text-slate-500 mb-4">
+                  {!hasProductLp ? "Anda belum memiliki Landing Page Penjualan Produk." : "Tingkatkan jaringan Anda dengan memiliki Landing Page Rekrutmen Agen khusus."}
+                </p>
+                <ActivationButton 
+                  title={!hasProductLp ? "LP Penjualan Produk" : "LP Rekrutmen Agen"} 
+                  price={250000} 
+                />
+              </div>
+            )}
           </div>
         </div>
       )}
