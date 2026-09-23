@@ -21,6 +21,7 @@ export async function updateProfile(formData: FormData) {
     const image = formData.get('image') as string;
     const metaPixelId = formData.get('metaPixelId') as string;
     const tiktokPixelId = formData.get('tiktokPixelId') as string;
+    const cowayId = formData.get('cowayId') as string;
     const monthlyTargetStr = formData.get('monthlyTarget') as string;
     const monthlyTarget = monthlyTargetStr ? parseInt(monthlyTargetStr, 10) : 5;
 
@@ -56,6 +57,7 @@ export async function updateProfile(formData: FormData) {
         image: image || null,
         metaPixelId: metaPixelId || null,
         tiktokPixelId: tiktokPixelId || null,
+        cowayId: cowayId || null,
         monthlyTarget: isNaN(monthlyTarget) ? 5 : monthlyTarget,
       }
     });

@@ -27,6 +27,7 @@ export default async function ProfilePage() {
       metaPixelId: true,
       tiktokPixelId: true,
       monthlyTarget: true,
+      cowayId: true,
     }
   });
 
@@ -43,6 +44,7 @@ export default async function ProfilePage() {
     metaPixelId: user.metaPixelId,
     tiktokPixelId: user.tiktokPixelId,
     monthlyTarget: user.monthlyTarget,
+    cowayId: user.cowayId || '',
   };
 
   return (
