@@ -14,6 +14,16 @@ export async function togglePremiumStatus(id: string, isPremium: boolean) {
   revalidatePath('/admin-logaritma/users');
 }
 
+export async function toggleProductLp(id: string, hasProductLp: boolean) {
+  await (prisma.user as any).update({ where: { id }, data: { hasProductLp } });
+  revalidatePath('/admin-logaritma/users');
+}
+
+export async function toggleRecruitLp(id: string, hasRecruitLp: boolean) {
+  await (prisma.user as any).update({ where: { id }, data: { hasRecruitLp } });
+  revalidatePath('/admin-logaritma/users');
+}
+
 export async function deleteUser(id: string) {
   try {
     await prisma.$transaction([

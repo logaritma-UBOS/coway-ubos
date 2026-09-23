@@ -1,6 +1,6 @@
 'use client';
 import { useState, useTransition } from 'react';
-import { updateUserPassword, deleteUser, togglePremiumStatus } from './actions';
+import { updateUserPassword, deleteUser, togglePremiumStatus, toggleProductLp, toggleRecruitLp } from './actions';
 import { KeyRound, Trash2, ExternalLink, Crown } from 'lucide-react';
 
 export default function UserClientManager({ initialUsers }: { initialUsers: any[] }) {
@@ -28,9 +28,25 @@ export default function UserClientManager({ initialUsers }: { initialUsers: any[
   };
 
   const handleTogglePremium = (id: string, name: string, currentStatus: boolean) => {
-    if (confirm(`Apakah Anda yakin ingin mengubah status Premium agen ${name} menjadi ${currentStatus ? 'BASIC' : 'PREMIUM'}?`)) {
+    if (confirm(`Apakah Anda yakin ingin mengubah status Premium (Basic LP) agen ${name} menjadi ${currentStatus ? 'Tidak Aktif' : 'Aktif'}?`)) {
       startTransition(async () => {
         await togglePremiumStatus(id, !currentStatus);
+      });
+    }
+  };
+
+  const handleToggleProduct = (id: string, name: string, currentStatus: boolean) => {
+    if (confirm(`Apakah Anda yakin ingin mengubah status LP Produk agen ${name} menjadi ${currentStatus ? 'Tidak Aktif' : 'Aktif'}?`)) {
+      startTransition(async () => {
+        await toggleProductLp(id, !currentStatus);
+      });
+    }
+  };
+
+  const handleToggleRecruit = (id: string, name: string, currentStatus: boolean) => {
+    if (confirm(`Apakah Anda yakin ingin mengubah status LP Rekrutmen agen ${name} menjadi ${currentStatus ? 'Tidak Aktif' : 'Aktif'}?`)) {
+      startTransition(async () => {
+        await toggleRecruitLp(id, !currentStatus);
       });
     }
   };
@@ -43,7 +59,7 @@ export default function UserClientManager({ initialUsers }: { initialUsers: any[
             <tr>
               <th className="p-4 font-bold text-slate-700">Nama Agen</th>
               <th className="p-4 font-bold text-slate-700">Email & WA</th>
-              <th className="p-4 font-bold text-slate-700">LP & Status</th>
+              <th className="p-4 font-bold text-slate-700">LP & Status (Klik untuk Ubah)</th>
               <th className="p-4 font-bold text-slate-700 w-32 text-center">Aksi Detail</th>
             </tr>
           </thead>
@@ -56,12 +72,25 @@ export default function UserClientManager({ initialUsers }: { initialUsers: any[
                   <div className="text-slate-500 text-xs mt-1">{user.whatsappNumber || '-'}</div>
                 </td>
                 <td className="p-4">
-                  <div className="mb-2">
-                    {user.isPremium ? (
-                      <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wide">Premium</span>
-                    ) : (
-                      <span className="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wide">Basic</span>
-                    )}
+                  <div className="mb-2 flex flex-wrap gap-1">
+                    <button 
+                      onClick={() => handleTogglePremium(user.id, user.name, user.isPremium)}
+                      className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wide transition-colors ${user.isPremium ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200' : 'bg-slate-100 text-slate-400 hover:bg-slate-200 line-through'}`}
+                    >
+                      Basic
+                    </button>
+                    <button 
+                      onClick={() => handleToggleProduct(user.id, user.name, (user as any).hasProductLp)}
+                      className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wide transition-colors ${(user as any).hasProductLp ? 'bg-blue-100 text-blue-700 hover:bg-blue-200' : 'bg-slate-100 text-slate-400 hover:bg-slate-200 line-through'}`}
+                    >
+                      Produk
+                    </button>
+                    <button 
+                      onClick={() => handleToggleRecruit(user.id, user.name, (user as any).hasRecruitLp)}
+                      className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wide transition-colors ${(user as any).hasRecruitLp ? 'bg-fuchsia-100 text-fuchsia-700 hover:bg-fuchsia-200' : 'bg-slate-100 text-slate-400 hover:bg-slate-200 line-through'}`}
+                    >
+                      Rekrut
+                    </button>
                   </div>
                   {user.slug && (
                     <a href={`/${user.slug}`} target="_blank" className="text-[#00A3E0] font-bold hover:underline flex items-center gap-1 text-xs">
@@ -70,7 +99,7 @@ export default function UserClientManager({ initialUsers }: { initialUsers: any[
                   )}
                 </td>
                 <td className="p-4 flex gap-2 justify-center">
-                  <button onClick={() => handleTogglePremium(user.id, user.name, user.isPremium)} title={user.isPremium ? 'Ubah ke Basic' : 'Ubah ke Premium'} className={`p-2 rounded-lg transition ${user.isPremium ? 'text-emerald-500 hover:bg-emerald-50' : 'text-slate-400 hover:text-emerald-500 hover:bg-emerald-50'}`}><Crown size={18}/></button>
+                  <button onClick={() => handleTogglePremium(user.id, user.name, user.isPremium)} title={user.isPremium ? 'Ubah ke Basic' : 'Ubah ke Premium'} className={`p-2 rounded-lg transition hidden`}><Crown size={18}/></button>
                   <button onClick={() => setPasswordModal(user)} title="Ubah Password" className="p-2 text-slate-400 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition"><KeyRound size={18}/></button>
                   <button onClick={() => handleDelete(user.id, user.name)} title="Hapus Akun Permanen" className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition"><Trash2 size={18}/></button>
                 </td>
