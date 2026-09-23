@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import ProfileForm from '@/components/ProfileForm';
 
 export const metadata = {
-  title: 'Profile Setup - Coway UBOS',
+  title: 'Profile Setup - Coway Logaritma',
 };
 
 export default async function ProfilePage() {

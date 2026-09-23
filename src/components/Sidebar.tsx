@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Globe, Megaphone, Clapperboard, LogOut, Gift, UserCircle, Users, ShieldAlert, ShoppingCart } from 'lucide-react';
 import { signOut } from 'next-auth/react';
+import Logo from '@/components/Logo';
 
 export default function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
   const pathname = usePathname();
@@ -27,7 +28,8 @@ export default function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
       <aside className="hidden md:flex w-72 bg-[#0F172A] text-slate-300 flex-col h-screen sticky top-0 z-50 shadow-2xl">
         <div className="p-6">
           <h2 className="text-2xl font-black text-white tracking-tight flex items-center gap-2">
-            <span className="text-[#00A3E0]">Coway</span> UBOS
+            <Logo className="w-8 h-8" />
+            <span className="text-[#00A3E0]">Coway</span> Logaritma
           </h2>
           <p className="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Agent Member Area</p>
         </div>

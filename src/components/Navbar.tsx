@@ -2,6 +2,7 @@
 import { LogOut } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import NotificationBell from './NotificationBell';
+import Logo from '@/components/Logo';
 
 export default function Navbar({ session, userDb }: { session?: any, userDb?: any }) {
   const name = userDb?.name || session?.user?.name || 'Budi Santoso';
@@ -13,8 +14,9 @@ export default function Navbar({ session, userDb }: { session?: any, userDb?: an
     <header className="bg-white border-b border-slate-200 h-20 flex items-center justify-between px-8 sticky top-0 z-40">
       <div className="flex items-center gap-4">
         <h1 className="text-xl font-bold text-slate-800 hidden md:block">Dashboard</h1>
-        <div className="md:hidden font-black text-xl tracking-tight flex items-center gap-1">
-          <span className="text-[#00A3E0]">Coway</span> UBOS
+        <div className="md:hidden font-black text-xl tracking-tight flex items-center gap-2">
+          <Logo className="w-6 h-6" />
+          <span className="text-[#00A3E0]">Coway</span> Logaritma
         </div>
       </div>
       <div className="flex items-center gap-6">

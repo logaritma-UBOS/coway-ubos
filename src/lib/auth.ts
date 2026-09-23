@@ -88,5 +88,5 @@ export const authOptions: NextAuthOptions = {
       return session;
     }
   },
-  secret: process.env.NEXTAUTH_SECRET || "fallback_secret_coway_ubos_2026",
+  secret: process.env.NEXTAUTH_SECRET || "fallback_secret_coway_Logaritma_2026",
 };

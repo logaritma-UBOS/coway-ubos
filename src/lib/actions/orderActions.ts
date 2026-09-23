@@ -51,7 +51,7 @@ export async function orderService(serviceName: string, amount: number) {
         email: session.user.email,
         mobile: (session.user as any).whatsappNumber || '081111111111',
         amount: amount,
-        description: `Pesanan Layanan UBOS: ${serviceName}`,
+        description: `Pesanan Layanan Logaritma: ${serviceName}`,
         redirectURL: `https://coway.logaritma.id/dashboard`
       };
 

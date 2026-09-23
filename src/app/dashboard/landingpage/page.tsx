@@ -8,7 +8,7 @@ import Link from 'next/link';
 import CopyLinkButton from '@/components/CopyLinkButton';
 
 export const metadata = {
-  title: 'Landing Page Setup - Coway UBOS',
+  title: 'Landing Page Setup - Coway Logaritma',
 };
 
 export default async function LandingPageSetup() {

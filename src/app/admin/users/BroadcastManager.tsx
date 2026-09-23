@@ -16,15 +16,15 @@ export default function BroadcastManager() {
   const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
-    const savedFonnte = localStorage.getItem('UBOS_FONNTE_TOKEN');
-    const savedGemini = localStorage.getItem('UBOS_GEMINI_KEY');
+    const savedFonnte = localStorage.getItem('Logaritma_FONNTE_TOKEN');
+    const savedGemini = localStorage.getItem('Logaritma_GEMINI_KEY');
     if (savedFonnte) setFonnteToken(savedFonnte);
     if (savedGemini) setGeminiKey(savedGemini);
   }, []);
 
   const saveSettings = () => {
-    localStorage.setItem('UBOS_FONNTE_TOKEN', fonnteToken);
-    localStorage.setItem('UBOS_GEMINI_KEY', geminiKey);
+    localStorage.setItem('Logaritma_FONNTE_TOKEN', fonnteToken);
+    localStorage.setItem('Logaritma_GEMINI_KEY', geminiKey);
     setShowSettings(false);
   };
 

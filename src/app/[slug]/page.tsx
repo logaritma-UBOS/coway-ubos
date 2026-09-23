@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const agent = await prisma.user.findUnique({ where: { slug }, select: { name: true, isPremium: true } });
   
   if (!agent?.isPremium) {
-    return { title: 'Halaman Belum Aktif - Coway UBOS' };
+    return { title: 'Halaman Belum Aktif - Coway Logaritma' };
   }
   
   const agentName = agent?.name || 'Agen Resmi';

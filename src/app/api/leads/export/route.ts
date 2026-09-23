@@ -36,7 +36,7 @@ export async function GET(req: Request) {
     return new NextResponse(csvContent, {
       headers: {
         'Content-Type': 'text/csv',
-        'Content-Disposition': 'attachment; filename="leads_coway_ubos.csv"',
+        'Content-Disposition': 'attachment; filename="leads_coway_Logaritma.csv"',
       },
     });
   } catch (error) {

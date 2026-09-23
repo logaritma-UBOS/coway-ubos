@@ -69,7 +69,7 @@ export default function Register() {
           <ArrowLeft size={16} /> Kembali ke Beranda
         </Link>
         <h2 className="text-center text-3xl font-black tracking-tight text-slate-900">
-          Daftar Agen UBOS
+          Daftar Agen Logaritma
         </h2>
         <p className="mt-2 text-center text-sm text-slate-600">
           Sudah punya akun?{' '}

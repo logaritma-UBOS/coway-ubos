@@ -5,7 +5,7 @@ import { Users, Search, Download, MessageCircle, Flame } from 'lucide-react';
 import { getLeadTemperature, getTemperatureColor } from '@/lib/utils/leadScoring';
 
 export const metadata = {
-  title: 'Manajemen Leads - Coway UBOS',
+  title: 'Manajemen Leads - Coway Logaritma',
 };
 
 export default async function LeadsPage() {

@@ -55,7 +55,7 @@ model User {
   image         String?
   passwordHash  String?   // Added for Credentials provider
   
-  // Coway UBOS Specific Fields
+  // Coway Logaritma Specific Fields
   cowayId         String?   @unique
   slug            String?   @unique // cth: 'budi-santoso'
   whatsappNumber  String?

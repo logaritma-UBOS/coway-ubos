@@ -13,12 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Coway UBOS - Platform Manajemen Agen",
+  title: "Coway Logaritma - Platform Manajemen Agen",
   description: "Platform manajemen agen Coway untuk mengatur landing page, leads, dan meta ads.",
   openGraph: {
-    title: "Coway UBOS",
+    title: "Coway Logaritma",
     description: "Platform Manajemen Agen Resmi Coway.",
-    siteName: "Coway UBOS",
+    siteName: "Coway Logaritma",
   }
 };
 

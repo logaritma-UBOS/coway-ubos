@@ -5,6 +5,7 @@ import { ArrowRight, ArrowDown, Globe, Zap, CheckCircle2, Target, MessageSquare,
 import { motion } from 'framer-motion';
 import AffiliateTracker from '@/components/AffiliateTracker';
 import { Suspense, useState, useEffect } from 'react';
+import Logo from '@/components/Logo';
 
 function TypewriterText({ text, delay = 0 }: { text: string, delay?: number }) {
   const [displayedText, setDisplayedText] = useState("");
@@ -80,10 +81,8 @@ export default function Home() {
       <nav className="bg-white/70 backdrop-blur-xl border-b border-white/50 sticky top-0 z-50 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           <div className="font-black text-xl sm:text-2xl tracking-tight flex items-center gap-2">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br from-[#00A3E0] to-blue-600 flex items-center justify-center text-white shrink-0">
-              <Zap size={16} className="sm:w-[18px] sm:h-[18px]" fill="currentColor" />
-            </div>
-            <span className="text-[#0F172A]">Coway</span> UBOS
+            <Logo className="w-7 h-7 sm:w-8 sm:h-8" />
+            <span className="text-[#0F172A]">Coway</span> Logaritma
           </div>
           <div className="flex gap-1 sm:gap-3 md:gap-4 items-center">
             <Link href="/login" className="px-2 sm:px-5 py-2.5 text-slate-600 font-bold hover:text-slate-900 transition items-center text-sm sm:text-base whitespace-nowrap">Log In</Link>
@@ -256,7 +255,7 @@ export default function Home() {
             </motion.p>
             <motion.div variants={fadeIn}>
               <Link href="/register" className="inline-flex w-full md:w-auto px-10 py-5 bg-gradient-to-r from-[#00A3E0] to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold text-base md:text-xl rounded-full transition-all transform hover:scale-105 shadow-xl shadow-sky-500/30 items-center justify-center gap-3">
-                MULAI GUNAKAN UBOS SEKARANG <ArrowRight size={24} />
+                MULAI GUNAKAN Logaritma SEKARANG <ArrowRight size={24} />
               </Link>
             </motion.div>
           </motion.div>
@@ -266,12 +265,10 @@ export default function Home() {
       <footer className="bg-slate-50 py-12 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#00A3E0] to-blue-600 flex items-center justify-center text-white shrink-0">
-              <Zap size={18} fill="currentColor" />
-            </div>
-            <span className="font-black text-xl text-slate-800"><span className="text-[#0F172A]">Coway</span> UBOS</span>
+            <Logo className="w-8 h-8" />
+            <span className="font-black text-xl text-slate-800"><span className="text-[#0F172A]">Coway</span> Logaritma</span>
           </div>
-          <p className="text-slate-500 text-sm font-medium">© {new Date().getFullYear()} Logaritma UBOS. All rights reserved.</p>
+          <p className="text-slate-500 text-sm font-medium">© {new Date().getFullYear()} Coway Logaritma. All rights reserved.</p>
         </div>
       </footer>
     </div>
