@@ -72,22 +72,22 @@ export default function UserClientManager({ initialUsers }: { initialUsers: any[
                   <div className="text-slate-500 text-xs mt-1">{user.whatsappNumber || '-'}</div>
                 </td>
                 <td className="p-4">
-                  <div className="mb-2 flex flex-wrap gap-1">
+                  <div className="mb-2 flex flex-wrap gap-2">
                     <button 
                       onClick={() => handleTogglePremium(user.id, user.name, user.isPremium)}
-                      className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wide transition-colors ${user.isPremium ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200' : 'bg-slate-100 text-slate-400 hover:bg-slate-200 line-through'}`}
+                      className={`px-3 py-1 rounded shadow-sm text-[10px] font-black uppercase tracking-wide transition-all border ${user.isPremium ? 'bg-emerald-100 text-emerald-700 border-emerald-200 hover:bg-emerald-200' : 'bg-white text-slate-400 border-slate-200 hover:bg-slate-50 hover:text-emerald-600'}`}
                     >
                       Basic
                     </button>
                     <button 
                       onClick={() => handleToggleProduct(user.id, user.name, (user as any).hasProductLp)}
-                      className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wide transition-colors ${(user as any).hasProductLp ? 'bg-blue-100 text-blue-700 hover:bg-blue-200' : 'bg-slate-100 text-slate-400 hover:bg-slate-200 line-through'}`}
+                      className={`px-3 py-1 rounded shadow-sm text-[10px] font-black uppercase tracking-wide transition-all border ${(user as any).hasProductLp ? 'bg-blue-100 text-blue-700 border-blue-200 hover:bg-blue-200' : 'bg-white text-slate-400 border-slate-200 hover:bg-slate-50 hover:text-blue-600'}`}
                     >
                       Produk
                     </button>
                     <button 
                       onClick={() => handleToggleRecruit(user.id, user.name, (user as any).hasRecruitLp)}
-                      className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wide transition-colors ${(user as any).hasRecruitLp ? 'bg-fuchsia-100 text-fuchsia-700 hover:bg-fuchsia-200' : 'bg-slate-100 text-slate-400 hover:bg-slate-200 line-through'}`}
+                      className={`px-3 py-1 rounded shadow-sm text-[10px] font-black uppercase tracking-wide transition-all border ${(user as any).hasRecruitLp ? 'bg-fuchsia-100 text-fuchsia-700 border-fuchsia-200 hover:bg-fuchsia-200' : 'bg-white text-slate-400 border-slate-200 hover:bg-slate-50 hover:text-fuchsia-600'}`}
                     >
                       Rekrut
                     </button>
@@ -99,7 +99,6 @@ export default function UserClientManager({ initialUsers }: { initialUsers: any[
                   )}
                 </td>
                 <td className="p-4 flex gap-2 justify-center">
-                  <button onClick={() => handleTogglePremium(user.id, user.name, user.isPremium)} title={user.isPremium ? 'Ubah ke Basic' : 'Ubah ke Premium'} className={`p-2 rounded-lg transition ${user.isPremium ? 'text-emerald-500 hover:bg-emerald-50' : 'text-slate-400 hover:text-emerald-500 hover:bg-emerald-50'}`}><Crown size={18}/></button>
                   <button onClick={() => setPasswordModal(user)} title="Ubah Password" className="p-2 text-slate-400 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition"><KeyRound size={18}/></button>
                   <button onClick={() => handleDelete(user.id, user.name)} title="Hapus Akun Permanen" className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition"><Trash2 size={18}/></button>
                 </td>
