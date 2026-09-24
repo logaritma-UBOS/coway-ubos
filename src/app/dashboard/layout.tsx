@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar';
 import { getServerSession } from 'next-auth';
 import { authOptions, prisma } from '@/lib/auth';
 import { redirect } from 'next/navigation';
+import InstallPwaButton from '@/components/InstallPwaButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -29,6 +30,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
           </div>
         </main>
       </div>
+      <InstallPwaButton />
     </div>
   );
 }

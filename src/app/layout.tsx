@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import InstallPwaButton from "@/components/InstallPwaButton";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -41,7 +40,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-full flex flex-col">
         {children}
-        <InstallPwaButton />
       </body>
     </html>
   );

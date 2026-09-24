@@ -99,7 +99,7 @@ export default function UserClientManager({ initialUsers }: { initialUsers: any[
                   )}
                 </td>
                 <td className="p-4 flex gap-2 justify-center">
-                  <button onClick={() => handleTogglePremium(user.id, user.name, user.isPremium)} title={user.isPremium ? 'Ubah ke Basic' : 'Ubah ke Premium'} className={`p-2 rounded-lg transition hidden`}><Crown size={18}/></button>
+                  <button onClick={() => handleTogglePremium(user.id, user.name, user.isPremium)} title={user.isPremium ? 'Ubah ke Basic' : 'Ubah ke Premium'} className={`p-2 rounded-lg transition ${user.isPremium ? 'text-emerald-500 hover:bg-emerald-50' : 'text-slate-400 hover:text-emerald-500 hover:bg-emerald-50'}`}><Crown size={18}/></button>
                   <button onClick={() => setPasswordModal(user)} title="Ubah Password" className="p-2 text-slate-400 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition"><KeyRound size={18}/></button>
                   <button onClick={() => handleDelete(user.id, user.name)} title="Hapus Akun Permanen" className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition"><Trash2 size={18}/></button>
                 </td>

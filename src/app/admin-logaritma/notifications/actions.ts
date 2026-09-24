@@ -28,21 +28,22 @@ export async function sendNotification(formData: FormData) {
       throw new Error("Tidak ada agen yang sesuai dengan kriteria target.");
     }
 
-    // Insert notifications in bulk
-    const data = users.map(user => ({
-      userId: user.id,
-      title,
-      message,
-      type
+    // Insert notifications in bulk using a transaction to avoid createMany quirks
+    const creates = users.map(user => prisma.notification.create({
+      data: {
+        userId: user.id,
+        title,
+        message,
+        type
+      }
     }));
 
-    await prisma.notification.createMany({
-      data
-    });
+    await prisma.$transaction(creates);
 
     revalidatePath('/admin-logaritma/notifications');
     return { success: true, count: users.length };
   } catch (error: any) {
+    console.error("SEND_NOTIF_ERROR:", error);
     return { success: false, error: error.message || "Gagal mengirim notifikasi." };
   }
 }
