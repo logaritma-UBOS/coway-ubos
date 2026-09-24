@@ -24,6 +24,27 @@ export default function ProdukLP({ agent }: { agent: any }) {
           </head>
           <body>
             ${bodyHtml.replace(/\{\{AGENT_NAME\}\}/g, agent.fullName || 'Agen').replace(/\{\{AGENT_PHONE\}\}/g, phone).replace(/\{\{AGENT_COWAY_ID\}\}/g, agent.cowayId || 'Menunggu Verifikasi')}
+            <script>
+              document.addEventListener("click", function(e) {
+                const anchor = e.target.closest("a");
+                if (anchor && anchor.href && anchor.href.includes("api.whatsapp.com")) {
+                  try {
+                    fetch(window.parent.location.origin + "/api/leads", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        name: "Pengunjung Produk",
+                        phone: "Klik Langsung WA",
+                        agentId: "${agent.id}",
+                        targetProduct: "Tanya Detail (Produk LP)"
+                      })
+                    });
+                  } catch(err) {
+                    console.error(err);
+                  }
+                }
+              });
+            </script>
           </body>
           </html>
         `);

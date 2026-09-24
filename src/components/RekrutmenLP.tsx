@@ -16,7 +16,7 @@ export default function RekrutmenLP({ agent }: { agent: any }) {
     const phone = (form.elements.namedItem('phone') as HTMLInputElement).value;
     const city = (form.elements.namedItem('city') as HTMLInputElement).value;
     
-    fetch('/api/leads/capture', {
+    fetch('/api/leads', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

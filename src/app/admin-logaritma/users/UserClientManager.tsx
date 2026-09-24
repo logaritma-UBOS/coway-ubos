@@ -93,9 +93,18 @@ export default function UserClientManager({ initialUsers }: { initialUsers: any[
                     </button>
                   </div>
                   {user.slug && (
-                    <a href={`/${user.slug}`} target="_blank" className="text-[#00A3E0] font-bold hover:underline flex items-center gap-1 text-xs">
-                      Buka LP <ExternalLink size={12}/>
-                    </a>
+                    <div className="flex flex-col gap-1 mt-2">
+                      {(user.isPremium || (user as any).hasProductLp) && (
+                        <a href={`/${user.slug}`} target="_blank" className="text-[#00A3E0] font-bold hover:underline flex items-center gap-1 text-[10px]">
+                          Buka LP Utama <ExternalLink size={10}/>
+                        </a>
+                      )}
+                      {(user as any).hasRecruitLp && (
+                        <a href={`/${user.slug}/karir`} target="_blank" className="text-fuchsia-600 font-bold hover:underline flex items-center gap-1 text-[10px]">
+                          Buka LP Rekrut <ExternalLink size={10}/>
+                        </a>
+                      )}
+                    </div>
                   )}
                 </td>
                 <td className="p-4 flex gap-2 justify-center">
