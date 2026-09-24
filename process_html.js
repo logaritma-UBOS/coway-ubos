@@ -9,10 +9,14 @@ html = html.replace(/(href|src|srcset)=["']\/\/cowayagent\.id([^"']*)["']/g, '$1
 
 // Replace agent info
 html = html.replace(/6285188347258/g, '{{AGENT_PHONE}}');
+html = html.replace(/Ricky\s*Salim/gi, '{{AGENT_NAME}}');
 html = html.replace(/Ricky/g, '{{AGENT_NAME}}');
+html = html.replace(/Salim/g, ''); // just in case
 html = html.replace(/<b>Coway Agent<\/b> \| Authorized/g, '<b>Coway Logaritma</b> | Authorized');
 html = html.replace(/DST250200122/g, '{{AGENT_COWAY_ID}}');
 html = html.replace(/>\s*cowayagent\.id\s*</g, '>coway.logaritma.id<');
+html = html.replace(/info@cowayagent\.id/g, 'logaritma.tim@gmail.com');
+html = html.replace(/Coway Agent Indonesia/g, 'Coway Logaritma');
 html = html.replace(/<title>.*?<\/title>/, '<title>{{AGENT_NAME}} - Coway Logaritma</title>');
 
 // INJECT CUSTOM CSS TO FIX MOBILE MENU AND SLIDER VISIBILITY
