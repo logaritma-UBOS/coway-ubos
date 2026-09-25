@@ -160,6 +160,19 @@ export default async function LandingPageSetup() {
           </div>
           
           <div className="md:col-span-2 space-y-6">
+            {isActive && (
+              <div className="bg-slate-800 rounded-2xl p-6 text-white shadow-xl border border-slate-700">
+                <h4 className="font-bold mb-4 tracking-tight">LP Basic Anda</h4>
+                <div className="bg-slate-900 rounded-xl p-3 flex items-center justify-between mb-6 border border-slate-700">
+                  <span className="text-slate-300 text-sm truncate font-medium">coway.logaritma.id/{slug}{hasProductLp ? '?basic=true' : ''}</span>
+                  <CopyLinkButton url={`https://coway.logaritma.id/${slug}${hasProductLp ? '?basic=true' : ''}`} />
+                </div>
+                
+                <a href={`/${slug}${hasProductLp ? '?basic=true' : ''}`} target="_blank" className="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-4 rounded-xl flex justify-center items-center gap-2 transition">
+                  <ExternalLink size={18} /> Buka LP Basic
+                </a>
+              </div>
+            )}
             {hasProductLp && (
               <div className="bg-slate-900 rounded-2xl p-6 text-white shadow-xl">
                 <h4 className="font-bold mb-4 tracking-tight">LP Produk Anda</h4>
