@@ -6,10 +6,14 @@ export function middleware(req: NextRequest) {
   const hostname = req.headers.get('host') || '';
 
   let currentHost = hostname;
-  if (process.env.NODE_ENV === 'production' && process.env.VERCEL === '1') {
+  if (process.env.NODE_ENV === 'production') {
     currentHost = hostname.replace(`.coway.logaritma.id`, '');
-    // Jika diakses menggunakan domain bawaan Vercel, jangan anggap sebagai subdomain agen
-    if (hostname.endsWith('.vercel.app')) {
+    // Jika diakses menggunakan domain bawaan Vercel atau Netlify, jangan anggap sebagai subdomain agen
+    if (
+      hostname.endsWith('.vercel.app') ||
+      hostname.endsWith('.netlify.app') ||
+      hostname === 'coway.logaritma.id'
+    ) {
       currentHost = 'coway.logaritma.id';
     }
   } else {

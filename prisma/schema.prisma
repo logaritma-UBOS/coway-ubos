@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+binaryTargets = ["native", "rhel-openssl-3.0.x", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -247,3 +248,5 @@ model Notification {
 
   user        User     @relation("AgentNotifications", fields: [userId], references: [id], onDelete: Cascade)
 }
+
+
