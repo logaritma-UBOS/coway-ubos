@@ -5,28 +5,29 @@ export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
   const hostname = req.headers.get('host') || '';
 
-  let currentHost = hostname;
-  if (process.env.NODE_ENV === 'production') {
-    currentHost = hostname.replace(`.coway.logaritma.id`, '');
-    // Jika diakses menggunakan domain bawaan Vercel atau Netlify, jangan anggap sebagai subdomain agen
-    if (
-      hostname.endsWith('.vercel.app') ||
-      hostname.endsWith('.netlify.app') ||
-      hostname === 'coway.logaritma.id'
-    ) {
-      currentHost = 'coway.logaritma.id';
+  // Daftar host utama platform (bukan subdomain agen)
+  const isPlatformDomain =
+    hostname === 'coway.logaritma.id' ||
+    hostname.endsWith('.netlify.app') ||
+    hostname.endsWith('.vercel.app') ||
+    hostname === 'localhost:3000' ||
+    hostname.startsWith('localhost:');
+
+  let agentSubdomain: string | null = null;
+
+  if (!isPlatformDomain) {
+    if (hostname.endsWith('.coway.logaritma.id')) {
+      agentSubdomain = hostname.replace('.coway.logaritma.id', '');
+    } else if (hostname.endsWith('.localhost:3000')) {
+      agentSubdomain = hostname.replace('.localhost:3000', '');
     }
-  } else {
-    currentHost = hostname.replace(`.localhost:3000`, '');
   }
 
   // Affiliate Referral Tracking
   let response = NextResponse.next();
   const ref = req.nextUrl.searchParams.get('ref');
 
-  // Jika URL memiliki parameter ?ref= (contoh: coway.logaritma.id/register?ref=budisantoso)
   if (ref) {
-    // Simpan di cookie dengan masa berlaku 30 hari
     response.cookies.set({
       name: 'affiliate_ref',
       value: ref,
@@ -36,11 +37,9 @@ export function middleware(req: NextRequest) {
     });
   }
 
-  // Subdomain Mapping
-  // Contoh: budi.coway.logaritma.id -> rewrite ke /budi
-  if (currentHost !== 'coway.logaritma.id' && currentHost !== 'localhost:3000') {
-    url.pathname = `/${currentHost}${url.pathname}`;
-    // Jika ada ref cookie yang diset, gabungkan response-nya
+  // Subdomain Mapping jika memang ada subdomain agen (contoh: budi.coway.logaritma.id -> /budi)
+  if (agentSubdomain) {
+    url.pathname = `/${agentSubdomain}${url.pathname}`;
     const rewriteResponse = NextResponse.rewrite(url);
     if (ref) {
       rewriteResponse.cookies.set({
