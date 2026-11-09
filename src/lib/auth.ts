@@ -1,18 +1,10 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
+import prisma from "./prisma";
 
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
-
-// Instantiate Prisma (use global to prevent hot-reload exhaustion in dev)
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
-export const prisma = globalForPrisma.prisma || new PrismaClient({ adapter });
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+export { prisma };
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as any,
