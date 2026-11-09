@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import Logo from '@/components/Logo';
 
 interface Agent {
   id: string;
@@ -114,7 +115,7 @@ export default function LandingPageUI({ agent, isPreviewMode = false }: LandingP
       <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-slate-100 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <a href="#" className="flex items-center gap-2">
-            <img src="https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/coway-new-logo-2020.png" alt="Coway Logo" className="h-8 md:h-10" />
+            <Logo className="w-8 h-8" /><span className="font-extrabold text-lg text-slate-800"><span className="text-[#00A3E0]">Coway</span> Logaritma</span>
           </a>
           <nav className="hidden md:flex gap-6">
             <a href="#perbandingan" className="font-semibold text-slate-700 hover:text-primary transition-colors">Perbandingan Harga</a>
@@ -617,3 +618,4 @@ export default function LandingPageUI({ agent, isPreviewMode = false }: LandingP
     </div>
   );
 }
+
