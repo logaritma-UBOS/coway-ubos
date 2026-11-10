@@ -5,16 +5,12 @@ import PageViewTracker from '@/components/PageViewTracker';
 import { Metadata } from 'next';
 import { Lock } from 'lucide-react';
 
-interface PageProps {
-  params: Promise<{ slug: string }>;
-}
-
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const agent = await (prisma.user as any).findUnique({ where: { slug }, select: { name: true, hasRecruitLp: true, isActive: true } });
   
-  if (!agent?.hasRecruitLp && !agent?.isActive) {
-    return { title: 'Halaman Belum Aktif - Coway Logaritma' };
+  if (!agent) {
+    return { title: 'Halaman Tidak Ditemukan - Coway Logaritma' };
   }
   
   const agentName = agent?.name || 'Agen Resmi';
@@ -45,9 +41,9 @@ export default async function RecruitmentPage(props: { params: Promise<{ slug: s
     notFound();
   }
 
-  const hasRecruitLp = (agentData as any).hasRecruitLp || agentData.isActive;
+  const isAgentActive = agentData.isActive || agentData.isPremium;
 
-  if (!hasRecruitLp && !isPreview) {
+  if (!isAgentActive && !isPreview) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 px-6 font-sans antialiased">
         <div className="text-center max-w-md bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
@@ -64,12 +60,21 @@ export default async function RecruitmentPage(props: { params: Promise<{ slug: s
     );
   }
 
+  const agent = {
+    id: agentData.id,
+    fullName: agentData.name || 'Agen Coway',
+    whatsappNumber: agentData.whatsappNumber || '081234567890',
+    profileImageUrl: agentData.image || null,
+    cowayId: (agentData as any).cowayId || null,
+    phone: agentData.whatsappNumber || '081234567890',
+    bio: agentData.bio || 'Health Planner Coway resmi'
+  };
+
   return (
     <>
       <PageViewTracker agentId={agentData.id} />
-      {(!hasRecruitLp && isPreview) && (
+      {(!isAgentActive && isPreview) && (
         <div className="fixed inset-0 z-[10000] pointer-events-none flex flex-col items-center justify-center overflow-hidden">
-          {/* Watermark overlay pattern */}
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'200\' height=\'200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Ctext x=\'50%25\' y=\'50%25\' font-size=\'24\' font-family=\'sans-serif\' font-weight=\'bold\' fill=\'%23000\' text-anchor=\'middle\' transform=\'rotate(-45 100 100)\'%3EPREVIEW%3C/text%3E%3C/svg%3E")', backgroundSize: '200px 200px' }}></div>
           
           <div className="bg-white/95 backdrop-blur-md px-6 py-4 md:px-10 md:py-6 rounded-3xl border-2 border-rose-500 shadow-2xl transform -rotate-12 pointer-events-auto max-w-[85vw] mx-auto text-center">
@@ -90,12 +95,7 @@ export default async function RecruitmentPage(props: { params: Promise<{ slug: s
         </a>
       )}
 
-      <RekrutmenLP 
-        agentName={agentData.name}
-        whatsappNumber={agentData.whatsappNumber || ''}
-        cowayId={agentData.cowayId || ''}
-        slug={agentData.slug}
-      />
+      <RekrutmenLP agent={agent} />
     </>
   );
 }

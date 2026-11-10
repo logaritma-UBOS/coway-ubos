@@ -6,16 +6,12 @@ import PageViewTracker from '@/components/PageViewTracker';
 import { Metadata } from 'next';
 import { Lock } from 'lucide-react';
 
-interface PageProps {
-  params: Promise<{ slug: string }>;
-}
-
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const agent = await prisma.user.findUnique({ where: { slug }, select: { name: true, isPremium: true, isActive: true } });
   
-  if (!agent?.isPremium && !agent?.isActive) {
-    return { title: 'Halaman Belum Aktif - Coway Logaritma' };
+  if (!agent) {
+    return { title: 'Halaman Tidak Ditemukan - Coway Logaritma' };
   }
   
   const agentName = agent?.name || 'Agen Resmi';
@@ -43,6 +39,7 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
   const { slug } = await props.params;
   const searchParams = await props.searchParams;
   const isPreview = searchParams?.preview === 'true';
+  const isBasic = searchParams?.basic === 'true';
   
   const agentData = await prisma.user.findUnique({
     where: { slug }
@@ -71,12 +68,21 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
     );
   }
 
+  const agent = {
+    id: agentData.id,
+    fullName: agentData.name || 'Agen Coway',
+    whatsappNumber: agentData.whatsappNumber || '081234567890',
+    profileImageUrl: agentData.image || null,
+    cowayId: (agentData as any).cowayId || null,
+    phone: agentData.whatsappNumber || '081234567890',
+    bio: agentData.bio || 'Health Planner Coway resmi yang siap membantu Anda menemukan pemurni air dan udara terbaik untuk keluarga Anda.'
+  };
+
   return (
     <>
       <PageViewTracker agentId={agentData.id} />
       {(!isAgentActive && isPreview) && (
         <div className="fixed inset-0 z-[10000] pointer-events-none flex flex-col items-center justify-center overflow-hidden">
-          {/* Watermark overlay pattern */}
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'200\' height=\'200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Ctext x=\'50%25\' y=\'50%25\' font-size=\'24\' font-family=\'sans-serif\' font-weight=\'bold\' fill=\'%23000\' text-anchor=\'middle\' transform=\'rotate(-45 100 100)\'%3EPREVIEW%3C/text%3E%3C/svg%3E")', backgroundSize: '200px 200px' }}></div>
           
           <div className="bg-white/95 backdrop-blur-md px-6 py-4 md:px-10 md:py-6 rounded-3xl border-2 border-rose-500 shadow-2xl transform -rotate-12 pointer-events-auto max-w-[85vw] mx-auto text-center">
@@ -96,21 +102,12 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
           <span className="sm:hidden">← Kembali</span>
         </a>
       )}
-      {/* Route to the correct template based on license or request */}
-      {(((agentData as any).hasProductLp || isAgentActive || isPreview) && searchParams?.basic !== 'true') ? (
-        <ProdukLP 
-          agentName={agentData.name}
-          whatsappNumber={agentData.whatsappNumber || ''}
-          cowayId={agentData.cowayId || ''}
-          slug={agentData.slug}
-        />
+
+      {/* Render Product LP by default unless basic=true is requested */}
+      {(!isBasic) ? (
+        <ProdukLP agent={agent} />
       ) : (
-        <LandingPageUI 
-          agentName={agentData.name}
-          whatsappNumber={agentData.whatsappNumber || ''}
-          cowayId={agentData.cowayId || ''}
-          slug={agentData.slug}
-        />
+        <LandingPageUI agent={agent} isPreviewMode={!isAgentActive && isPreview} />
       )}
     </>
   );
