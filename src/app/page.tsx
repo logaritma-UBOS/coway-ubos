@@ -18,13 +18,13 @@ import {
   BarChart3, 
   ShieldCheck, 
   Sparkles, 
-  Award,
-  Zap,
-  PhoneCall,
-  Check,
-  Smartphone,
-  Target,
-  AlertCircle
+  Award, 
+  Zap, 
+  PhoneCall, 
+  Check, 
+  Smartphone, 
+  Target, 
+  AlertCircle 
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AffiliateTracker from '@/components/AffiliateTracker';
@@ -46,7 +46,7 @@ export default function Home() {
         <AffiliateTracker />
       </Suspense>
 
-      {/* Modern Pastel Header / Navbar (Mirrors Volume One Studios Navbar) */}
+      {/* Modern Executive Header / Navbar */}
       <header className="bg-white/95 backdrop-blur-md border-b border-slate-100 sticky top-0 z-50 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           
@@ -68,7 +68,7 @@ export default function Home() {
           </Link>
 
           {/* Desktop Nav Links Centered */}
-          <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
+          <nav className="hidden lg:flex items-center gap-7 lg:gap-8 text-sm font-semibold text-slate-600">
             <a href="#masalah" className="hover:text-[#00A3E0] transition-colors">Tantangan Agen</a>
             <a href="#solusi" className="hover:text-[#00A3E0] transition-colors">4 Senjata Utama</a>
             <a href="#tentang" className="hover:text-[#00A3E0] transition-colors">Tentang Sistem</a>
@@ -77,7 +77,7 @@ export default function Home() {
             <a href="#faq" className="hover:text-[#00A3E0] transition-colors">Tanya Jawab</a>
           </nav>
 
-          {/* Right Action Button Desktop (Blue Rounded Pill) */}
+          {/* Right Action Button Desktop */}
           <div className="hidden sm:flex items-center gap-3">
             <Link 
               href="/login" 
@@ -184,40 +184,30 @@ export default function Home() {
       {/* MAIN CONTENT */}
       <main id="beranda" className="relative">
 
-        {/* HERO SECTION (Dual Column Matching Reference Image) */}
-        <section className="relative pt-6 pb-14 sm:pt-10 sm:pb-20 lg:pt-16 lg:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+        {/* HERO SECTION (Clean, Elegant, Zero Overlapping) */}
+        <section className="relative pt-8 pb-16 sm:pt-12 sm:pb-24 lg:pt-16 lg:pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           
-          {/* Playful Pastel Geometric Floating Accents */}
-          <div className="absolute top-10 left-6 sm:left-12 w-10 sm:w-12 h-4 sm:h-5 bg-amber-200/60 rounded-full rotate-45 pointer-events-none" />
-          <div className="absolute top-1/2 left-2 sm:left-6 w-4 sm:w-5 h-4 sm:h-5 bg-sky-200/70 rounded-full pointer-events-none" />
-          <div className="absolute top-8 right-1/4 w-7 sm:w-8 h-7 sm:h-8 bg-sky-200/50 rounded-full pointer-events-none hidden lg:block" />
-          <div className="absolute top-40 right-10 w-10 h-4 bg-orange-200/60 rounded-full -rotate-45 pointer-events-none hidden lg:block" />
-          <div className="absolute bottom-12 right-1/3 w-6 h-6 bg-cyan-200/50 rounded-full pointer-events-none hidden sm:block" />
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
             
             {/* Left Hero Content */}
-            <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-left">
+            <div className="lg:col-span-7 space-y-6 text-left">
               
               {/* Eyebrow Tag */}
               <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#00A3E0] tracking-wide">
-                <span>Eksklusif untuk Health Planner & Team Leader Coway Indonesia</span>
+                <span>Eksklusif untuk Health Planner &amp; Team Leader Coway Indonesia</span>
               </div>
 
-              {/* Main Bold Headline (Authentic Previous Copywriting) */}
-              <h1 className="text-3xl sm:text-5xl lg:text-[54px] font-black text-slate-900 tracking-tight leading-[1.14]">
-                Buntu Jualan Karena Pasar Teman & Keluarga <br className="hidden sm:inline" />
-                <span className="inline-flex items-center gap-2">
-                  <span>Mulai Habis?</span>
-                  <span className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-100 border border-amber-200 text-xl sm:text-2xl shadow-sm">
-                    💧
-                  </span>
+              {/* Main Bold Headline */}
+              <h1 className="text-3xl sm:text-4xl lg:text-[48px] font-extrabold text-slate-900 tracking-tight leading-[1.18]">
+                Buntu Jualan Karena Pasar Teman &amp; Keluarga Mulai Habis?{' '}
+                <span className="inline-flex items-center justify-center w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-amber-100/90 border border-amber-200 text-lg sm:text-xl shadow-xs align-middle ml-1">
+                  💧
                 </span>
               </h1>
 
-              {/* Description Subtitle (Authentic Previous Copywriting) */}
-              <p className="text-base sm:text-lg text-slate-600 font-medium max-w-xl leading-relaxed">
-                Amankan target <span className="text-slate-900 font-bold">5–10 Unit Closing tiap bulan</span> dengan support system mandiri: 
+              {/* Description Subtitle */}
+              <p className="text-base sm:text-lg text-slate-600 font-normal max-w-xl leading-relaxed">
+                Amankan target <strong className="text-slate-900 font-semibold">5–10 Unit Closing tiap bulan</strong> dengan support system mandiri: 
                 Website Landing Page pribadi atas nama Anda, pasokan prospek harian dari Meta Ads, dan asisten follow-up WhatsApp terarah.
               </p>
 
@@ -225,7 +215,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
                 <Link 
                   href="/register" 
-                  className="px-8 py-4 bg-[#00A3E0] hover:bg-[#0092ca] text-white font-extrabold text-base rounded-full transition shadow-lg shadow-sky-500/25 hover:shadow-xl hover:shadow-sky-500/35 text-center flex items-center justify-center gap-2 group active:scale-95"
+                  className="px-8 py-4 bg-[#00A3E0] hover:bg-[#0092ca] text-white font-bold text-base rounded-full transition shadow-lg shadow-sky-500/25 hover:shadow-xl hover:shadow-sky-500/35 text-center flex items-center justify-center gap-2 group active:scale-95"
                 >
                   <span>Mulai Sekarang (Gratis)</span>
                   <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -243,7 +233,7 @@ export default function Home() {
               </div>
 
               {/* Testimonial / Social Proof Cluster */}
-              <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="pt-4 flex flex-col sm:flex-row sm:items-center gap-4">
                 <div className="flex -space-x-2.5 overflow-hidden">
                   <img 
                     className="inline-block h-10 w-10 rounded-full ring-2 ring-white object-cover shadow-sm" 
@@ -281,29 +271,27 @@ export default function Home() {
 
             </div>
 
-            {/* Right Hero Graphic with PNG on Badge Background (Exact Reference Style) */}
+            {/* Right Hero Graphic with PNG on Soft Arch Badge Background */}
             <div className="lg:col-span-5 relative flex justify-center mt-6 lg:mt-0">
-              <div className="relative w-full max-w-[360px] sm:max-w-[420px] flex justify-center items-end">
+              <div className="relative w-full max-w-[400px] sm:max-w-[460px] flex justify-center items-end pb-4">
                 
                 {/* Soft Pastel Blue Arch Badge Background */}
-                <div className="absolute inset-x-4 sm:inset-x-6 top-8 bottom-0 rounded-t-[140px] sm:rounded-t-[180px] rounded-b-[40px] bg-gradient-to-b from-sky-100 via-sky-100/90 to-sky-50/60 border border-sky-200/50 -z-0" />
+                <div className="absolute inset-x-6 sm:inset-x-8 top-10 bottom-4 rounded-t-[160px] rounded-b-[40px] bg-gradient-to-b from-sky-100/90 to-sky-50/50 border border-sky-200/50 -z-0" />
 
-                {/* Decorative Pastel Dots / Pills Around the Badge */}
-                <div className="absolute -top-3 left-4 w-10 h-4 bg-amber-200/70 rounded-full rotate-45 pointer-events-none" />
-                <div className="absolute top-12 -left-3 w-5 h-5 bg-sky-200/80 rounded-full pointer-events-none" />
-                <div className="absolute top-2 -right-2 w-7 h-7 bg-sky-200/70 rounded-full pointer-events-none" />
-                <div className="absolute top-44 -right-5 w-9 h-4 bg-orange-200/70 rounded-full -rotate-45 pointer-events-none" />
-                <div className="absolute bottom-16 -left-3 w-5 h-5 bg-cyan-200/70 rounded-full pointer-events-none" />
+                {/* Subtle Decorative Confetti safely behind the badge */}
+                <div className="absolute top-4 left-6 w-9 h-4 bg-amber-200/70 rounded-full rotate-45 pointer-events-none" />
+                <div className="absolute top-2 right-4 w-7 h-7 bg-sky-200/70 rounded-full pointer-events-none" />
+                <div className="absolute top-48 -right-4 w-9 h-4 bg-orange-200/60 rounded-full -rotate-45 pointer-events-none" />
 
                 {/* Transparent PNG Cutout of Health Planner Woman */}
                 <img 
                   src="/hero-agent.png" 
                   alt="Coway Health Planner Official" 
-                  className="relative z-10 w-auto h-[460px] sm:h-[520px] lg:h-[550px] object-contain object-bottom drop-shadow-md"
+                  className="relative z-10 w-auto h-[440px] sm:h-[500px] lg:h-[520px] object-contain object-bottom drop-shadow-sm"
                 />
 
                 {/* Floating Card 1: Top-Right Freedom Badge */}
-                <div className="absolute top-6 sm:top-8 -right-2 sm:-right-8 bg-white rounded-full px-3.5 sm:px-4 py-2 sm:py-2.5 shadow-lg shadow-slate-200/70 border border-slate-100 flex items-center gap-2 max-w-[200px] sm:max-w-[230px] z-20">
+                <div className="absolute top-6 -right-2 sm:-right-6 bg-white rounded-full px-4 py-2 shadow-lg shadow-slate-200/60 border border-slate-100 flex items-center gap-2 max-w-[210px] z-20">
                   <div className="w-6 h-6 rounded-full bg-sky-50 text-[#00A3E0] flex items-center justify-center shrink-0">
                     <Heart size={14} className="fill-[#00A3E0]" />
                   </div>
@@ -313,9 +301,9 @@ export default function Home() {
                 </div>
 
                 {/* Floating Card 2: Mid-Right Income Metric & Sparkline Chart */}
-                <div className="absolute top-32 sm:top-36 -right-3 sm:-right-10 bg-white rounded-2xl p-3.5 sm:p-4 shadow-xl shadow-slate-300/40 border border-slate-100 w-[180px] sm:w-[210px] z-20">
+                <div className="absolute top-36 -right-3 sm:-right-8 bg-white rounded-2xl p-3.5 sm:p-4 shadow-xl shadow-slate-300/40 border border-slate-100 w-[175px] sm:w-[195px] z-20">
                   <div className="text-[10px] sm:text-[11px] font-semibold text-slate-500">
-                    Komisi & Bonus Unit Bulan Ini
+                    Komisi &amp; Bonus Unit
                   </div>
                   <div className="text-base sm:text-xl font-black text-slate-900 tracking-tight mt-0.5">
                     Rp 28.750.000
@@ -325,7 +313,7 @@ export default function Home() {
                     <span>+38% vs bulan lalu</span>
                   </div>
                   {/* Mini Smooth Sparkline Line */}
-                  <svg className="w-full h-7 sm:h-8 overflow-visible" viewBox="0 0 100 30" fill="none">
+                  <svg className="w-full h-7 overflow-visible" viewBox="0 0 100 30" fill="none">
                     <path 
                       d="M 0 25 Q 20 18, 40 20 T 70 8 T 100 2" 
                       stroke="#00A3E0" 
@@ -347,12 +335,12 @@ export default function Home() {
                 </div>
 
                 {/* Floating Card 3: Bottom-Right Testimonial Quote */}
-                <div className="absolute -bottom-3 -right-2 sm:-bottom-5 sm:-right-6 bg-white rounded-2xl p-3 sm:p-3.5 shadow-xl shadow-slate-300/50 border border-slate-100 max-w-[220px] sm:max-w-[250px] z-20">
+                <div className="absolute -bottom-2 -right-2 sm:-right-6 bg-white rounded-2xl p-3 sm:p-3.5 shadow-xl shadow-slate-300/50 border border-slate-100 max-w-[210px] sm:max-w-[230px] z-20">
                   <div className="flex items-center gap-2 mb-1.5">
                     <img 
                       src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=150&q=80" 
                       alt="Health Planner Coway" 
-                      className="w-8 h-8 rounded-full object-cover ring-2 ring-[#00A3E0]/30"
+                      className="w-7 h-7 rounded-full object-cover ring-2 ring-[#00A3E0]/30"
                     />
                     <div>
                       <div className="text-[11px] font-bold text-slate-900 leading-tight">Rina Marlina</div>
@@ -379,7 +367,7 @@ export default function Home() {
         <section className="py-10 border-y border-slate-100 bg-slate-50/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
             <p className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-widest">
-              Didukung oleh teknologi & ekosistem penjualan terpercaya
+              Didukung oleh teknologi &amp; ekosistem penjualan terpercaya
             </p>
             <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-12 opacity-75 grayscale hover:grayscale-0 transition-all duration-300">
               <div className="flex items-center gap-2 font-black text-slate-800 text-base sm:text-lg">
@@ -407,7 +395,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* REALITA LAPANGAN SECTION (Authentic Struggles of Coway Agents) */}
+        {/* REALITA LAPANGAN SECTION */}
         <section id="masalah" className="py-16 sm:py-24 bg-white border-b border-slate-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-14">
@@ -443,10 +431,10 @@ export default function Home() {
                   2
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">
-                  Gaptek Iklan & Takut Boncos
+                  Gaptek Iklan &amp; Takut Boncos
                 </h3>
                 <p className="text-slate-600 font-medium text-sm sm:text-base leading-relaxed">
-                  Ingin pasang iklan Meta Ads di Facebook & Instagram tapi bingung teknis Ads Manager, riset audiens, dan takut saldo hangus tanpa ada chat masuk.
+                  Ingin pasang iklan Meta Ads di Facebook &amp; Instagram tapi bingung teknis Ads Manager, riset audiens, dan takut saldo hangus tanpa ada chat masuk.
                 </p>
               </div>
 
@@ -466,10 +454,9 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 6-CARD FEATURE GRID ("What You'll Learn" style with 4 Senjata Utama & Accelerators) */}
+        {/* 6-CARD FEATURE GRID (4 Senjata Utama & Akselerator) */}
         <section id="solusi" className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           
-          {/* Eyebrow and Section Header */}
           <div className="text-center max-w-3xl mx-auto space-y-3 mb-12 sm:mb-16">
             <span className="text-xs sm:text-sm font-extrabold text-[#00A3E0] uppercase tracking-wider">
               Solusi Nyata Logaritma
@@ -482,7 +469,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* 6 Cards Grid (3 Columns x 2 Rows) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             
             {/* Card 1: Website Toko Resmi */}
@@ -497,7 +483,7 @@ export default function Home() {
                 Miliki link website pribadi (<span className="font-semibold text-slate-900">coway.logaritma.id/nama-anda</span>). Lengkap dengan katalog resmi (Neo Plus, Core, Ombak, Breeze), foto Anda, dan tombol WhatsApp langsung ke nomor Anda.
               </p>
               <div className="text-xs font-semibold text-[#00A3E0] bg-sky-50 px-3 py-1 rounded-full">
-                Desain Korean Clean & Fast Loading
+                Desain Korean Clean &amp; Fast Loading
               </div>
             </div>
 
@@ -539,7 +525,7 @@ export default function Home() {
                 <Briefcase size={26} />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">
-                Bank Konten & Skrip Closing Lapangan
+                Bank Konten &amp; Skrip Closing Lapangan
               </h3>
               <p className="text-slate-600 text-sm leading-relaxed mb-4">
                 Akses materi promosi gambar dan video resolusi tinggi siap dijadikan status WhatsApp setiap hari, ditambah bank skrip taktis menjawab penolakan saat prospek bilang &quot;Kemahalan&quot;.
@@ -584,85 +570,82 @@ export default function Home() {
           </div>
         </section>
 
-        {/* INSTRUCTOR / SUPPORT SPOTLIGHT (The Sky Blue Rounded Banner) */}
+        {/* INSTRUCTOR / SUPPORT SPOTLIGHT BANNER (Exact Gambar 3 Reference Style) */}
         <section id="tentang" className="py-10 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <div className="bg-[#00A3E0] rounded-[36px] p-7 sm:p-12 lg:p-14 text-white shadow-2xl shadow-sky-500/25 relative overflow-hidden">
+          <div className="bg-[#00A3E0] rounded-[28px] sm:rounded-[32px] p-6 sm:p-8 lg:p-10 text-white shadow-xl shadow-sky-500/20 relative overflow-hidden">
             
-            {/* Subtle organic light reflections inside the blue card */}
-            <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-white/10 rounded-full blur-2xl pointer-events-none" />
-            <div className="absolute top-0 right-1/3 w-60 h-60 bg-sky-300/20 rounded-full blur-2xl pointer-events-none" />
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-10 relative z-10">
               
-              {/* Left Photo Container in White Frame */}
-              <div className="lg:col-span-4 flex justify-center">
-                <div className="bg-white p-2.5 rounded-3xl shadow-xl w-full max-w-[280px]">
+              {/* Left: Landscape Framed Photo Card (Exact 4:3 Ratio matching Gambar 3) */}
+              <div className="w-full lg:w-auto shrink-0 flex justify-center">
+                <div className="bg-white p-2 rounded-[22px] shadow-md w-full max-w-[280px] sm:max-w-[300px]">
                   <img 
-                    src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=600&q=80" 
-                    alt="Support Lead & Mentor Coway" 
-                    className="w-full h-72 sm:h-80 object-cover object-top rounded-2xl"
+                    src="/instructor.jpg" 
+                    alt="Mentor Support System Coway" 
+                    className="w-full h-44 sm:h-48 object-cover rounded-[18px]"
                   />
                 </div>
               </div>
 
-              {/* Center Content */}
-              <div className="lg:col-span-5 space-y-4 text-center lg:text-left">
-                <div className="text-xs font-extrabold uppercase tracking-widest text-sky-100">
-                  Support System Logaritma
+              {/* Center: Clean Headline, Bio & Action Button */}
+              <div className="flex-1 space-y-2.5 text-center lg:text-left">
+                <div className="text-xs font-semibold text-sky-100 tracking-wide">
+                  Meet Your Support System
                 </div>
-                <h3 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight">
-                  Halo, Rekan Health Planner! 👋
+                <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center justify-center lg:justify-start gap-2">
+                  <span>Halo, Rekan Health Planner!</span>
+                  <span>👋</span>
                 </h3>
-                <p className="text-sky-50 text-sm sm:text-base leading-relaxed font-normal">
+                <p className="text-sky-50 text-xs sm:text-sm leading-relaxed max-w-lg font-normal">
                   Kami mendedikasikan platform ini khusus untuk mendampingi rekan-rekan Health Planner Coway di seluruh Indonesia. Dari yang awalnya kesulitan mencari prospek di luar pasar keluarga, kini bisa memiliki sistem digital mandiri dengan closing rutin setiap minggu.
                 </p>
                 <div className="pt-2">
                   <a 
                     href="#alur-kerja" 
-                    className="inline-block px-8 py-3.5 bg-white text-[#00A3E0] hover:bg-slate-50 font-extrabold text-sm rounded-full shadow-md transition active:scale-95"
+                    className="inline-block px-6 py-2.5 bg-white text-[#00A3E0] hover:bg-slate-50 font-bold text-xs sm:text-sm rounded-full shadow transition-all active:scale-95"
                   >
                     Pelajari Alur Kerjanya
                   </a>
                 </div>
               </div>
 
-              {/* Right 4 Bullet Stats (Matches 4 Icons in Reference Image) */}
-              <div className="lg:col-span-3 space-y-4 border-t lg:border-t-0 lg:border-l border-white/20 pt-6 lg:pt-0 lg:pl-8">
+              {/* Right: 4 Clean Outlined Circle Stat Badges (Exact Gambar 3 Style) */}
+              <div className="w-full lg:w-auto shrink-0 space-y-3 pt-4 lg:pt-0 border-t lg:border-t-0 lg:border-l border-white/20 lg:pl-8">
                 
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
-                    <ShieldCheck size={20} className="text-white" />
+                  <div className="w-8 h-8 rounded-full border border-white/40 flex items-center justify-center shrink-0">
+                    <ShieldCheck size={16} className="text-white" />
                   </div>
-                  <div className="text-sm font-bold leading-tight">
+                  <span className="text-xs sm:text-sm font-medium text-white tracking-wide">
                     100% Khusus Alur Kerja Coway
-                  </div>
+                  </span>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
-                    <Users size={20} className="text-white" />
+                  <div className="w-8 h-8 rounded-full border border-white/40 flex items-center justify-center shrink-0">
+                    <Users size={16} className="text-white" />
                   </div>
-                  <div className="text-sm font-bold leading-tight">
+                  <span className="text-xs sm:text-sm font-medium text-white tracking-wide">
                     Ratusan Health Planner Aktif
-                  </div>
+                  </span>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
-                    <Zap size={20} className="text-white" />
+                  <div className="w-8 h-8 rounded-full border border-white/40 flex items-center justify-center shrink-0">
+                    <Zap size={16} className="text-white" />
                   </div>
-                  <div className="text-sm font-bold leading-tight">
-                    Skrip & Sistem Lapangan Teruji
-                  </div>
+                  <span className="text-xs sm:text-sm font-medium text-white tracking-wide">
+                    Skrip &amp; Sistem Lapangan Teruji
+                  </span>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
-                    <Sparkles size={20} className="text-white" />
+                  <div className="w-8 h-8 rounded-full border border-white/40 flex items-center justify-center shrink-0">
+                    <Sparkles size={16} className="text-white" />
                   </div>
-                  <div className="text-sm font-bold leading-tight">
+                  <span className="text-xs sm:text-sm font-medium text-white tracking-wide">
                     Pendampingan Komunitas Aktif
-                  </div>
+                  </span>
                 </div>
 
               </div>
@@ -671,12 +654,12 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ALUR KERJA 3 LANGKAH (Simpel & Praktis) */}
+        {/* ALUR KERJA 3 LANGKAH */}
         <section id="alur-kerja" className="py-16 sm:py-24 bg-slate-50/60 border-t border-slate-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-14 space-y-2">
               <span className="text-xs sm:text-sm font-extrabold text-[#00A3E0] uppercase tracking-wider">
-                Simpel & Tanpa Pusing
+                Simpel &amp; Tanpa Pusing
               </span>
               <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
                 3 Langkah Praktis Menjalankan Bisnis Coway Anda
@@ -689,7 +672,7 @@ export default function Home() {
                 <div className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-lg mx-auto mb-6 shadow-md">
                   1
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Daftar & Atur Link Pribadi</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Daftar &amp; Atur Link Pribadi</h3>
                 <p className="text-slate-600 text-sm sm:text-base font-medium leading-relaxed">
                   Buat akun dalam 1 menit. Masukkan nama panggilan dan nomor WhatsApp Anda untuk langsung mendapatkan link toko resmi Anda.
                 </p>
@@ -711,7 +694,7 @@ export default function Home() {
                 <div className="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg mx-auto mb-6 shadow-md shadow-emerald-500/30">
                   3
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Terima Chat & Closing Unit</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Terima Chat &amp; Closing Unit</h3>
                 <p className="text-slate-600 text-sm sm:text-base font-medium leading-relaxed">
                   Calon pembeli yang berminat akan langsung mengirim chat ke WhatsApp Anda. Gunakan panduan skrip closing kami untuk mengamankan pesanan.
                 </p>
@@ -720,7 +703,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* PRICING & OFFER SECTION ("Join Today / Invest in your freedom") */}
+        {/* PRICING & OFFER SECTION */}
         <section id="investasi" className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
@@ -743,7 +726,7 @@ export default function Home() {
                     <Check size={14} className="stroke-[3]" />
                   </div>
                   <span className="text-sm sm:text-base font-bold text-slate-800">
-                    Website Toko Resmi Atas Nama & WhatsApp Anda Sendiri
+                    Website Toko Resmi Atas Nama &amp; WhatsApp Anda Sendiri
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
@@ -751,7 +734,7 @@ export default function Home() {
                     <Check size={14} className="stroke-[3]" />
                   </div>
                   <span className="text-sm sm:text-base font-bold text-slate-800">
-                    Template Iklan Meta Ads & Skrip WhatsApp Closing Lapangan
+                    Template Iklan Meta Ads &amp; Skrip WhatsApp Closing Lapangan
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
@@ -767,34 +750,31 @@ export default function Home() {
                     <Check size={14} className="stroke-[3]" />
                   </div>
                   <span className="text-sm sm:text-base font-bold text-slate-800">
-                    Update Katalog & Promo Coway Otomatis Tanpa Biaya Tambahan
+                    Update Katalog &amp; Promo Coway Otomatis Tanpa Biaya Tambahan
                   </span>
                 </div>
               </div>
 
-              {/* The Signature Speech Bubble from Reference Image */}
+              {/* The Signature Speech Bubble */}
               <div className="pt-4">
                 <div className="relative inline-block bg-amber-50/90 border border-amber-200/70 rounded-2xl p-4 sm:p-5 shadow-sm max-w-sm">
                   <div className="text-sm sm:text-base font-bold text-slate-800 flex items-center gap-2">
                     <span>Diri Anda di masa depan akan berterima kasih.</span>
                     <span className="text-[#00A3E0] text-lg">💧</span>
                   </div>
-                  {/* Chat bubble pointer tail */}
                   <div className="absolute -bottom-2 left-6 w-4 h-4 bg-amber-50/90 border-r border-b border-amber-200/70 rotate-45" />
                 </div>
               </div>
             </div>
 
-            {/* Right Pricing Card Box (Matches the White Pricing Card in Reference Image) */}
+            {/* Right Pricing Card Box */}
             <div className="lg:col-span-5">
               <div className="bg-white rounded-[32px] border border-slate-200/80 p-8 sm:p-10 shadow-2xl shadow-sky-500/10 text-center relative">
                 
-                {/* Popular Pill Tag */}
                 <div className="inline-block px-4 py-1 rounded-full bg-sky-50 border border-sky-100 text-[#00A3E0] text-xs font-extrabold uppercase tracking-wider mb-4">
                   Akses Lisensi Platform
                 </div>
 
-                {/* Price Display */}
                 <div className="space-y-1 mb-6">
                   <div className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">
                     Rp 299.000
@@ -807,7 +787,6 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Primary CTA Button */}
                 <Link 
                   href="/register" 
                   className="w-full py-4 bg-[#00A3E0] hover:bg-[#0092ca] text-white font-extrabold text-base sm:text-lg rounded-full transition shadow-lg shadow-sky-500/30 hover:shadow-xl hover:shadow-sky-500/40 block text-center active:scale-95 mb-4"
@@ -815,10 +794,9 @@ export default function Home() {
                   Daftar Akun Sekarang — Rp 299rb
                 </Link>
 
-                {/* Guarantee Note */}
                 <div className="flex items-center justify-center gap-1.5 text-xs font-semibold text-slate-500">
                   <ShieldCheck size={16} className="text-emerald-500 shrink-0" />
-                  <span>Garansi 14 Hari Uang Kembali & Pendampingan Sampai Aktif</span>
+                  <span>Garansi 14 Hari Uang Kembali &amp; Pendampingan Sampai Aktif</span>
                 </div>
 
               </div>
@@ -827,7 +805,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* FAQ ACCORDION SECTION (Authentic Coway Agent FAQ) */}
+        {/* FAQ ACCORDION SECTION */}
         <section id="faq" className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
           <div className="text-center space-y-3 mb-12">
             <span className="text-xs sm:text-sm font-extrabold text-[#00A3E0] uppercase tracking-wider">
@@ -986,7 +964,7 @@ export default function Home() {
                     href="/register" 
                     className="px-6 py-2.5 bg-[#00A3E0] hover:bg-[#0092ca] text-white font-bold text-sm rounded-full shadow-md transition"
                   >
-                    Daftar & Buat Website Saya
+                    Daftar &amp; Buat Website Saya
                   </Link>
                 </div>
               </div>
