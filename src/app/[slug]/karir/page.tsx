@@ -40,6 +40,21 @@ export default async function RecruitmentPage(props: { params: Promise<{ slug: s
     notFound();
   }
 
+  // Auto-reset testing account if it was registered with old hardcoded premium flags
+  if ((agentData.slug === 'testing' || agentData.slug?.startsWith('test')) && (agentData.isPremium || (agentData as any).hasRecruitLp)) {
+    try {
+      await (prisma.user as any).update({
+        where: { id: agentData.id },
+        data: { isPremium: false, hasProductLp: false, hasRecruitLp: false }
+      });
+      agentData.isPremium = false;
+      (agentData as any).hasProductLp = false;
+      (agentData as any).hasRecruitLp = false;
+    } catch (e) {
+      console.error('Error resetting test user in Recruit LP:', e);
+    }
+  }
+
   const isPreview = searchParams?.preview === 'true';
 
   // Check if Recruit LP is paid

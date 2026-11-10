@@ -39,6 +39,25 @@ export default async function LandingPageSetup(props: { searchParams?: Promise<{
     redirect('/login');
   }
 
+  // Auto-reset testing accounts created before registration fix
+  if ((user.slug === 'testing' || user.slug?.startsWith('test')) && (user.isPremium || user.hasProductLp || user.hasRecruitLp)) {
+    try {
+      await (prisma.user as any).update({
+        where: { id: userId },
+        data: {
+          isPremium: false,
+          hasProductLp: false,
+          hasRecruitLp: false
+        }
+      });
+      user.isPremium = false;
+      user.hasProductLp = false;
+      user.hasRecruitLp = false;
+    } catch (e) {
+      console.error('Error resetting test user:', e);
+    }
+  }
+
   const slug = user.slug || '';
   const productLpUrl = `https://coway.logaritma.id/${slug}`;
   const recruitLpUrl = `https://coway.logaritma.id/${slug}/karir`;

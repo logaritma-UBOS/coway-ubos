@@ -49,6 +49,21 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
     notFound();
   }
 
+  // Auto-reset testing account if it was registered with old hardcoded premium flags
+  if ((agentData.slug === 'testing' || agentData.slug?.startsWith('test')) && (agentData.isPremium || (agentData as any).hasProductLp)) {
+    try {
+      await (prisma.user as any).update({
+        where: { id: agentData.id },
+        data: { isPremium: false, hasProductLp: false, hasRecruitLp: false }
+      });
+      agentData.isPremium = false;
+      (agentData as any).hasProductLp = false;
+      (agentData as any).hasRecruitLp = false;
+    } catch (e) {
+      console.error('Error resetting test user in LP:', e);
+    }
+  }
+
   // LP Basic is free for all registered agents.
   // LP Produk requires hasProductLp or isPremium.
   const isProductPaid = Boolean(agentData.hasProductLp || agentData.isPremium);

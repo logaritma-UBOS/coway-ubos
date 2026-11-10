@@ -47,7 +47,7 @@ export async function POST(req: Request) {
       }
     }
 
-    // Create the user with full active LP access
+    // Create the user with default unpaid status for paid LPs (Free LP Basic is immediately available)
     const newUser = await prisma.user.create({
       data: {
         name,
@@ -56,10 +56,10 @@ export async function POST(req: Request) {
         whatsappNumber,
         cowayId: cowayId && cowayId.trim() !== '' ? cowayId : null,
         slug,
-        isActive: true, // Langsung aktif
-        isPremium: true, // Landing page langsung aktif
-        hasProductLp: true, // Landing page produk aktif
-        hasRecruitLp: true, // Landing page karir aktif
+        isActive: true, // Langsung aktif bisa login dashboard
+        isPremium: false, // Belum bayar lisensi LP
+        hasProductLp: false, // LP Produk perlu aktivasi Mayar Rp 250k
+        hasRecruitLp: false, // LP Rekrutmen perlu aktivasi Mayar Rp 250k
         referredById
       }
     });

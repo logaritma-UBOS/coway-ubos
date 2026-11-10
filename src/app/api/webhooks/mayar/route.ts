@@ -60,7 +60,13 @@ export async function POST(req: NextRequest) {
 
       // If it's the Logaritma System Package, upgrade the user to Premium
       if (serviceTitle.includes('sistem logaritma') || serviceTitle.includes('premium') || serviceTitle.includes('lp') || serviceTitle.includes('landing page')) {
-        let updateData: any = { isPremium: true };
+        let updateData: any = {};
+        
+        if (serviceTitle.includes('bundling') || serviceTitle.includes('sistem logaritma') || serviceTitle.includes('premium')) {
+          updateData.isPremium = true;
+          updateData.hasProductLp = true;
+          updateData.hasRecruitLp = true;
+        }
         
         if (serviceTitle.includes('produk') || serviceTitle.includes('bundling')) {
           updateData.hasProductLp = true;
