@@ -385,7 +385,7 @@ export default function LandingPageUI({ agent, isPreviewMode = false }: LandingP
             <motion.div variants={fadeInUp} className="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col relative transition-transform hover:-translate-y-1 hover:shadow-xl">
               <div className="absolute top-4 right-4 bg-amber-400 text-slate-950 text-xs font-black px-3 py-1 rounded-full z-10 shadow-md">Terlaris</div>
               <div className="w-full flex justify-center items-center">
-                <img src="https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/neo-plus.png" alt="Coway Neo Plus" className="w-full h-auto object-cover" />
+                <img src="https://cowayagent.id/wp-content/uploads/2026/07/neo-plus.png" alt="Coway Neo Plus" className="h-48 sm:h-56 w-auto object-contain mx-auto py-2 drop-shadow-md" />
               </div>
               <div className="p-8 flex-1 flex flex-col">
                 <h3 className="text-2xl font-bold text-slate-900 mb-1">Coway Neo Plus</h3>
@@ -414,7 +414,7 @@ export default function LandingPageUI({ agent, isPreviewMode = false }: LandingP
             <motion.div variants={fadeInUp} className="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col relative transition-transform hover:-translate-y-1 hover:shadow-xl">
               <div className="absolute top-4 right-4 bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-full z-10 shadow-md">Multi Temp</div>
               <div className="w-full flex justify-center items-center">
-                <img src="https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/ombak.png" alt="Coway Ombak" className="w-full h-auto object-cover" />
+                <img src="https://cowayagent.id/wp-content/uploads/2026/07/ombak.png" alt="Coway Ombak" className="h-48 sm:h-56 w-auto object-contain mx-auto py-2 drop-shadow-md" />
               </div>
               <div className="p-8 flex-1 flex flex-col">
                 <h3 className="text-2xl font-bold text-slate-900 mb-1">Coway Ombak</h3>
@@ -443,7 +443,7 @@ export default function LandingPageUI({ agent, isPreviewMode = false }: LandingP
             <motion.div variants={fadeInUp} className="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col relative transition-transform hover:-translate-y-1 hover:shadow-xl">
               <div className="absolute top-4 right-4 bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-full z-10 shadow-md">Floor Standing</div>
               <div className="w-full flex justify-center items-center">
-                <img src="https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/core.png" alt="Coway Core" className="w-full h-auto object-cover" />
+                <img src="https://cowayagent.id/wp-content/uploads/2026/07/core.png" alt="Coway Core" className="h-48 sm:h-56 w-auto object-contain mx-auto py-2 drop-shadow-md" />
               </div>
               <div className="p-8 flex-1 flex flex-col">
                 <h3 className="text-2xl font-bold text-slate-900 mb-1">Coway Core</h3>
