@@ -145,49 +145,6 @@ export default function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
 
       </aside>
 
-      {/* Mobile Bottom Navigation Bar */}
-      <nav className="md:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-slate-200/80 flex justify-around px-2 py-1.5 z-50 shadow-lg">
-        <Link
-          href="/dashboard"
-          className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition ${
-            pathname === '/dashboard' ? 'text-[#00A3E0]' : 'text-slate-400'
-          }`}
-        >
-          <LayoutDashboard size={20} />
-          <span className="text-[10px] font-bold mt-1">Dashboard</span>
-        </Link>
-
-        <Link
-          href="/dashboard/landingpage"
-          className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition ${
-            pathname === '/dashboard/landingpage' ? 'text-[#00A3E0]' : 'text-slate-400'
-          }`}
-        >
-          <Globe size={20} />
-          <span className="text-[10px] font-bold mt-1">Toko Saya</span>
-        </Link>
-
-        <Link
-          href="/dashboard/leads"
-          className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition ${
-            pathname === '/dashboard/leads' ? 'text-[#00A3E0]' : 'text-slate-400'
-          }`}
-        >
-          <Users size={20} />
-          <span className="text-[10px] font-bold mt-1">Prospek</span>
-        </Link>
-
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition ${
-            isMobileMenuOpen ? 'text-[#00A3E0]' : 'text-slate-400'
-          }`}
-        >
-          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          <span className="text-[10px] font-bold mt-1">Menu</span>
-        </button>
-      </nav>
-
       {/* Mobile Drawer (Slide in from Left with Backdrop) */}
       <AnimatePresence>
         {isMobileMenuOpen && (
