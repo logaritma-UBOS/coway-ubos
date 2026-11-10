@@ -111,7 +111,7 @@ export default async function DashboardOverview() {
     else otherCount += count;
   });
 
-  const totalProductInterest = totalLeads + totalClicks;
+  const totalProductInterest = omneCount + coreCount + ombakCount + otherCount;
 
   // Real City breakdown from Leads
   const leadsByCity = await prisma.lead.groupBy({
