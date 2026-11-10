@@ -47,7 +47,7 @@ export async function POST(req: Request) {
       }
     }
 
-    // Create the user
+    // Create the user with full active LP access
     const newUser = await prisma.user.create({
       data: {
         name,
@@ -57,6 +57,9 @@ export async function POST(req: Request) {
         cowayId: cowayId && cowayId.trim() !== '' ? cowayId : null,
         slug,
         isActive: true, // Langsung aktif
+        isPremium: true, // Landing page langsung aktif
+        hasProductLp: true, // Landing page produk aktif
+        hasRecruitLp: true, // Landing page karir aktif
         referredById
       }
     });
@@ -69,7 +72,6 @@ export async function POST(req: Request) {
 
   } catch (error: any) {
     console.error("[API Register] Error:", error);
-    // Kembalikan detail error agar terlihat di frontend
     return NextResponse.json({ error: error.message || "Terjadi kesalahan sistem" }, { status: 500 });
   }
 }

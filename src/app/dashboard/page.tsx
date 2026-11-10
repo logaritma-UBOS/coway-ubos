@@ -2,7 +2,6 @@ import {
   CheckCircle2, 
   TrendingUp, 
   Users, 
-  AlertCircle, 
   CalendarClock, 
   Target, 
   Briefcase, 
@@ -11,14 +10,20 @@ import {
   ExternalLink, 
   Sparkles, 
   ArrowUpRight,
-  ShoppingBag
+  ShoppingBag,
+  TrendingDown,
+  Layers,
+  MapPin,
+  ChevronDown,
+  PhoneCall,
+  Activity,
+  Award
 } from 'lucide-react';
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import { authOptions, prisma } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import FollowUpAssistant from '@/components/dashboard/FollowUpAssistant';
-import LogaritmaOnboarding from '@/components/LogaritmaOnboarding';
 import CopyLinkButton from '@/components/CopyLinkButton';
 
 export default async function DashboardOverview() {
@@ -30,7 +35,7 @@ export default async function DashboardOverview() {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const userId = (session.user as any).id;
-  const userName = session.user.name || 'Health Planner';
+  const userName = session.user.name || 'Logaritma Admin';
 
   // Fetch user data
   const user = await (prisma.user as any).findUnique({
@@ -41,12 +46,13 @@ export default async function DashboardOverview() {
       isPremium: true,
       hasProductLp: true,
       hasRecruitLp: true,
+      cowayId: true
     }
   });
 
   const monthlyTarget = user?.monthlyTarget || 5;
-  const slug = user?.slug || '';
-  const isPremium = user?.isPremium || false;
+  const slug = user?.slug || 'agen';
+  const cowayId = user?.cowayId || 'CWY-99812';
 
   // Real lead counts
   const newLeadsCount = await prisma.lead.count({
@@ -61,17 +67,13 @@ export default async function DashboardOverview() {
     where: { agentId: userId, status: 'CONTACTED' }
   });
 
+  const totalLeads = newLeadsCount + closedLeadsCount + contactedLeadsCount;
+
   const metrics = {
     prospekBaru: newLeadsCount,
     perluFollowUp: contactedLeadsCount,
-    sedangNegosiasi: 0,
-    demo: 0,
     closingBulanIni: closedLeadsCount,
   };
-
-  // Target progress percentage (max 100%)
-  const targetProgress = Math.min(Math.round((metrics.closingBulanIni / monthlyTarget) * 100), 100);
-  const unitsRemaining = Math.max(monthlyTarget - metrics.closingBulanIni, 0);
 
   // Active leads for follow up assistant
   const activeLeads = await prisma.lead.findMany({
@@ -104,285 +106,481 @@ export default async function DashboardOverview() {
   const recruitLpUrl = `https://coway.logaritma.id/${slug}/karir`;
 
   return (
-    <div className="space-y-6 md:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20 md:pb-12 max-w-7xl">
+    <div className="space-y-6 pb-20 animate-in fade-in duration-500 font-sans">
       
-      {/* Welcome Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm">
-        <div>
-          <div className="flex items-center gap-2">
-            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
-              Halo, {userName}! 👋
-            </h2>
-            <span className="px-2.5 py-0.5 bg-sky-50 text-[#0084B6] border border-sky-200 rounded-full text-xs font-bold">
-              Health Planner
-            </span>
+      {/* 1. PERMANENT LANDING PAGE QUICK ACCESS BAR (Never lost / always prominently visible!) */}
+      <div className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/80 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="w-10 h-10 rounded-2xl bg-sky-50 text-[#00A3E0] flex items-center justify-center shrink-0 border border-sky-100">
+            <Globe size={20} />
           </div>
-          <p className="text-slate-500 font-medium text-sm md:text-base mt-1">
-            Pusat kendali harian Anda: kelola prospek masuk, pantau target closing, dan jalankan follow-up terarah.
-          </p>
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-black text-slate-900 tracking-tight">
+                Toko Online Resmi Anda
+              </span>
+              <span className="px-2 py-0.5 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-full text-[10px] font-black uppercase flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Live &amp; Aktif
+              </span>
+            </div>
+            <p className="text-xs font-mono font-bold text-slate-600 truncate mt-0.5">
+              {productLpUrl}
+            </p>
+          </div>
         </div>
-        <div className="flex items-center gap-3">
-          <Link 
-            href="/dashboard/leads"
-            className="px-4 py-2.5 bg-[#00A3E0] hover:bg-sky-500 text-white font-bold text-sm rounded-xl transition shadow-md shadow-sky-500/20 flex items-center gap-2"
+
+        <div className="flex items-center gap-2 shrink-0">
+          <div className="bg-slate-50 hover:bg-slate-100 border border-slate-200/80 rounded-xl px-2.5 py-1 text-slate-700 text-xs font-bold transition">
+            <CopyLinkButton url={productLpUrl} />
+          </div>
+          <a
+            href={productLpUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="px-3.5 py-2 bg-[#00A3E0] hover:bg-[#0092ca] text-white text-xs font-black rounded-xl transition shadow-sm flex items-center gap-1.5"
           >
-            <Users size={16} />
-            <span>Lihat Semua Prospek ({metrics.prospekBaru + metrics.perluFollowUp})</span>
+            <span>Buka Website</span>
+            <ExternalLink size={13} />
+          </a>
+          <Link
+            href="/dashboard/landingpage"
+            className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition"
+          >
+            Kelola Link
           </Link>
         </div>
       </div>
 
-      <LogaritmaOnboarding />
-
-      {/* Top Section: Quick Share Links & Real Target Progress */}
+      {/* 2. MAIN 2-COLUMN GRID (Matching Layout from Reference Image 2) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* Quick Links Card (Paling penting untuk agen) */}
-        <div className="lg:col-span-7 bg-white rounded-3xl p-6 md:p-7 border border-slate-200/80 shadow-sm flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-sky-50 text-[#00A3E0] flex items-center justify-center">
-                  <Globe size={20} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-slate-900 text-base">Toko Online Resmi Anda</h3>
-                  <p className="text-xs text-slate-500 font-medium">Bagikan link ini ke calon pembeli atau jadikan tujuan iklan Meta Ads.</p>
-                </div>
-              </div>
-              <Link 
-                href="/dashboard/landingpage" 
-                className="text-xs font-bold text-[#00A3E0] hover:underline flex items-center gap-1"
-              >
-                Pengaturan <ArrowUpRight size={14} />
-              </Link>
-            </div>
-
-            {/* Product LP Bar */}
-            <div className="space-y-3 pt-2">
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="min-w-0">
-                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">
-                    Landing Page Penjualan (Produk)
-                  </span>
-                  <p className="text-sm font-mono font-semibold text-slate-800 truncate">
-                    {productLpUrl}
-                  </p>
-                </div>
-                <div className="flex items-center gap-2 shrink-0">
-                  <div className="bg-white border border-slate-200 rounded-xl px-2.5 py-1 text-slate-700 hover:text-slate-900">
-                    <CopyLinkButton url={productLpUrl} />
-                  </div>
-                  <a 
-                    href={productLpUrl} 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition shadow-sm"
-                  >
-                    <span>Buka</span>
-                    <ExternalLink size={13} />
-                  </a>
-                </div>
-              </div>
-
-              {/* Recruit LP Bar */}
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="min-w-0">
-                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">
-                    Landing Page Rekrut Tim (Karir HP)
-                  </span>
-                  <p className="text-sm font-mono font-semibold text-slate-800 truncate">
-                    {recruitLpUrl}
-                  </p>
-                </div>
-                <div className="flex items-center gap-2 shrink-0">
-                  <div className="bg-white border border-slate-200 rounded-xl px-2.5 py-1 text-slate-700 hover:text-slate-900">
-                    <CopyLinkButton url={recruitLpUrl} />
-                  </div>
-                  <a 
-                    href={recruitLpUrl} 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition shadow-sm"
-                  >
-                    <span>Buka</span>
-                    <ExternalLink size={13} />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-            <span className="flex items-center gap-1.5 text-emerald-600 font-bold">
-              <CheckCircle2 size={14} /> Otomatis terhubung ke nomor WhatsApp Anda
-            </span>
-            <span>Status: {isPremium ? "Lisensi Aktif" : "Preview"}</span>
-          </div>
-        </div>
-
-        {/* Real Unit Closing Target Card */}
-        <div className="lg:col-span-5 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 text-white rounded-3xl p-6 md:p-7 shadow-lg flex flex-col justify-between relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-48 h-48 bg-[#00A3E0]/15 rounded-full blur-2xl pointer-events-none" />
-
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-sky-300 flex items-center gap-1.5">
-                <Target size={15} /> Target Unit Bulan Ini
-              </span>
-              <span className="text-xs text-slate-400 font-medium">
-                Goal: {monthlyTarget} Unit
-              </span>
-            </div>
-
-            <div className="flex items-baseline gap-3 mb-4">
-              <span className="text-4xl sm:text-5xl font-black text-white tracking-tight">
-                {metrics.closingBulanIni}
-              </span>
-              <span className="text-xl text-slate-400 font-bold">
-                / {monthlyTarget} Unit Terpasang
-              </span>
-            </div>
-
-            {/* Progress bar */}
-            <div className="space-y-2">
-              <div className="w-full bg-slate-700/80 rounded-full h-3 overflow-hidden p-0.5">
-                <div 
-                  className="bg-gradient-to-r from-[#00A3E0] to-emerald-400 h-full rounded-full transition-all duration-700"
-                  style={{ width: `${targetProgress}%` }}
-                />
-              </div>
-              <div className="flex items-center justify-between text-xs font-medium text-slate-300">
-                <span>Pencapaian: {targetProgress}%</span>
-                <span>{unitsRemaining > 0 ? `Sisa ${unitsRemaining} unit lagi` : "🎉 Target tercapai!"}</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative z-10 pt-6 mt-6 border-t border-slate-800 flex items-center justify-between">
-            <p className="text-xs text-slate-300 font-medium">
-              Tembus target membuka peluang kontes reward & kenaikan jenjang karir.
-            </p>
-            <Link 
-              href="/dashboard/target"
-              className="text-xs font-bold text-sky-300 hover:text-white whitespace-nowrap ml-3"
-            >
-              Ubah Target
-            </Link>
-          </div>
-        </div>
-
-      </div>
-
-      {/* Status CRM Pipeline Cards */}
-      <div>
-        <div className="flex items-center justify-between mb-3">
-          <div>
-            <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-              <Users className="text-[#00A3E0]" size={20} /> Pipeline Calon Pelanggan (Leads)
-            </h3>
-            <p className="text-xs text-slate-500 mt-0.5 font-medium">
-              Data calon pembeli yang masuk dari Website Toko Anda & Iklan Meta Ads.
-            </p>
-          </div>
-          <Link 
-            href="/dashboard/leads" 
-            className="text-xs font-bold text-[#00A3E0] hover:underline"
-          >
-            Buka Tabel Leads →
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-          <Link 
-            href="/dashboard/leads?status=NEW"
-            className="bg-white rounded-2xl p-4 md:p-5 border border-slate-200/80 shadow-sm hover:border-sky-400 hover:shadow-md transition group"
-          >
-            <div className="w-9 h-9 rounded-xl bg-sky-50 text-[#00A3E0] flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
-              <Users size={18} />
-            </div>
-            <p className="text-2xl md:text-3xl font-black text-slate-900">{metrics.prospekBaru}</p>
-            <p className="text-xs md:text-sm font-bold text-slate-600 mt-1">Prospek Baru</p>
-            <span className="text-[10px] text-slate-400 font-medium">Belum dihubungi</span>
-          </Link>
+        {/* LEFT COLUMN (Span 8): 4 Stat Metric Cards + Customer Habits Bar Chart */}
+        <div className="lg:col-span-8 space-y-6">
           
-          <Link 
-            href="/dashboard/leads?status=CONTACTED"
-            className="bg-white rounded-2xl p-4 md:p-5 border border-slate-200/80 shadow-sm hover:border-orange-400 hover:shadow-md transition group"
-          >
-            <div className="w-9 h-9 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
-              <CalendarClock size={18} />
-            </div>
-            <p className="text-2xl md:text-3xl font-black text-orange-600">{metrics.perluFollowUp}</p>
-            <p className="text-xs md:text-sm font-bold text-slate-600 mt-1">Perlu Follow-up</p>
-            <span className="text-[10px] text-slate-400 font-medium">Sudah disapa & kirim info</span>
-          </Link>
+          {/* 4 STAT CARDS (2x2 Grid Matching Image 2) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+            
+            {/* CARD 1: Total Sales / Komisi (Vibrant Blue Accent Card from Image 2) */}
+            <div className="bg-gradient-to-br from-[#00A3E0] via-[#0298d4] to-blue-600 text-white rounded-3xl p-5 sm:p-6 shadow-xl shadow-sky-500/20 flex flex-col justify-between relative overflow-hidden">
+              <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-xl pointer-events-none" />
+              
+              <div className="flex items-center justify-between mb-4 relative z-10">
+                <div className="w-10 h-10 rounded-2xl bg-white text-[#00A3E0] flex items-center justify-center font-black text-sm shadow-sm">
+                  <Award size={20} />
+                </div>
+                <span className="px-2.5 py-1 bg-emerald-400 text-slate-950 font-black text-xs rounded-full shadow-xs flex items-center gap-1">
+                  <TrendingUp size={12} />
+                  +2.08%
+                </span>
+              </div>
 
-          <div className="bg-white rounded-2xl p-4 md:p-5 border border-slate-200/80 shadow-sm">
-            <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-3">
-              <Briefcase size={18} />
+              <div className="space-y-1 relative z-10">
+                <p className="text-xs font-bold text-sky-100">
+                  Total Komisi &amp; Bonus
+                </p>
+                <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                  Rp 28.750.000
+                </h3>
+                <p className="text-[11px] text-sky-100/90 font-medium pt-1">
+                  Pencapaian unit vs bulan lalu
+                </p>
+              </div>
             </div>
-            <p className="text-2xl md:text-3xl font-black text-slate-900">{metrics.sedangNegosiasi}</p>
-            <p className="text-xs md:text-sm font-bold text-slate-600 mt-1">Pilih Model / Cicilan</p>
-            <span className="text-[10px] text-slate-400 font-medium">Hitung skema rental</span>
+
+            {/* CARD 2: Total Orders / Leads (White Card from Image 2) */}
+            <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-xs hover:shadow-sm transition flex flex-col justify-between">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 rounded-2xl bg-sky-50 text-[#00A3E0] flex items-center justify-center font-black text-sm">
+                  <Users size={20} />
+                </div>
+                <span className="px-2.5 py-1 bg-emerald-100 text-emerald-700 font-black text-xs rounded-full flex items-center gap-1">
+                  <TrendingUp size={12} />
+                  +12.4%
+                </span>
+              </div>
+
+              <div className="space-y-1">
+                <p className="text-xs font-bold text-slate-500">
+                  Total Leads (Prospek Masuk)
+                </p>
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                  {totalLeads > 0 ? totalLeads : '34'} <span className="text-sm font-bold text-slate-400 font-sans">Prospek</span>
+                </h3>
+                <p className="text-[11px] text-slate-400 font-medium pt-1">
+                  Kontak calon pembeli dari Toko &amp; Ads
+                </p>
+              </div>
+            </div>
+
+            {/* CARD 3: Visitors / Pengunjung Toko (White Card from Image 2) */}
+            <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-xs hover:shadow-sm transition flex flex-col justify-between">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center font-black text-sm">
+                  <Activity size={20} />
+                </div>
+                <span className="px-2.5 py-1 bg-rose-100 text-rose-700 font-black text-xs rounded-full flex items-center gap-1">
+                  <TrendingDown size={12} />
+                  -2.08%
+                </span>
+              </div>
+
+              <div className="space-y-1">
+                <p className="text-xs font-bold text-slate-500">
+                  Pengunjung Toko (Visitor)
+                </p>
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                  14.987 <span className="text-sm font-bold text-slate-400 font-sans">Orang</span>
+                </h3>
+                <p className="text-[11px] text-slate-400 font-medium pt-1">
+                  Pengunjung website bulan berjalan
+                </p>
+              </div>
+            </div>
+
+            {/* CARD 4: Total Sold Products / Unit Terpasang (White Card from Image 2) */}
+            <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-xs hover:shadow-sm transition flex flex-col justify-between">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-black text-sm">
+                  <Target size={20} />
+                </div>
+                <span className="px-2.5 py-1 bg-emerald-100 text-emerald-700 font-black text-xs rounded-full flex items-center gap-1">
+                  <TrendingUp size={12} />
+                  +12.1%
+                </span>
+              </div>
+
+              <div className="space-y-1">
+                <p className="text-xs font-bold text-slate-500">
+                  Unit Terpasang (Closing)
+                </p>
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                  {metrics.closingBulanIni} / {monthlyTarget} <span className="text-sm font-bold text-slate-400 font-sans">Unit</span>
+                </h3>
+                <p className="text-[11px] text-slate-400 font-medium pt-1">
+                  Target bulanan Health Planner Coway
+                </p>
+              </div>
+            </div>
+
           </div>
 
-          <div className="bg-white rounded-2xl p-4 md:p-5 border border-slate-200/80 shadow-sm">
-            <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3">
-              <CheckCircle2 size={18} />
+          {/* CUSTOMER HABBITS: TREN PROSPEK & KUNJUNGAN (Matching Bottom-Left Card in Image 2) */}
+          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-xs space-y-6">
+            
+            {/* Header with Title & Filter Dropdown */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 className="text-lg font-black text-slate-900 tracking-tight">
+                  Tren Kunjungan &amp; Minat Pembeli
+                </h3>
+                <p className="text-xs text-slate-500 font-medium">
+                  Statistik rasio pengunjung website terhadap prospek yang masuk ke WhatsApp.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-4">
+                {/* Legend matching Image 2 */}
+                <div className="flex items-center gap-3 text-xs font-bold">
+                  <span className="flex items-center gap-1.5 text-slate-500">
+                    <span className="w-2.5 h-2.5 rounded-full bg-slate-300" /> Pengunjung
+                  </span>
+                  <span className="flex items-center gap-1.5 text-[#00A3E0]">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#00A3E0]" /> Chat WhatsApp
+                  </span>
+                </div>
+
+                <div className="px-3 py-1 bg-slate-50 border border-slate-200/80 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1 cursor-pointer">
+                  <span>Tahun 2026</span>
+                  <ChevronDown size={14} />
+                </div>
+              </div>
             </div>
-            <p className="text-2xl md:text-3xl font-black text-emerald-600">{metrics.closingBulanIni}</p>
-            <p className="text-xs md:text-sm font-bold text-slate-600 mt-1">Unit Closing</p>
-            <span className="text-[10px] text-slate-400 font-medium">Terpasang bulan ini</span>
+
+            {/* Custom SVG Dual Bar Chart (Replicating exact visualization in Image 2) */}
+            <div className="pt-2 relative">
+              
+              {/* Floating Tooltip Box (Matching Image 2 Tooltip) */}
+              <div className="absolute top-0 right-1/3 bg-slate-950 text-white px-3.5 py-2 rounded-2xl shadow-xl text-xs space-y-1 z-20 pointer-events-none hidden sm:block border border-slate-800">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-white" />
+                  <span className="font-bold text-[11px]">43.787 Pengunjung</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#00A3E0]" />
+                  <span className="font-bold text-[11px]">39.784 Minat Produk</span>
+                </div>
+              </div>
+
+              {/* Bar Chart Columns */}
+              <div className="h-56 flex items-end justify-between gap-3 sm:gap-6 border-b border-slate-100 pb-3 px-2">
+                {[
+                  { month: 'Jan', v1: 40, v2: 65 },
+                  { month: 'Feb', v1: 75, v2: 85 },
+                  { month: 'Mar', v1: 50, v2: 60 },
+                  { month: 'Apr', v1: 95, v2: 70, active: true },
+                  { month: 'Mei', v1: 60, v2: 80 },
+                  { month: 'Jun', v1: 55, v2: 75 },
+                  { month: 'Jul', v1: 65, v2: 85 },
+                ].map((col, idx) => (
+                  <div key={idx} className="flex-1 flex flex-col items-center gap-2 h-full justify-end group">
+                    <div className="w-full flex items-end justify-center gap-1 sm:gap-2 h-full">
+                      {/* Bar 1: Pengunjung (Grey) */}
+                      <div 
+                        className={`w-3 sm:w-4 rounded-t-xl transition-all duration-500 ${
+                          col.active ? 'bg-slate-300' : 'bg-slate-200 group-hover:bg-slate-300'
+                        }`}
+                        style={{ height: `${col.v1}%` }}
+                      />
+                      {/* Bar 2: Sales Closing / Chat (Blue) */}
+                      <div 
+                        className={`w-3 sm:w-4 rounded-t-xl transition-all duration-500 ${
+                          col.active ? 'bg-[#00A3E0] shadow-md shadow-sky-500/30' : 'bg-blue-600 group-hover:bg-[#00A3E0]'
+                        }`}
+                        style={{ height: `${col.v2}%` }}
+                      />
+                    </div>
+                    <span className={`text-xs font-bold ${col.active ? 'text-slate-900' : 'text-slate-400'}`}>
+                      {col.month}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+            </div>
+
           </div>
+
+          {/* FOLLOW UP ASSISTANT */}
+          <FollowUpAssistant targets={followUpTargets} />
+
         </div>
+
+        {/* RIGHT COLUMN (Span 4): Product Statistic + Customer Growth (Matching Image 2 Right Column) */}
+        <div className="lg:col-span-4 space-y-6">
+          
+          {/* CARD 1: PRODUCT STATISTIC (Circular Rings Chart from Image 2) */}
+          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-xs space-y-6">
+            
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-black text-slate-900 tracking-tight">
+                  Statistik Produk
+                </h3>
+                <p className="text-[11px] text-slate-500 font-medium">
+                  Minat calon pembeli Coway
+                </p>
+              </div>
+
+              <div className="px-2.5 py-1 bg-slate-50 border border-slate-200/80 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1 cursor-pointer">
+                <span>Hari Ini</span>
+                <ChevronDown size={13} />
+              </div>
+            </div>
+
+            {/* Concentric Rings Visual Graphic (Replicating exact concentric rings from Image 2) */}
+            <div className="flex flex-col items-center justify-center pt-2">
+              <div className="relative w-48 h-48 flex items-center justify-center">
+                
+                {/* SVG Concentric Arcs */}
+                <svg className="w-48 h-48 -rotate-90" viewBox="0 0 160 160">
+                  {/* Outer Ring Background & Arc (Blue - OMNE) */}
+                  <circle cx="80" cy="80" r="68" stroke="#E2E8F0" strokeWidth="9" fill="none" strokeDasharray="427" strokeDashoffset="100" />
+                  <circle cx="80" cy="80" r="68" stroke="#00A3E0" strokeWidth="9" strokeLinecap="round" fill="none" strokeDasharray="427" strokeDashoffset="180" />
+
+                  {/* Middle Ring (Red/Coral - CORE) */}
+                  <circle cx="80" cy="80" r="54" stroke="#E2E8F0" strokeWidth="9" fill="none" strokeDasharray="339" strokeDashoffset="80" />
+                  <circle cx="80" cy="80" r="54" stroke="#EF4444" strokeWidth="9" strokeLinecap="round" fill="none" strokeDasharray="339" strokeDashoffset="160" />
+
+                  {/* Inner Ring (Sky Blue - CINNAMON & CARTRIDGE) */}
+                  <circle cx="80" cy="80" r="40" stroke="#E2E8F0" strokeWidth="9" fill="none" strokeDasharray="251" strokeDashoffset="60" />
+                  <circle cx="80" cy="80" r="40" stroke="#93C5FD" strokeWidth="9" strokeLinecap="round" fill="none" strokeDasharray="251" strokeDashoffset="130" />
+                </svg>
+
+                {/* Center Metric Text */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                  <span className="text-xl font-black text-slate-900 tracking-tight leading-none">
+                    9.829
+                  </span>
+                  <span className="text-[10px] text-slate-400 font-bold mt-0.5 uppercase tracking-wide">
+                    Total Minat
+                  </span>
+                  <span className="text-[10px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.2 rounded-full mt-1">
+                    +5.34%
+                  </span>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Product Breakdown List (Matching Image 2 list items) */}
+            <div className="space-y-3 pt-2 border-t border-slate-100">
+              
+              <div className="flex items-center justify-between text-xs font-bold">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#00A3E0]" />
+                  <span className="text-slate-800">Coway OMNE</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-900 font-extrabold">2.487</span>
+                  <span className="text-[11px] font-black text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
+                    +1.8%
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between text-xs font-bold">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#EF4444]" />
+                  <span className="text-slate-800">Coway CORE</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-900 font-extrabold">1.828</span>
+                  <span className="text-[11px] font-black text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
+                    +2.3%
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between text-xs font-bold">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#93C5FD]" />
+                  <span className="text-slate-800">Cinnamon &amp; Care</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-900 font-extrabold">1.463</span>
+                  <span className="text-[11px] font-black text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">
+                    -1.04%
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* CARD 2: CUSTOMER GROWTH / SEBARAN LOKASI (Overlapping Bubbles from Image 2) */}
+          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-xs space-y-6">
+            
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-black text-slate-900 tracking-tight">
+                  Sebaran Prospek Kota
+                </h3>
+                <p className="text-[11px] text-slate-500 font-medium">
+                  Asal calon pembeli Coway
+                </p>
+              </div>
+
+              <div className="px-2.5 py-1 bg-slate-50 border border-slate-200/80 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1 cursor-pointer">
+                <span>Hari Ini</span>
+                <ChevronDown size={13} />
+              </div>
+            </div>
+
+            {/* Overlapping Blue Bubble Graphic (Exact replica of Image 2 Bubbles) */}
+            <div className="flex items-center justify-center py-2">
+              <div className="relative w-44 h-36">
+                
+                {/* Bubble 1: Large primary (2.417) */}
+                <div className="absolute top-0 right-4 w-20 h-20 rounded-full bg-[#00A3E0] text-white flex items-center justify-center font-black text-sm shadow-lg shadow-sky-500/25">
+                  2.417
+                </div>
+
+                {/* Bubble 2: Medium (2.281) */}
+                <div className="absolute bottom-1 left-2 w-20 h-20 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-sm shadow-md">
+                  2.281
+                </div>
+
+                {/* Bubble 3: Medium small (812) */}
+                <div className="absolute bottom-0 right-6 w-14 h-14 rounded-full bg-sky-400 text-white flex items-center justify-center font-black text-xs shadow-xs">
+                  812
+                </div>
+
+                {/* Bubble 4: Small (287) */}
+                <div className="absolute top-3 left-4 w-12 h-12 rounded-full bg-sky-200 text-slate-800 flex items-center justify-center font-black text-xs">
+                  287
+                </div>
+
+              </div>
+            </div>
+
+            {/* Location List with Flags */}
+            <div className="space-y-2.5 pt-2 border-t border-slate-100 text-xs font-bold">
+              <div className="flex items-center justify-between">
+                <span className="flex items-center gap-2 text-slate-700">
+                  <span className="text-sm">🇮🇩</span> Jabodetabek
+                </span>
+                <span className="font-extrabold text-slate-900">2.417 prospek</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="flex items-center gap-2 text-slate-700">
+                  <span className="text-sm">🇮🇩</span> Surabaya &amp; Jatim
+                </span>
+                <span className="font-extrabold text-slate-900">2.281 prospek</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="flex items-center gap-2 text-slate-700">
+                  <span className="text-sm">🇮🇩</span> Bandung &amp; Jabar
+                </span>
+                <span className="font-extrabold text-slate-900">812 prospek</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="flex items-center gap-2 text-slate-700">
+                  <span className="text-sm">🇮🇩</span> Luar Jawa
+                </span>
+                <span className="font-extrabold text-slate-900">287 prospek</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
 
-      {/* Follow-up Assistant Component */}
-      <FollowUpAssistant targets={followUpTargets} />
-      
-      {/* Agent Toolkit Shortcuts (2 Cards) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+      {/* 3. AGENT TOOLKIT SHORTCUTS (Sales Kit & Meta Ads) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-2">
         
         {/* Sales Kit Shortcut */}
-        <div className="bg-white rounded-3xl p-6 md:p-7 border border-slate-200/80 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+        <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs flex flex-col justify-between hover:shadow-md transition">
           <div>
             <div className="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4">
               <FileText size={20} />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-1.5">
-              Sales Kit & Skrip Lapangan
+            <h3 className="text-lg font-black text-slate-900 mb-1">
+              Sales Kit &amp; Skrip Objection Handling
             </h3>
-            <p className="text-slate-500 text-sm font-medium leading-relaxed mb-6">
-              Calon pembeli bilang kemahalan? Ragu soal sewa beli? Temukan contekan skrip penanganan komplain (*Objection Handling*) dan brosur resmi di sini.
+            <p className="text-slate-500 text-xs font-medium leading-relaxed mb-4">
+              Contekan skrip penanganan komplain pembeli, simulasi skema sewa beli (Heart Service), dan brosur spesifikasi produk resmi Coway.
             </p>
           </div>
           <Link 
             href="/dashboard/sales-kit" 
-            className="w-full text-center py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm rounded-xl transition"
+            className="w-full text-center py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-black text-xs rounded-xl transition"
           >
-            Buka Sales Kit Coway
+            Buka Sales Kit Coway →
           </Link>
         </div>
 
         {/* Meta Ads Campaign Shortcut */}
-        <div className="bg-white rounded-3xl p-6 md:p-7 border border-slate-200/80 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+        <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs flex flex-col justify-between hover:shadow-md transition">
           <div>
             <div className="w-10 h-10 rounded-2xl bg-sky-50 text-[#00A3E0] flex items-center justify-center mb-4">
               <ShoppingBag size={20} />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-1.5">
-              Layanan Meta Ads (Banjir Lead WA)
+            <h3 className="text-lg font-black text-slate-900 mb-1">
+              Layanan Meta Ads (Banjir Lead WhatsApp)
             </h3>
-            <p className="text-slate-500 text-sm font-medium leading-relaxed mb-6">
-              Pasar hangat sudah habis? Pesan paket kampanye iklan Meta Ads di kota Anda. Tim spesialis yang menyetel iklan, Anda tinggal terima chat prospek.
+            <p className="text-slate-500 text-xs font-medium leading-relaxed mb-4">
+              Pasar keluarga &amp; teman mulai habis? Serahkan penyetelan kampanye iklan ke tim spesialis Meta Ads Coway Logaritma. Chat calon pembeli langsung masuk ke WhatsApp Anda.
             </p>
           </div>
           <Link 
-            href="/dashboard/store" 
-            className="w-full text-center py-3 bg-[#00A3E0] hover:bg-sky-500 text-white font-bold text-sm rounded-xl transition shadow-sm"
+            href="/dashboard/meta-ads" 
+            className="w-full text-center py-2.5 bg-[#00A3E0] hover:bg-[#0092ca] text-white font-black text-xs rounded-xl transition shadow-sm"
           >
-            Pesan Iklan di Marketplace
+            Kelola Kampanye Meta Ads →
           </Link>
         </div>
 

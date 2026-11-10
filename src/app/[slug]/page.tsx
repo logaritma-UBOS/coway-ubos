@@ -10,11 +10,11 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const agent = await prisma.user.findUnique({ where: { slug }, select: { name: true, isPremium: true } });
+  const agent = await prisma.user.findUnique({ where: { slug }, select: { name: true, isPremium: true, isActive: true } });
   
-  if (!agent?.isPremium) {
+  if (!agent?.isPremium && !agent?.isActive) {
     return { title: 'Halaman Belum Aktif - Coway Logaritma' };
   }
   
@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function LandingPage(props: { params: Promise<{ slug: string }>, searchParams: Promise<{ preview?: string }> }) {
+export default async function LandingPage(props: { params: Promise<{ slug: string }>, searchParams: Promise<{ preview?: string, basic?: string }> }) {
   const { slug } = await props.params;
   const searchParams = await props.searchParams;
   const isPreview = searchParams?.preview === 'true';
@@ -52,7 +52,9 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
     notFound();
   }
 
-  if (!agentData.isPremium && !isPreview) {
+  const isAgentActive = agentData.isActive || agentData.isPremium;
+
+  if (!isAgentActive && !isPreview) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 px-6 font-sans antialiased">
         <div className="text-center max-w-md bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
@@ -72,7 +74,7 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
   return (
     <>
       <PageViewTracker agentId={agentData.id} />
-      {(!agentData.isPremium && isPreview) && (
+      {(!isAgentActive && isPreview) && (
         <div className="fixed inset-0 z-[10000] pointer-events-none flex flex-col items-center justify-center overflow-hidden">
           {/* Watermark overlay pattern */}
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'200\' height=\'200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Ctext x=\'50%25\' y=\'50%25\' font-size=\'24\' font-family=\'sans-serif\' font-weight=\'bold\' fill=\'%23000\' text-anchor=\'middle\' transform=\'rotate(-45 100 100)\'%3EPREVIEW%3C/text%3E%3C/svg%3E")', backgroundSize: '200px 200px' }}></div>
@@ -90,33 +92,24 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
           href="/dashboard/landingpage" 
           className="fixed top-4 left-4 z-[20000] bg-slate-900/90 backdrop-blur-sm text-white font-bold px-4 py-2 rounded-xl shadow-lg flex items-center gap-2 hover:bg-slate-800 transition-colors pointer-events-auto"
         >
-          <i className="fa-solid fa-arrow-left"></i>
-          <span className="hidden sm:inline">Kembali ke Dashboard</span>
-          <span className="sm:hidden">Kembali</span>
+          <span className="hidden sm:inline">← Kembali ke Dashboard</span>
+          <span className="sm:hidden">← Kembali</span>
         </a>
       )}
-      {/* Route to the correct template based on license or preview request */}
-      {(((agentData as any).hasProductLp || isPreview) && (searchParams as any)?.basic !== 'true') ? (
+      {/* Route to the correct template based on license or request */}
+      {(((agentData as any).hasProductLp || isAgentActive || isPreview) && searchParams?.basic !== 'true') ? (
         <ProdukLP 
-          agent={{
-            id: agentData.id,
-            fullName: agentData.name || 'Agen Coway',
-            whatsappNumber: agentData.whatsappNumber || '081234567890',
-            profileImageUrl: agentData.image || null,
-            cowayId: (agentData as any).cowayId || null,
-            phone: agentData.whatsappNumber || '081234567890'
-          }}
+          agentName={agentData.name}
+          whatsappNumber={agentData.whatsappNumber || ''}
+          cowayId={agentData.cowayId || ''}
+          slug={agentData.slug}
         />
       ) : (
         <LandingPageUI 
-          agent={{
-            id: agentData.id,
-            fullName: agentData.name || 'Agen Coway',
-            whatsappNumber: agentData.whatsappNumber || '081234567890',
-            profileImageUrl: agentData.image || null,
-            bio: 'Saya siap membantu Anda menemukan pemurni air Coway yang tepat untuk keluarga Anda.',
-          }}
-          isPreviewMode={!agentData.isPremium && isPreview}
+          agentName={agentData.name}
+          whatsappNumber={agentData.whatsappNumber || ''}
+          cowayId={agentData.cowayId || ''}
+          slug={agentData.slug}
         />
       )}
     </>
