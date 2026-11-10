@@ -268,11 +268,11 @@ export default function LandingPageUI({ agent, isPreviewMode = false }: LandingP
       </section>
 
       {/* Emosional 1: Kesehatan Ortu */}
-      <section id="kesehatan" className="py-20 px-6 bg-darkCard text-white overflow-hidden">
+      <section id="kesehatan" className="py-20 px-6 bg-[#141c2f] text-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp} className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Tega lihat Ortu Angkat Galon 19kg?</h2>
-            <p className="text-lg text-slate-400">Jangan sampai orang tua Anda mengalami cedera pinggang atau terjatuh karena angkat galon</p>
+            <p className="text-lg text-slate-300">Jangan sampai orang tua Anda mengalami cedera pinggang atau terjatuh karena angkat galon</p>
           </motion.div>
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -280,7 +280,7 @@ export default function LandingPageUI({ agent, isPreviewMode = false }: LandingP
               <h3 className="text-2xl font-bold mb-4">Melindungi Tulang Belakang & Sendi Orang Tua Kita</h3>
               <p className="text-slate-300 mb-4">Setiap galon air memiliki berat hampir 20 Kilogram. Bagi orang tua lanjut usia yang fisiknya mulai menurun, mengangkat beban seberat ini secara terus-menerus adalah ancaman serius bagi keselamatan sendi dan tulang belakang mereka.</p>
               <p className="text-slate-300 mb-8">Cedera saraf kejepit atau terpeleset di dapur saat mengganti galon air bisa berakibat fatal. Menghadirkan dispenser pemurni air Coway di dapur mereka adalah bentuk nyata bakti Anda untuk melindungi kesehatan fisik orang tua tercinta.</p>
-              <button onClick={openModal} className="inline-flex items-center gap-2 bg-secondary hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-secondary/30 transition-all transform hover:-translate-y-0.5">
+              <button onClick={openModal} className="inline-flex items-center gap-2 bg-[#00A3E0] hover:bg-[#0084B6] text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-sky-500/25 transition-all transform hover:-translate-y-0.5 cursor-pointer">
                 <i className="fa-brands fa-whatsapp"></i> Bebaskan Ortu dari Galon Sekarang
               </button>
             </motion.div>
@@ -383,7 +383,7 @@ export default function LandingPageUI({ agent, isPreviewMode = false }: LandingP
           >
             {/* Neo Plus */}
             <motion.div variants={fadeInUp} className="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden flex flex-col relative transition-transform hover:-translate-y-1 hover:shadow-xl">
-              <div className="absolute top-4 right-4 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full z-10 shadow-md">Terlaris</div>
+              <div className="absolute top-4 right-4 bg-amber-400 text-slate-950 text-xs font-black px-3 py-1 rounded-full z-10 shadow-md">Terlaris</div>
               <div className="w-full flex justify-center items-center">
                 <img src="https://member.smartmillionaire.co.id/wp-content/uploads/2026/07/neo-plus.png" alt="Coway Neo Plus" className="w-full h-auto object-cover" />
               </div>

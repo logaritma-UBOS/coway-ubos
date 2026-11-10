@@ -18,6 +18,8 @@
   --color-primary: #00A3E0;
   --color-primary-dark: #0084B6;
   --color-primary-light: #E0F2FE;
+  --color-secondary: #F97316;
+  --color-darkCard: #141c2f;
 }
 
 body {
