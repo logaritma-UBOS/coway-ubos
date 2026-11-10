@@ -10,12 +10,15 @@ export const metadata = {
   title: 'Landing Page Toko Saya - Coway Logaritma',
 };
 
-export default async function LandingPageSetup() {
+export default async function LandingPageSetup(props: { searchParams?: Promise<{ preview?: string }> }) {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user || !(session.user as any).id) {
     redirect('/login');
   }
+
+  const searchParams = props.searchParams ? await props.searchParams : {};
+  const simulateUnpaid = searchParams?.preview === 'unpaid';
 
   const userId = (session.user as any).id;
 
@@ -41,12 +44,40 @@ export default async function LandingPageSetup() {
   const recruitLpUrl = `https://coway.logaritma.id/${slug}/karir`;
   const basicLpUrl = `https://coway.logaritma.id/${slug}?basic=true`;
 
-  const isProductPaid = Boolean(user.hasProductLp || user.isPremium);
-  const isRecruitPaid = Boolean(user.hasRecruitLp || user.isPremium);
+  const isProductPaid = !simulateUnpaid && Boolean(user.hasProductLp || user.isPremium);
+  const isRecruitPaid = !simulateUnpaid && Boolean(user.hasRecruitLp || user.isPremium);
 
   return (
-    <div className="animate-in fade-in duration-500 max-w-5xl space-y-8 font-sans">
+    <div className="animate-in fade-in duration-500 max-w-5xl space-y-6 font-sans">
       
+      {/* Simulation Banner for Testing / Previewing Payment UI */}
+      <div className="bg-gradient-to-r from-sky-50 to-indigo-50 border border-sky-200/80 px-4 py-3 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+        <div className="flex items-center gap-2.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-sky-500 shrink-0" />
+          <span className="font-bold text-slate-800">
+            {simulateUnpaid ? 'Mode Pengujian: Menampilkan Tampilan Calon Agen (Belum Bayar Lisensi Rp 250k)' : 'Mode Status Akun: Menampilkan Tampilan Normal Akun Anda'}
+          </span>
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          {simulateUnpaid ? (
+            <Link
+              href="/dashboard/landingpage"
+              className="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-700 font-extrabold rounded-xl border border-slate-300 shadow-2xs transition"
+            >
+              Kembali ke Status Asli
+            </Link>
+          ) : (
+            <Link
+              href="/dashboard/landingpage?preview=unpaid"
+              className="px-3 py-1.5 bg-[#00A3E0] hover:bg-sky-600 text-white font-extrabold rounded-xl shadow-2xs transition flex items-center gap-1"
+            >
+              <span>Uji Tampilan Belum Bayar (Rp 250k)</span>
+              <ArrowRight size={13} />
+            </Link>
+          )}
+        </div>
+      </div>
+
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm">
         <div className="flex items-center gap-4">
