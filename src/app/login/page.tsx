@@ -62,11 +62,36 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-[#EBF5FF] flex items-center justify-center p-3 sm:p-6 lg:p-10 font-sans text-slate-900 selection:bg-[#00A3E0]/20 selection:text-[#00A3E0]">
       
-      {/* Outer Floating Split-Screen Modal Card (Matching Reference Image) */}
-      <div className="w-full max-w-5xl bg-white rounded-[28px] sm:rounded-[36px] shadow-2xl shadow-sky-900/10 border border-slate-100 overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[620px]">
+      {/* Outer Floating Split-Screen Modal Card */}
+      <div className="w-full max-w-md lg:max-w-5xl bg-white rounded-[24px] sm:rounded-[32px] lg:rounded-[36px] shadow-xl lg:shadow-2xl shadow-sky-950/10 border border-slate-100 overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-0 lg:min-h-[620px]">
         
-        {/* LEFT COLUMN: Coway Sky-Blue Visual Showcase Panel (Matching Reference Image Left Panel) */}
-        <div className="lg:col-span-5 bg-gradient-to-br from-[#00A3E0] via-[#0298d4] to-blue-600 p-6 sm:p-8 lg:p-10 text-white flex flex-col justify-between relative overflow-hidden">
+        {/* COMPACT TOP HEADER FOR MOBILE ONLY (Clean, compact, no huge mockup pushing form down) */}
+        <div className="lg:hidden bg-gradient-to-r from-[#00A3E0] via-[#0298d4] to-blue-600 px-5 py-4 text-white flex items-center justify-between">
+          <Link href="/" className="inline-flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-white text-[#00A3E0] flex items-center justify-center shadow-xs">
+              <Logo className="w-4 h-4 text-[#00A3E0]" />
+            </div>
+            <div className="flex flex-col text-left">
+              <span className="font-extrabold text-sm tracking-tight leading-none text-white">
+                COWAY LOGARITMA
+              </span>
+              <span className="text-[9px] font-bold text-sky-100 tracking-wider uppercase mt-0.5">
+                Support System Agen
+              </span>
+            </div>
+          </Link>
+
+          <Link 
+            href="/" 
+            className="inline-flex items-center gap-1 text-xs font-bold text-sky-100 hover:text-white bg-white/15 px-2.5 py-1 rounded-lg transition"
+          >
+            <ArrowLeft size={13} />
+            <span>Beranda</span>
+          </Link>
+        </div>
+
+        {/* LEFT COLUMN: Coway Sky-Blue Visual Showcase Panel (Shown on Desktop only: hidden on mobile) */}
+        <div className="hidden lg:flex lg:col-span-5 bg-gradient-to-br from-[#00A3E0] via-[#0298d4] to-blue-600 p-8 lg:p-10 text-white flex-col justify-between relative overflow-hidden">
           
           {/* Subtle Ambient Shapes Inside Blue Panel */}
           <div className="absolute -top-16 -right-16 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none" />
@@ -88,16 +113,15 @@ export default function Login() {
               </div>
             </Link>
             
-            <p className="text-xs text-sky-100 font-medium leading-relaxed pt-1 max-w-xs hidden sm:block">
+            <p className="text-xs text-sky-100 font-medium leading-relaxed pt-1 max-w-xs">
               Platform akselerasi closing khusus Health Planner &amp; Team Leader Coway Indonesia.
             </p>
           </div>
 
           {/* Center: 3D / Isometric Style Coway Feature Mockup */}
-          <div className="relative z-10 my-6 sm:my-8 flex flex-col items-center justify-center">
+          <div className="relative z-10 my-8 flex flex-col items-center justify-center">
             
-            {/* Visual Graphic Composition */}
-            <div className="relative w-full max-w-[280px] sm:max-w-[300px]">
+            <div className="relative w-full max-w-[300px]">
               
               {/* Central Card Mockup */}
               <div className="bg-white/15 backdrop-blur-md border border-white/25 rounded-3xl p-5 shadow-xl text-left space-y-3.5">
@@ -140,7 +164,7 @@ export default function Login() {
               </div>
 
               {/* Decorative Floating Badges */}
-              <div className="absolute -top-3 -right-2 bg-amber-300 text-slate-950 font-black text-[10px] px-2.5 py-1 rounded-full shadow-md flex items-center gap-1 animate-bounce-subtle">
+              <div className="absolute -top-3 -right-2 bg-amber-300 text-slate-950 font-black text-[10px] px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
                 <span>💧 100% Khusus Coway</span>
               </div>
 
@@ -154,7 +178,7 @@ export default function Login() {
           </div>
 
           {/* Bottom: Switch to Register Link */}
-          <div className="relative z-10 pt-4 border-t border-white/20 text-center sm:text-left">
+          <div className="relative z-10 pt-4 border-t border-white/20 text-left">
             <span className="text-xs text-sky-100 font-medium">
               Belum terdaftar sebagai agen?{' '}
             </span>
@@ -168,11 +192,11 @@ export default function Login() {
 
         </div>
 
-        {/* RIGHT COLUMN: Modern White Form Panel (Matching Reference Image Right Panel) */}
-        <div className="lg:col-span-7 p-6 sm:p-10 lg:p-12 flex flex-col justify-between bg-white">
+        {/* RIGHT COLUMN: Modern White Form Panel */}
+        <div className="lg:col-span-7 p-6 sm:p-8 lg:p-12 flex flex-col justify-between bg-white">
           
-          {/* Top Header Row with Return Link */}
-          <div className="flex items-center justify-between mb-6 sm:mb-8">
+          {/* Top Header Row with Return Link (Visible on Desktop only; mobile already has header) */}
+          <div className="hidden lg:flex items-center justify-between mb-8">
             <Link 
               href="/" 
               className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-slate-500 hover:text-slate-900 transition-colors"
@@ -187,10 +211,10 @@ export default function Login() {
           </div>
 
           {/* Form Content */}
-          <div className="max-w-md w-full mx-auto space-y-6">
+          <div className="max-w-md w-full mx-auto space-y-5 sm:space-y-6">
             
             {/* Heading */}
-            <div className="text-left space-y-1.5">
+            <div className="text-left space-y-1 sm:space-y-1.5">
               <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
                 Masuk ke Dashboard
               </h1>
@@ -263,7 +287,7 @@ export default function Login() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 transition"
+                    className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 transition cursor-pointer"
                     aria-label="Toggle password visibility"
                   >
                     {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
@@ -306,10 +330,21 @@ export default function Login() {
 
             </form>
 
+            {/* Mobile-Only Switch Link to Register */}
+            <div className="lg:hidden text-center pt-2 text-xs text-slate-500 font-medium">
+              Belum terdaftar sebagai agen?{' '}
+              <Link 
+                href="/register" 
+                className="font-extrabold text-[#00A3E0] hover:underline underline-offset-2 ml-0.5"
+              >
+                Daftar Sekarang →
+              </Link>
+            </div>
+
           </div>
 
           {/* Bottom Security / Trust Footer */}
-          <div className="pt-6 border-t border-slate-100 flex items-center justify-between text-[11px] font-medium text-slate-400">
+          <div className="pt-6 mt-4 border-t border-slate-100 flex items-center justify-between text-[11px] font-medium text-slate-400">
             <span className="flex items-center gap-1.5">
               <ShieldCheck size={14} className="text-emerald-500 shrink-0" />
               <span>Enkripsi SSL 256-Bit</span>
@@ -352,7 +387,7 @@ export default function Login() {
               <button 
                 type="button"
                 onClick={() => setShowResetModal(false)}
-                className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-4 rounded-xl transition text-sm"
+                className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-4 rounded-xl transition text-sm cursor-pointer"
               >
                 Batal
               </button>

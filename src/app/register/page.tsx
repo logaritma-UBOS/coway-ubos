@@ -95,11 +95,36 @@ export default function Register() {
   return (
     <div className="min-h-screen bg-[#EBF5FF] flex items-center justify-center p-3 sm:p-6 lg:p-10 font-sans text-slate-900 selection:bg-[#00A3E0]/20 selection:text-[#00A3E0]">
       
-      {/* Outer Floating Split-Screen Modal Card (Matching Reference Image) */}
-      <div className="w-full max-w-5xl bg-white rounded-[28px] sm:rounded-[36px] shadow-2xl shadow-sky-900/10 border border-slate-100 overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[640px]">
+      {/* Outer Floating Split-Screen Modal Card */}
+      <div className="w-full max-w-lg lg:max-w-5xl bg-white rounded-[24px] sm:rounded-[32px] lg:rounded-[36px] shadow-xl lg:shadow-2xl shadow-sky-950/10 border border-slate-100 overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-0 lg:min-h-[640px]">
         
-        {/* LEFT COLUMN: Coway Sky-Blue Visual Showcase Panel */}
-        <div className="lg:col-span-5 bg-gradient-to-br from-[#00A3E0] via-[#0298d4] to-blue-600 p-6 sm:p-8 lg:p-10 text-white flex flex-col justify-between relative overflow-hidden">
+        {/* COMPACT TOP HEADER FOR MOBILE ONLY (No massive mockup pushing form offscreen) */}
+        <div className="lg:hidden bg-gradient-to-r from-[#00A3E0] via-[#0298d4] to-blue-600 px-5 py-4 text-white flex items-center justify-between">
+          <Link href="/" className="inline-flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-white text-[#00A3E0] flex items-center justify-center shadow-xs">
+              <Logo className="w-4 h-4 text-[#00A3E0]" />
+            </div>
+            <div className="flex flex-col text-left">
+              <span className="font-extrabold text-sm tracking-tight leading-none text-white">
+                COWAY LOGARITMA
+              </span>
+              <span className="text-[9px] font-bold text-sky-100 tracking-wider uppercase mt-0.5">
+                Registrasi Agen Baru
+              </span>
+            </div>
+          </Link>
+
+          <Link 
+            href="/" 
+            className="inline-flex items-center gap-1 text-xs font-bold text-sky-100 hover:text-white bg-white/15 px-2.5 py-1 rounded-lg transition"
+          >
+            <ArrowLeft size={13} />
+            <span>Beranda</span>
+          </Link>
+        </div>
+
+        {/* LEFT COLUMN: Coway Sky-Blue Visual Showcase Panel (Desktop Only: hidden on mobile) */}
+        <div className="hidden lg:flex lg:col-span-5 bg-gradient-to-br from-[#00A3E0] via-[#0298d4] to-blue-600 p-8 lg:p-10 text-white flex-col justify-between relative overflow-hidden">
           
           {/* Subtle Ambient Shapes Inside Blue Panel */}
           <div className="absolute -top-16 -right-16 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none" />
@@ -121,16 +146,15 @@ export default function Register() {
               </div>
             </Link>
             
-            <p className="text-xs text-sky-100 font-medium leading-relaxed pt-1 max-w-xs hidden sm:block">
+            <p className="text-xs text-sky-100 font-medium leading-relaxed pt-1 max-w-xs">
               Sistem akselerasi penjualan mandiri &amp; website profesional khusus Health Planner Coway.
             </p>
           </div>
 
           {/* Center: 3D / Isometric Style Coway Feature Mockup */}
-          <div className="relative z-10 my-6 sm:my-8 flex flex-col items-center justify-center">
+          <div className="relative z-10 my-8 flex flex-col items-center justify-center">
             
-            {/* Visual Graphic Composition */}
-            <div className="relative w-full max-w-[280px] sm:max-w-[310px]">
+            <div className="relative w-full max-w-[310px]">
               
               {/* Central Card Mockup simulating personal website store */}
               <div className="bg-white/15 backdrop-blur-md border border-white/25 rounded-3xl p-4 sm:p-5 shadow-xl text-left space-y-3">
@@ -180,7 +204,7 @@ export default function Register() {
                 </div>
               </div>
 
-              {/* Decorative Floating Badges matching Reference Style */}
+              {/* Decorative Floating Badges */}
               <div className="absolute -top-3 -right-2 bg-amber-300 text-slate-950 font-black text-[10px] px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
                 <span>💧 100% Khusus Coway</span>
               </div>
@@ -194,8 +218,8 @@ export default function Register() {
 
           </div>
 
-          {/* Bottom: Switch to Login Link (Matching Reference "Already have an account? Login") */}
-          <div className="relative z-10 pt-4 border-t border-white/20 text-center sm:text-left">
+          {/* Bottom: Switch to Login Link */}
+          <div className="relative z-10 pt-4 border-t border-white/20 text-left">
             <span className="text-xs text-sky-100 font-medium">
               Sudah memiliki akun terdaftar?{' '}
             </span>
@@ -209,11 +233,11 @@ export default function Register() {
 
         </div>
 
-        {/* RIGHT COLUMN: Modern White Form Panel (Matching Reference Image Right Panel) */}
+        {/* RIGHT COLUMN: Modern White Form Panel */}
         <div className="lg:col-span-7 p-6 sm:p-8 lg:p-10 flex flex-col justify-between bg-white">
           
-          {/* Top Header Row with Return Link */}
-          <div className="flex items-center justify-between mb-4 sm:mb-6">
+          {/* Top Header Row with Return Link (Visible on Desktop only) */}
+          <div className="hidden lg:flex items-center justify-between mb-4 sm:mb-6">
             <Link 
               href="/" 
               className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-slate-500 hover:text-slate-900 transition-colors"
@@ -228,7 +252,7 @@ export default function Register() {
           </div>
 
           {/* Form Content Container */}
-          <div className="w-full max-w-lg mx-auto space-y-5">
+          <div className="w-full max-w-lg mx-auto space-y-4 sm:space-y-5">
             
             {/* Title & Subtitle */}
             <div className="text-left space-y-1">
@@ -249,7 +273,7 @@ export default function Register() {
             )}
 
             {/* Register Form */}
-            <form className="space-y-3.5 sm:space-y-4" onSubmit={handleSubmit}>
+            <form className="space-y-3 sm:space-y-3.5" onSubmit={handleSubmit}>
               
               {/* Nama Lengkap */}
               <div className="space-y-1 text-left">
@@ -272,7 +296,7 @@ export default function Register() {
               </div>
 
               {/* 2-Column: Email & WhatsApp */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 
                 {/* Email Address */}
                 <div className="space-y-1 text-left">
@@ -338,12 +362,12 @@ export default function Register() {
                 </div>
                 <div className="text-[11px] text-slate-500 flex items-center gap-1 pt-0.5">
                   <CheckCircle2 size={12} className="text-emerald-500 shrink-0" />
-                  <span>URL Toko Anda: <strong className="text-slate-800">coway.logaritma.id/{formData.slug || 'username'}</strong></span>
+                  <span>URL Toko: <strong className="text-slate-800">coway.logaritma.id/{formData.slug || 'username'}</strong></span>
                 </div>
               </div>
 
               {/* 2-Column: Password & ID Agen Coway */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 
                 {/* Password */}
                 <div className="space-y-1 text-left">
@@ -365,7 +389,7 @@ export default function Register() {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 transition"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 transition cursor-pointer"
                       aria-label="Toggle password visibility"
                     >
                       {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -399,7 +423,7 @@ export default function Register() {
 
               </div>
 
-              {/* Agreement Checkbox (Matching Reference Style) */}
+              {/* Agreement Checkbox */}
               <div className="pt-1">
                 <label className="flex items-start gap-2.5 cursor-pointer select-none text-left">
                   <input
@@ -422,8 +446,8 @@ export default function Register() {
                 </label>
               </div>
 
-              {/* Primary Submit Button (Matching Reference "Create Account") */}
-              <div className="pt-2">
+              {/* Primary Submit Button */}
+              <div className="pt-1.5">
                 <button
                   type="submit"
                   disabled={loading}
@@ -441,6 +465,17 @@ export default function Register() {
               </div>
 
             </form>
+
+            {/* Mobile-Only Switch Link to Login */}
+            <div className="lg:hidden text-center pt-1 text-xs text-slate-500 font-medium">
+              Sudah memiliki akun terdaftar?{' '}
+              <Link 
+                href="/login" 
+                className="font-extrabold text-[#00A3E0] hover:underline underline-offset-2 ml-0.5"
+              >
+                Masuk di Sini →
+              </Link>
+            </div>
 
             {/* Quick Assistance Help */}
             <div className="text-center pt-1">
@@ -461,7 +496,7 @@ export default function Register() {
           </div>
 
           {/* Bottom Security / Trust Footer */}
-          <div className="pt-4 sm:pt-6 border-t border-slate-100 flex items-center justify-between text-[11px] font-medium text-slate-400">
+          <div className="pt-4 sm:pt-6 mt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-medium text-slate-400">
             <span className="flex items-center gap-1.5">
               <ShieldCheck size={14} className="text-emerald-500 shrink-0" />
               <span>Enkripsi SSL 256-Bit • 100% Gratis</span>
