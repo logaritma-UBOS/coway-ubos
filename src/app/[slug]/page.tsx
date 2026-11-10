@@ -38,7 +38,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function LandingPage(props: { params: Promise<{ slug: string }>, searchParams: Promise<{ preview?: string, basic?: string }> }) {
   const { slug } = await props.params;
   const searchParams = await props.searchParams;
-  const isPreview = searchParams?.preview === 'true';
   const isBasic = searchParams?.basic === 'true';
   
   const agentData = await prisma.user.findUnique({
@@ -49,24 +48,10 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
     notFound();
   }
 
-  const isAgentActive = agentData.isActive || agentData.isPremium;
-
-  if (!isAgentActive && !isPreview) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 px-6 font-sans antialiased">
-        <div className="text-center max-w-md bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
-          <div className="w-20 h-20 bg-rose-50 rounded-full flex items-center justify-center mx-auto mb-6 text-rose-500">
-            <Lock size={32} />
-          </div>
-          <h1 className="text-2xl font-black text-slate-900 mb-3 tracking-tight">Halaman Belum Aktif</h1>
-          <p className="text-slate-500 mb-8 font-medium leading-relaxed">Pemilik Landing Page ini belum melakukan aktivasi atau masa aktif telah habis. Silakan hubungi agen yang bersangkutan.</p>
-          <a href="/" className="inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl w-full">
-            Kembali ke Beranda
-          </a>
-        </div>
-      </div>
-    );
-  }
+  // LP Basic is free for all registered agents.
+  // LP Produk requires hasProductLp or isPremium.
+  const isProductPaid = Boolean(agentData.hasProductLp || agentData.isPremium);
+  const showWatermark = !isBasic && !isProductPaid;
 
   const agent = {
     id: agentData.id,
@@ -81,33 +66,47 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
   return (
     <>
       <PageViewTracker agentId={agentData.id} />
-      {(!isAgentActive && isPreview) && (
-        <div className="fixed inset-0 z-[10000] pointer-events-none flex flex-col items-center justify-center overflow-hidden">
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'200\' height=\'200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Ctext x=\'50%25\' y=\'50%25\' font-size=\'24\' font-family=\'sans-serif\' font-weight=\'bold\' fill=\'%23000\' text-anchor=\'middle\' transform=\'rotate(-45 100 100)\'%3EPREVIEW%3C/text%3E%3C/svg%3E")', backgroundSize: '200px 200px' }}></div>
-          
-          <div className="bg-white/95 backdrop-blur-md px-6 py-4 md:px-10 md:py-6 rounded-3xl border-2 border-rose-500 shadow-2xl transform -rotate-12 pointer-events-auto max-w-[85vw] mx-auto text-center">
-            <h2 className="text-2xl md:text-5xl font-black text-rose-600 tracking-widest uppercase mb-1 md:mb-2">PREVIEW DESAIN</h2>
-            <p className="text-slate-800 font-bold text-sm md:text-lg">Silakan lakukan aktivasi untuk menggunakan fitur ini</p>
+
+      {/* Watermark Preview Overlay when Product LP is unpaid */}
+      {showWatermark && (
+        <div className="fixed inset-0 z-[10000] pointer-events-none flex flex-col items-center justify-center overflow-hidden select-none">
+          {/* Subtle repeated diagonal watermark */}
+          <div 
+            className="absolute inset-0 opacity-[0.09]" 
+            style={{ 
+              backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'240\' height=\'240\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Ctext x=\'50%25\' y=\'50%25\' font-size=\'20\' font-family=\'sans-serif\' font-weight=\'900\' fill=\'%23000\' text-anchor=\'middle\' transform=\'rotate(-40 120 120)\'%3ECOWAY LOGARITMA PREVIEW%3C/text%3E%3C/svg%3E")', 
+              backgroundSize: '240px 240px' 
+            }} 
+          />
+
+          {/* Floating Warning Banner at Top */}
+          <div className="fixed top-4 inset-x-4 max-w-lg mx-auto bg-white/95 backdrop-blur-md px-5 py-3 rounded-2xl border-2 border-amber-400 shadow-2xl pointer-events-auto flex items-center justify-between gap-3 text-left">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse shrink-0" />
+              <div className="min-w-0">
+                <p className="text-xs font-black text-slate-900 leading-tight truncate">
+                  Mode Preview Desain (Belum Aktif)
+                </p>
+                <p className="text-[10px] text-slate-500 font-semibold mt-0.5 truncate">
+                  Aktivasi lisensi resmi Rp250rb untuk hilangkan watermark.
+                </p>
+              </div>
+            </div>
+            <a 
+              href="/dashboard/landingpage" 
+              className="shrink-0 px-3.5 py-1.5 bg-[#00A3E0] hover:bg-sky-600 text-white font-extrabold text-xs rounded-xl shadow-xs transition"
+            >
+              Aktivasi via Mayar →
+            </a>
           </div>
         </div>
-      )}
-      
-      {/* Back to Dashboard Button when Previewing */}
-      {isPreview && (
-        <a 
-          href="/dashboard/landingpage" 
-          className="fixed top-4 left-4 z-[20000] bg-slate-900/90 backdrop-blur-sm text-white font-bold px-4 py-2 rounded-xl shadow-lg flex items-center gap-2 hover:bg-slate-800 transition-colors pointer-events-auto"
-        >
-          <span className="hidden sm:inline">← Kembali ke Dashboard</span>
-          <span className="sm:hidden">← Kembali</span>
-        </a>
       )}
 
       {/* Render Product LP by default unless basic=true is requested */}
       {(!isBasic) ? (
         <ProdukLP agent={agent} />
       ) : (
-        <LandingPageUI agent={agent} isPreviewMode={!isAgentActive && isPreview} />
+        <LandingPageUI agent={agent} isPreviewMode={false} />
       )}
     </>
   );
