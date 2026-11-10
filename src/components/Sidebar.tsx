@@ -21,14 +21,11 @@ import {
 import { signOut } from 'next-auth/react';
 import Logo from '@/components/Logo';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useDashboardNav } from './dashboard/DashboardNavContext';
 
 export default function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
   const pathname = usePathname();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
+  const { isMobileMenuOpen, setIsMobileMenuOpen, closeMobileMenu } = useDashboardNav();
 
   const menuSections = [
     {
@@ -191,71 +188,105 @@ export default function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
         </button>
       </nav>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer (Slide in from Left with Backdrop) */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: '100%' }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: '100%' }}
-            transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
-            className="md:hidden fixed inset-0 z-40 bg-white flex flex-col pb-24 pt-6 px-6 overflow-y-auto"
-          >
-            <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
-              <div className="flex items-center gap-2">
-                <Logo className="w-7 h-7 text-[#00A3E0]" />
-                <span className="text-xl font-black text-slate-900 tracking-tight">
-                  <span className="text-[#00A3E0]">Coway</span> Logaritma
-                </span>
-              </div>
-              <button
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 rounded-xl bg-slate-100 text-slate-600"
-              >
-                <X size={18} />
-              </button>
-            </div>
+          <>
+            {/* Backdrop Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeMobileMenu}
+              className="md:hidden fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs"
+            />
 
-            <div className="space-y-6">
-              {menuSections.map((section, idx) => (
-                <div key={idx} className="space-y-2">
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-wider">
-                    {section.title}
-                  </p>
-                  <div className="grid grid-cols-2 gap-2.5">
-                    {section.items.map((item) => {
-                      const isActive = pathname === item.href;
-                      const Icon = item.icon;
-                      return (
-                        <Link
-                          key={item.name}
-                          href={item.href}
-                          className={`flex items-center gap-2.5 p-3 rounded-2xl border text-xs font-bold ${
-                            isActive
-                              ? 'bg-[#00A3E0] text-white border-[#00A3E0]'
-                              : 'bg-slate-50 border-slate-200 text-slate-700'
-                          }`}
-                        >
-                          <Icon size={16} />
-                          <span>{item.name}</span>
-                        </Link>
-                      );
-                    })}
+            {/* Slide-In Drawer */}
+            <motion.div
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 28, stiffness: 280 }}
+              className="md:hidden fixed top-0 bottom-0 left-0 w-[85%] max-w-sm z-50 bg-white flex flex-col p-6 shadow-2xl overflow-y-auto select-none"
+            >
+              {/* Drawer Header */}
+              <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#00A3E0] to-blue-600 flex items-center justify-center text-white shadow-sm">
+                    <Logo className="w-4 h-4 text-white" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-base font-black text-slate-900 tracking-tight leading-none">
+                      <span className="text-[#00A3E0]">Coway</span> Logaritma
+                    </span>
+                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">
+                      SUPPORT SYSTEM AGEN
+                    </span>
                   </div>
                 </div>
-              ))}
-            </div>
+                <button
+                  onClick={closeMobileMenu}
+                  aria-label="Tutup Menu"
+                  className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition"
+                >
+                  <X size={16} />
+                </button>
+              </div>
 
-            <div className="mt-8 pt-6 border-t border-slate-100">
-              <button
-                onClick={() => signOut({ callbackUrl: '/login' })}
-                className="w-full py-3 bg-rose-50 text-rose-600 font-bold text-sm rounded-2xl flex items-center justify-center gap-2"
-              >
-                <LogOut size={16} />
-                <span>Keluar Akun</span>
-              </button>
-            </div>
-          </motion.div>
+              {/* Navigation Categories */}
+              <div className="flex-1 py-5 space-y-6">
+                {menuSections.map((section, idx) => (
+                  <div key={idx} className="space-y-1.5">
+                    <p className="px-2 text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                      {section.title}
+                    </p>
+                    <div className="space-y-1">
+                      {section.items.map((item) => {
+                        const isActive = pathname === item.href;
+                        const Icon = item.icon;
+                        return (
+                          <Link
+                            key={item.name}
+                            href={item.href}
+                            onClick={closeMobileMenu}
+                            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-2xl transition-all font-bold text-xs ${
+                              isActive
+                                ? 'bg-[#00A3E0] text-white shadow-md shadow-sky-500/25'
+                                : 'text-slate-600 hover:bg-slate-50 active:bg-slate-100'
+                            }`}
+                          >
+                            <Icon size={16} className={isActive ? 'text-white' : 'text-slate-400'} />
+                            <span>{item.name}</span>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Drawer Footer with Logout & Mentor WA */}
+              <div className="pt-4 border-t border-slate-100 space-y-2">
+                <a
+                  href="https://wa.me/6285179660408?text=Halo%20Mentor%20Coway%20Logaritma,%20saya%20ingin%20konsultasi%20strategi%20closing%20dan%20iklan."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 bg-sky-50 text-[#00A3E0] hover:bg-sky-100 font-extrabold text-xs rounded-xl flex items-center justify-center gap-2 transition"
+                >
+                  <MessageCircle size={14} />
+                  <span>Chat Mentor WA</span>
+                </a>
+
+                <button
+                  onClick={() => signOut({ callbackUrl: '/login' })}
+                  className="w-full py-2.5 text-rose-500 hover:bg-rose-50 font-bold text-xs rounded-xl flex items-center justify-center gap-2 transition"
+                >
+                  <LogOut size={16} />
+                  <span>Keluar Akun (Logout)</span>
+                </button>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
