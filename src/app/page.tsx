@@ -24,9 +24,7 @@ import {
   Check,
   Smartphone,
   Target,
-  AlertCircle,
-  HelpCircle,
-  Clock
+  AlertCircle
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AffiliateTracker from '@/components/AffiliateTracker';
@@ -48,7 +46,7 @@ export default function Home() {
         <AffiliateTracker />
       </Suspense>
 
-      {/* Modern Pastel Header / Navbar */}
+      {/* Modern Pastel Header / Navbar (Mirrors Volume One Studios Navbar) */}
       <header className="bg-white/95 backdrop-blur-md border-b border-slate-100 sticky top-0 z-50 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           
@@ -202,7 +200,7 @@ export default function Home() {
             <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-left">
               
               {/* Eyebrow Tag */}
-              <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#00A3E0] tracking-wide">
+              <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#00A3E0] tracking-wide">
                 <span>Eksklusif untuk Health Planner & Team Leader Coway Indonesia</span>
               </div>
 
@@ -283,32 +281,39 @@ export default function Home() {
 
             </div>
 
-            {/* Right Hero Graphic with Floating Cards (Signature Layout from Reference) */}
-            <div className="lg:col-span-5 relative flex justify-center mt-4 lg:mt-0">
-              <div className="relative w-full max-w-[380px] sm:max-w-[420px] lg:max-w-[440px]">
+            {/* Right Hero Graphic with PNG on Badge Background (Exact Reference Style) */}
+            <div className="lg:col-span-5 relative flex justify-center mt-6 lg:mt-0">
+              <div className="relative w-full max-w-[360px] sm:max-w-[420px] flex justify-center items-end">
                 
-                {/* Central High-Quality Portrait Photo */}
-                <div className="relative rounded-[32px] overflow-hidden bg-gradient-to-b from-sky-100/70 to-slate-100 shadow-xl border-4 border-white">
-                  <img 
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" 
-                    alt="Coway Health Planner Success" 
-                    className="w-full h-[420px] sm:h-[480px] lg:h-[500px] object-cover object-top"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/25 via-transparent to-transparent pointer-events-none" />
-                </div>
+                {/* Soft Pastel Blue Arch Badge Background */}
+                <div className="absolute inset-x-4 sm:inset-x-6 top-8 bottom-0 rounded-t-[140px] sm:rounded-t-[180px] rounded-b-[40px] bg-gradient-to-b from-sky-100 via-sky-100/90 to-sky-50/60 border border-sky-200/50 -z-0" />
+
+                {/* Decorative Pastel Dots / Pills Around the Badge */}
+                <div className="absolute -top-3 left-4 w-10 h-4 bg-amber-200/70 rounded-full rotate-45 pointer-events-none" />
+                <div className="absolute top-12 -left-3 w-5 h-5 bg-sky-200/80 rounded-full pointer-events-none" />
+                <div className="absolute top-2 -right-2 w-7 h-7 bg-sky-200/70 rounded-full pointer-events-none" />
+                <div className="absolute top-44 -right-5 w-9 h-4 bg-orange-200/70 rounded-full -rotate-45 pointer-events-none" />
+                <div className="absolute bottom-16 -left-3 w-5 h-5 bg-cyan-200/70 rounded-full pointer-events-none" />
+
+                {/* Transparent PNG Cutout of Health Planner Woman */}
+                <img 
+                  src="/hero-agent.png" 
+                  alt="Coway Health Planner Official" 
+                  className="relative z-10 w-auto h-[460px] sm:h-[520px] lg:h-[550px] object-contain object-bottom drop-shadow-md"
+                />
 
                 {/* Floating Card 1: Top-Right Freedom Badge */}
-                <div className="absolute -top-3 right-2 sm:-top-4 sm:-right-4 bg-white rounded-2xl p-2.5 sm:p-3 shadow-lg shadow-slate-200/60 border border-slate-100 flex items-center gap-2 max-w-[190px] sm:max-w-[210px] z-20">
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-sky-50 text-[#00A3E0] flex items-center justify-center shrink-0">
-                    <Heart size={15} className="fill-[#00A3E0]" />
+                <div className="absolute top-6 sm:top-8 -right-2 sm:-right-8 bg-white rounded-full px-3.5 sm:px-4 py-2 sm:py-2.5 shadow-lg shadow-slate-200/70 border border-slate-100 flex items-center gap-2 max-w-[200px] sm:max-w-[230px] z-20">
+                  <div className="w-6 h-6 rounded-full bg-sky-50 text-[#00A3E0] flex items-center justify-center shrink-0">
+                    <Heart size={14} className="fill-[#00A3E0]" />
                   </div>
                   <span className="text-[11px] sm:text-xs font-bold text-slate-800 leading-snug">
-                    Bebas buntu prospek, closing rutin tiap bulan
+                    Bebas buntu prospek, closing rutin
                   </span>
                 </div>
 
                 {/* Floating Card 2: Mid-Right Income Metric & Sparkline Chart */}
-                <div className="absolute top-24 sm:top-28 right-2 sm:-right-8 bg-white rounded-2xl p-3.5 sm:p-4 shadow-xl shadow-slate-300/40 border border-slate-100 w-[175px] sm:w-[200px] z-20">
+                <div className="absolute top-32 sm:top-36 -right-3 sm:-right-10 bg-white rounded-2xl p-3.5 sm:p-4 shadow-xl shadow-slate-300/40 border border-slate-100 w-[180px] sm:w-[210px] z-20">
                   <div className="text-[10px] sm:text-[11px] font-semibold text-slate-500">
                     Komisi & Bonus Unit Bulan Ini
                   </div>
@@ -342,7 +347,7 @@ export default function Home() {
                 </div>
 
                 {/* Floating Card 3: Bottom-Right Testimonial Quote */}
-                <div className="absolute -bottom-4 right-2 sm:-bottom-6 sm:-right-4 bg-white rounded-2xl p-3 sm:p-3.5 shadow-xl shadow-slate-300/50 border border-slate-100 max-w-[220px] sm:max-w-[250px] z-20">
+                <div className="absolute -bottom-3 -right-2 sm:-bottom-5 sm:-right-6 bg-white rounded-2xl p-3 sm:p-3.5 shadow-xl shadow-slate-300/50 border border-slate-100 max-w-[220px] sm:max-w-[250px] z-20">
                   <div className="flex items-center gap-2 mb-1.5">
                     <img 
                       src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=150&q=80" 
