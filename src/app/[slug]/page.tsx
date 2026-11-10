@@ -38,6 +38,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function LandingPage(props: { params: Promise<{ slug: string }>, searchParams: Promise<{ preview?: string, basic?: string }> }) {
   const { slug } = await props.params;
   const searchParams = await props.searchParams;
+  const isPreview = searchParams?.preview === 'true';
   const isBasic = searchParams?.basic === 'true';
   
   const agentData = await prisma.user.findUnique({
@@ -51,7 +52,7 @@ export default async function LandingPage(props: { params: Promise<{ slug: strin
   // LP Basic is free for all registered agents.
   // LP Produk requires hasProductLp or isPremium.
   const isProductPaid = Boolean(agentData.hasProductLp || agentData.isPremium);
-  const showWatermark = !isBasic && !isProductPaid;
+  const showWatermark = (!isBasic && !isProductPaid) || isPreview;
 
   const agent = {
     id: agentData.id,

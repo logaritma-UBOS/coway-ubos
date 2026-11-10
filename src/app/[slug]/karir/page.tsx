@@ -40,9 +40,11 @@ export default async function RecruitmentPage(props: { params: Promise<{ slug: s
     notFound();
   }
 
+  const isPreview = searchParams?.preview === 'true';
+
   // Check if Recruit LP is paid
   const isRecruitPaid = Boolean(agentData.hasRecruitLp || agentData.isPremium);
-  const showWatermark = !isRecruitPaid;
+  const showWatermark = !isRecruitPaid || isPreview;
 
   const agent = {
     id: agentData.id,
